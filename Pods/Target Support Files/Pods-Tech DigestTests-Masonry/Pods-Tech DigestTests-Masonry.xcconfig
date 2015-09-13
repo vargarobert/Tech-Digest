@@ -1,0 +1,1 @@
+PODS_TECH_DIGESTTESTS_MASONRY_OTHER_LDFLAGS = -framework "Foundation" -framework "UIKit"

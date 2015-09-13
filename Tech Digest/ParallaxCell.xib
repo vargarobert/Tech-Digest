@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="SF-UI-Display-Semibold.otf">
+            <string>SFUIDisplay-Semibold</string>
+            <string>SFUIDisplay-Semibold</string>
+        </mutableArray>
+        <mutableArray key="SF-UI-Text-Bold.otf">
+            <string>SFUIText-Bold</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="214" id="pfJ-Az-CJJ" customClass="MMParallaxCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pfJ-Az-CJJ" id="1dJ-Ly-5xZ">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-BY-EL7">
+                        <rect key="frame" x="7" y="163" width="361" height="43"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="6DT-dI-t85"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-rh-FkM">
+                        <rect key="frame" x="14" y="7" width="9" height="17"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="9" id="aj0-HK-UgP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2">
+                        <rect key="frame" x="36" y="5" width="331" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="hGS-BY-EL7" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="7" id="3wn-b4-hcV"/>
+                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="top" constant="7" id="8rd-Uh-aMc"/>
+                    <constraint firstAttribute="bottom" secondItem="hGS-BY-EL7" secondAttribute="bottom" constant="7" id="E6D-Gu-OUm"/>
+                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="centerY" secondItem="4Nk-rh-FkM" secondAttribute="centerY" id="Uhj-HI-Fab"/>
+                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="13" id="eal-WV-oBR"/>
+                    <constraint firstItem="hGS-BY-EL7" firstAttribute="centerX" secondItem="1dJ-Ly-5xZ" secondAttribute="centerX" id="fji-YE-9oz"/>
+                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="firstBaseline" secondItem="LDI-9P-Rq2" secondAttribute="firstBaseline" id="hz3-WM-LrU"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="LDI-9P-Rq2" secondAttribute="trailing" id="idZ-7e-oRL"/>
+                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="14" id="nci-YZ-L5X"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="category" destination="LDI-9P-Rq2" id="ZMW-oN-RWB"/>
+                <outlet property="rowNumber" destination="4Nk-rh-FkM" id="Ya2-am-Qbo"/>
+                <outlet property="title" destination="hGS-BY-EL7" id="PD1-d6-qFc"/>
+            </connections>
+            <point key="canvasLocation" x="329.5" y="358"/>
+        </tableViewCell>
+    </objects>
+</document>

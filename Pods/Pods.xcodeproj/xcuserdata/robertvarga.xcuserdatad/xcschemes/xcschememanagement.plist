@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech Digest-HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech Digest-Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech Digest-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech Digest.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech DigestTests-HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech DigestTests-Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech DigestTests-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Tech DigestTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1B0EADD752CD1CD5D789EC3B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>27814F1A2A6F81C348D400E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2B2BB9197F6A7CAEF2ED4261</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>99CCCDFF672A3735AFE82692</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9BB46DCF0E0A44D55CF3EBB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E33122E469E32C2DBEC1E16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9F67814E87A93E9B20A4BFC2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C94E39783A74D1EEF8C41048</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB30A6049102840071C5D941</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEEC201699B49EF3C3F9B66D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F8B95A052C0A6B0FB458B7E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA55F54A06D30572576623A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
