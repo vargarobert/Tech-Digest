@@ -1,5 +1,6 @@
 PODS:
   - HexColors (2.3.0)
+  - JDFPeekaboo (0.2.1)
   - Masonry (0.6.2)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -7,11 +8,13 @@ PODS:
 
 DEPENDENCIES:
   - HexColors
+  - JDFPeekaboo
   - Masonry (~> 0.6.2)
   - SDWebImage (~> 3.7.3)
 
 SPEC CHECKSUMS:
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  JDFPeekaboo: 24baf48f53e51210919f8160c1c235ccc7055021
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 

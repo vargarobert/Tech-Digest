@@ -7,6 +7,7 @@
 //
 
 #import "MMParallaxCell.h"
+#import "HexColors.h"
 
 
 @interface MMParallaxCell()

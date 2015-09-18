@@ -10,9 +10,9 @@
 
 @interface ViewController : UIViewController
 
-//@property (weak, nonatomic) IBOutlet UITableView *tableView;
-- (IBAction)backButton:(id)sender;
 
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
 @end

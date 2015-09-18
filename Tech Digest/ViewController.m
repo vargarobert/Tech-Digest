@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "JDFPeekabooCoordinator.h"
 
-@interface ViewController ()
+@interface ViewController () <UIScrollViewDelegate>
+
+@property (nonatomic, strong) JDFPeekabooCoordinator *scrollCoordinator;
 
 @end
 
@@ -21,6 +24,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
   
+    //transparet NAV BAR
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    
+    //hide nav bar
+    self.scrollCoordinator = [[JDFPeekabooCoordinator alloc] init];
+    self.scrollCoordinator.scrollView = self.scrollView;
+    self.scrollCoordinator.topView = self.navigationController.navigationBar;
 }
 
 - (void)didReceiveMemoryWarning {

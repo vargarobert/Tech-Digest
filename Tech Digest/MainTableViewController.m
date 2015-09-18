@@ -33,12 +33,14 @@ const CGFloat kTableHeaderHeight = 40.0;
 //    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
 //    }];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:@"CellIdentifier"];
     //set view bg colour
-    [[UIScrollView appearance] setBackgroundColor:[UIColor colorWithHexString:@"212E3B"]];
+    [[UIScrollView appearance] setBackgroundColor:[UIColor colorWithHexString:@"000000"]]; //DE5149
 
     //table header substitute
     self.headerView = self.tableView.tableHeaderView;
@@ -47,6 +49,12 @@ const CGFloat kTableHeaderHeight = 40.0;
     self.tableView.contentInset = UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0);
     self.tableView.contentOffset = CGPointMake(0, -kTableHeaderHeight);
     
+    //header separator
+//    CGRect sepFrame = CGRectMake(0, self.headerView.frame.size.height-1, self.tableView.frame.size.width, 3);
+//    UIView *seperatorView = [[UIView alloc] initWithFrame:sepFrame];
+//    seperatorView.backgroundColor = [UIColor colorWithHexString:@"3E2D3C"];;
+//    [self.headerView addSubview:seperatorView];
+
 }
 
 - (void)updateHeaderView {
@@ -62,10 +70,17 @@ const CGFloat kTableHeaderHeight = 40.0;
     [self updateHeaderView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];   //it hides
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];    // it shows
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -82,7 +97,8 @@ const CGFloat kTableHeaderHeight = 40.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+//    if(indexPath.row==0) return tableView.frame.size.height-40; else return 250;
+    return 250;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,20 +111,55 @@ const CGFloat kTableHeaderHeight = 40.0;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    //title
-    cell.title.text = @"Change the Way Your Phone Looks With Just One App";
     
+    
+    //title
+    cell.title.text = @"Android Fans Bomb Apple’s ‘Move to iOS’ Android App With One-Star Reviews";
     //row number and category
     cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
-    cell.rowNumber.textColor = [UIColor whiteColor];
     cell.category.text = @"Security";
-    cell.category.textColor = [UIColor whiteColor];
-    cell.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
+
     
     //image
     [cell.parallaxImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/400/400/technics/%ld/",indexPath.row]]];
     // +  add temp placeholder image
 
+    UIColor *articleTypeColor = [UIColor whiteColor];
+    switch (indexPath.row) {
+        case 0:
+            articleTypeColor = [UIColor colorWithHexString:@"5D9CEC"];
+            break;
+        case 1:
+            articleTypeColor = [UIColor colorWithHexString:@"3BAFDA"];
+            break;
+        case 2:
+            articleTypeColor = [UIColor colorWithHexString:@"37BC9B"];
+            break;
+        case 3:
+            articleTypeColor = [UIColor colorWithHexString:@"8CC152"];
+            break;
+        case 4:
+            articleTypeColor = [UIColor colorWithHexString:@"F6BB42"];
+            break;
+        case 5:
+            articleTypeColor = [UIColor colorWithHexString:@"E9573F"];
+            break;
+        case 6:
+            articleTypeColor = [UIColor colorWithHexString:@"DA4453"];
+            break;
+        case 7:
+            articleTypeColor = [UIColor colorWithHexString:@"967ADC"];
+            break;
+        case 8:
+            articleTypeColor = [UIColor colorWithHexString:@"DA4453"];
+            break;
+    }
+    
+    //color set based on article
+    cell.rowNumber.textColor = articleTypeColor;
+    cell.category.textColor = articleTypeColor;
+    cell.circleLayer.strokeColor = articleTypeColor.CGColor;
+    
     
     
     return cell;
@@ -116,6 +167,33 @@ const CGFloat kTableHeaderHeight = 40.0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"showArticle" sender:self];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height-2, tableView.frame.size.width, 2)];/// change size as you need.
+    separatorLineView.backgroundColor = [UIColor whiteColor];
+    [cell.contentView addSubview:separatorLineView];
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
+
+
+//    [self.tableView setSeparatorColor:[UIColor whiteColor]];
+//    // Remove seperator inset
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [cell setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    
+//    // Prevent the cell from inheriting the Table View's margin settings
+//    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+//        [cell setPreservesSuperviewLayoutMargins:NO];
+//    }
+//    
+//    // Explictly set your cell's layout margins
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [cell setLayoutMargins:UIEdgeInsetsZero];
+//    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -130,6 +208,11 @@ const CGFloat kTableHeaderHeight = 40.0;
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*
