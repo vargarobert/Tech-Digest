@@ -97,8 +97,8 @@ const CGFloat kTableHeaderHeight = 40.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if(indexPath.row==0) return tableView.frame.size.height-40; else return 250;
-    return 250;
+    if(indexPath.row==0) return tableView.frame.size.height-40; else return 250;
+//    return 250;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -42,7 +42,7 @@
 
     //circle around the Row Number
     self.circleLayer = [CAShapeLayer layer]; //self.rowNumber.frame.size.width/2*-1
-    self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.rowNumber.frame.size.width/2*-1.15, -0.5, self.rowNumber.frame.size.height+2, self.rowNumber.frame.size.height+2)].CGPath;
+    self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(1, 0, self.rowNumber.frame.size.height, self.rowNumber.frame.size.height)].CGPath;
     self.circleLayer.fillColor = [UIColor clearColor].CGColor;
     self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
     self.circleLayer.lineWidth = 1.5f;
@@ -68,7 +68,7 @@
     //transparent view to dim parallax image
     UIView *blackOverlay = [[UIView alloc] initWithFrame: self.parallaxImage.frame];
     blackOverlay.layer.backgroundColor = [[UIColor blackColor] CGColor];
-    blackOverlay.layer.opacity = 0.4;
+    blackOverlay.layer.opacity = 0.5;
     blackOverlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.parallaxImage addSubview: blackOverlay];
 

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -16,29 +15,29 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-BY-EL7">
-                        <rect key="frame" x="7" y="160" width="361" height="43"/>
+                        <rect key="frame" x="7" y="143" width="361" height="60"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="43" id="6DT-dI-t85"/>
+                            <constraint firstAttribute="height" constant="60" id="6DT-dI-t85"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-rh-FkM">
-                        <rect key="frame" x="14" y="10" width="9" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-rh-FkM">
+                        <rect key="frame" x="10" y="10" width="22" height="20"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="9" id="aj0-HK-UgP"/>
+                            <constraint firstAttribute="width" constant="22" id="aj0-HK-UgP"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2">
-                        <rect key="frame" x="38" y="8" width="329" height="21"/>
+                        <rect key="frame" x="35" y="9" width="332" height="22"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -49,11 +48,10 @@
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="top" constant="10" id="8rd-Uh-aMc"/>
                     <constraint firstAttribute="bottom" secondItem="hGS-BY-EL7" secondAttribute="bottom" constant="10" id="E6D-Gu-OUm"/>
                     <constraint firstItem="LDI-9P-Rq2" firstAttribute="centerY" secondItem="4Nk-rh-FkM" secondAttribute="centerY" id="Uhj-HI-Fab"/>
-                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="15" id="eal-WV-oBR"/>
+                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="3" id="eal-WV-oBR"/>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="centerX" secondItem="1dJ-Ly-5xZ" secondAttribute="centerX" id="fji-YE-9oz"/>
-                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="firstBaseline" secondItem="LDI-9P-Rq2" secondAttribute="firstBaseline" id="hz3-WM-LrU"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LDI-9P-Rq2" secondAttribute="trailing" id="idZ-7e-oRL"/>
-                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="14" id="nci-YZ-L5X"/>
+                    <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="10" id="nci-YZ-L5X"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
