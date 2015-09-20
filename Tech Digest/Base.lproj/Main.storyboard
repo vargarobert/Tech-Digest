@@ -13,38 +13,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="1ze-v2-iCc">
-                            <rect key="frame" x="0.0" y="64" width="600" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 September 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-Qv-2Oy">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
-                                    <animations/>
-                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qWs-Ai-ysc">
-                                    <rect key="frame" x="0.0" y="36" width="600" height="4"/>
-                                    <animations/>
-                                    <color key="backgroundColor" red="0.69411764705882351" green="0.20392156862745098" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="4" id="UKx-gX-ro0"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
-                            <animations/>
-                            <color key="backgroundColor" red="0.87058823529411766" green="0.31764705882352939" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="qb7-Qv-2Oy" secondAttribute="bottom" id="5Pv-g6-bDz"/>
-                                <constraint firstItem="qb7-Qv-2Oy" firstAttribute="leading" secondItem="1ze-v2-iCc" secondAttribute="leading" id="HOg-k1-AVD"/>
-                                <constraint firstAttribute="trailing" secondItem="qb7-Qv-2Oy" secondAttribute="trailing" id="JJJ-gW-59X"/>
-                                <constraint firstItem="qWs-Ai-ysc" firstAttribute="leading" secondItem="1ze-v2-iCc" secondAttribute="leading" id="ajA-Bp-b99"/>
-                                <constraint firstItem="qb7-Qv-2Oy" firstAttribute="top" secondItem="1ze-v2-iCc" secondAttribute="top" id="eKT-J1-IEe"/>
-                                <constraint firstAttribute="trailing" secondItem="qWs-Ai-ysc" secondAttribute="trailing" id="efd-Wc-wzd"/>
-                                <constraint firstAttribute="bottom" secondItem="qWs-Ai-ysc" secondAttribute="bottom" id="f5f-gc-p1N"/>
-                            </constraints>
-                        </view>
                         <connections>
                             <outlet property="dataSource" destination="qad-cN-qqJ" id="gGA-3B-rB5"/>
                             <outlet property="delegate" destination="qad-cN-qqJ" id="6p9-eD-eiN"/>
@@ -52,7 +20,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="CQv-Q7-h9H"/>
                     <connections>
-                        <outlet property="headerView" destination="1ze-v2-iCc" id="w0m-4I-JPZ"/>
                         <outlet property="tableView" destination="TZr-Av-SyI" id="Pb9-cb-iBg"/>
                         <segue destination="UWw-jo-fcm" kind="show" identifier="showArticle" id="Cck-tC-IIs"/>
                     </connections>

@@ -16,6 +16,7 @@
 @property (nonatomic, assign) CGFloat parallaxRatio; //ratio of cell height, should between [1.0f, 2.0f], default is 1.5f;
 
 
+
 @property (weak, nonatomic) IBOutlet UILabel *title;
 
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *category;
 
 @property (nonatomic, strong) CAShapeLayer *circleLayer;
+
 
 
 

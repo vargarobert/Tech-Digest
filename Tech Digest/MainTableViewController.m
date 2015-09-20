@@ -20,6 +20,8 @@
 
 const CGFloat kTableHeaderHeight = 40.0;
 
+static NSString* cellIdentifierFirst = @"cellIdentifierFirst";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,18 +38,18 @@ const CGFloat kTableHeaderHeight = 40.0;
 //    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
 
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:@"CellIdentifier"];
+    //setup table
+    [self tableSetup];
+    
     //set view bg colour
     [[UIScrollView appearance] setBackgroundColor:[UIColor colorWithHexString:@"000000"]]; //DE5149
 
     //table header substitute
-    self.headerView = self.tableView.tableHeaderView;
-    self.tableView.tableHeaderView = nil;
-    [self.tableView addSubview:self.headerView];
-    self.tableView.contentInset = UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0);
-    self.tableView.contentOffset = CGPointMake(0, -kTableHeaderHeight);
+//    self.headerView = self.tableView.tableHeaderView;
+//    self.tableView.tableHeaderView = nil;
+//    [self.tableView addSubview:self.headerView];
+//    self.tableView.contentInset = UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0);
+//    self.tableView.contentOffset = CGPointMake(0, -kTableHeaderHeight);
     
     //header separator
 //    CGRect sepFrame = CGRectMake(0, self.headerView.frame.size.height-1, self.tableView.frame.size.width, 3);
@@ -57,18 +59,28 @@ const CGFloat kTableHeaderHeight = 40.0;
 
 }
 
-- (void)updateHeaderView {
-    CGRect headerRect = CGRectMake(0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
-    if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
-        headerRect.origin.y = self.tableView.contentOffset.y;
-        headerRect.size.height = -self.tableView.contentOffset.y;
-    }
-    self.headerView.frame = headerRect;
+-(void)tableSetup {
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    
+//    [self.tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:cellIdentifierFirst];
+    
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self updateHeaderView];
-}
+//- (void)updateHeaderView {
+//    CGRect headerRect = CGRectMake(0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
+//    if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
+//        headerRect.origin.y = self.tableView.contentOffset.y;
+//        headerRect.size.height = -self.tableView.contentOffset.y;
+//    }
+//    self.headerView.frame = headerRect;
+//}
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self updateHeaderView];
+//}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -93,24 +105,32 @@ const CGFloat kTableHeaderHeight = 40.0;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return 10;
+    return 9;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row==0) return tableView.frame.size.height-40; else return 250;
-//    return 250;
+   
+//    if(indexPath.row==0)
+//    {
+//        return tableView.frame.size.height;
+//    }
+    return 300;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* cellIdentifier = @"CellIdentifier";
-    MMParallaxCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    static NSString* cellIdentifierFirst = @"CellIdentifier";
+    MMParallaxCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierFirst];
+
     if (cell == nil)
     {
-        cell = [[MMParallaxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//        cell = [[MMParallaxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierFirst];
+        [tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:cellIdentifierFirst];
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierFirst];
         cell.parallaxRatio = 1.2f;
+        
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     
     
     //title
@@ -118,6 +138,7 @@ const CGFloat kTableHeaderHeight = 40.0;
     //row number and category
     cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
     cell.category.text = @"Security";
+
 
     
     //image
@@ -160,40 +181,60 @@ const CGFloat kTableHeaderHeight = 40.0;
     cell.category.textColor = articleTypeColor;
     cell.circleLayer.strokeColor = articleTypeColor.CGColor;
     
-    
-    
+
+
     return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"showArticle" sender:self];
 }
 
+
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height-2, tableView.frame.size.width, 2)];/// change size as you need.
-    separatorLineView.backgroundColor = [UIColor whiteColor];
-    [cell.contentView addSubview:separatorLineView];
-    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    static NSInteger const separatorTag = 123;
+//    UIView* separatorLineView = (UIView *)[cell.contentView viewWithTag:separatorTag];
+//    if(!separatorLineView && indexPath.row !=0 )
+//    {
+//        separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 2)];/// change size as you need.
+//        separatorLineView.tag = separatorTag;
+//        separatorLineView.backgroundColor = [UIColor redColor];
+//        [cell.contentView addSubview:separatorLineView];
+//    }
+
+    
+//    else
+//        cell.frame = CGRectMake(0,0,320.0f,250.0f);
+//    
+//    if (indexPath.row == 2 ) {
+//        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 2)];/// change size as you need.
+//        separatorLineView.backgroundColor = [UIColor whiteColor];
+//        [cell.contentView addSubview:separatorLineView];
+//        NSLog(@"%ld",(long)indexPath.row);
+//
+//    }
+
 
 
 
 //    [self.tableView setSeparatorColor:[UIColor whiteColor]];
-//    // Remove seperator inset
-//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-//        [cell setSeparatorInset:UIEdgeInsetsZero];
-//    }
-//    
-//    // Prevent the cell from inheriting the Table View's margin settings
-//    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-//        [cell setPreservesSuperviewLayoutMargins:NO];
-//    }
-//    
-//    // Explictly set your cell's layout margins
-//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-//        [cell setLayoutMargins:UIEdgeInsetsZero];
-//    }
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="214" id="pfJ-Az-CJJ" customClass="MMParallaxCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pfJ-Az-CJJ" id="1dJ-Ly-5xZ">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="213" tableViewCell="pfJ-Az-CJJ" id="1dJ-Ly-5xZ">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

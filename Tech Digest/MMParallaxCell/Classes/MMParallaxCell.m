@@ -35,6 +35,7 @@
 	[self setup];
 }
 
+
 - (void) setup
 {
     // Initialization code
@@ -51,7 +52,11 @@
 //    circleLayer.frame = newFrame;
     [self.rowNumber.layer insertSublayer:self.circleLayer atIndex:0];
     
-    
+//    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height-2, self.contentView.frame.size.width, 2)];/// change size as you need.
+//    separatorLineView.backgroundColor = [UIColor whiteColor];
+//    [[self contentView] addSubview:separatorLineView];
+
+
 
 
     
@@ -148,6 +153,11 @@
     [super layoutSubviews];
     
     self.parallaxRatio = self.parallaxRatio;
+    
+//        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-2, self.frame.size.width, 2)];/// change size as you need.
+//        separatorLineView.backgroundColor = [UIColor whiteColor];
+//        [[self contentView] addSubview:separatorLineView];
+
     return;
 }
 
