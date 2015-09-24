@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2F7A4D38BB6B0D66874A3B92 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADAB0C08BBD365E1B40A3D9 /* libPods.a */; };
+		750229CA1BB3F65A00AB1006 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750229C91BB3F65A00AB1006 /* ArticleViewController.m */; settings = {ASSET_TAGS = (); }; };
+		750229D21BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750229D11BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		750229D41BB418D600AB1006 /* ArticleCategoryAndTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 750229D31BB418D600AB1006 /* ArticleCategoryAndTitle.xib */; settings = {ASSET_TAGS = (); }; };
+		750229D71BB43E1200AB1006 /* ArticleStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750229D61BB43E1200AB1006 /* ArticleStoryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		750229D91BB43E4100AB1006 /* ArticleStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 752CC8D61BAF12AE003442DF /* TimeIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
 		753C8DAB1BA42F1400D1D7B0 /* ParallaxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */; };
 		753C8DC31BA47F4700D1D7B0 /* SF-UI-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 753C8DAE1BA47F4700D1D7B0 /* SF-UI-Display-Black.otf */; };
 		753C8DC41BA47F4700D1D7B0 /* SF-UI-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 753C8DAF1BA47F4700D1D7B0 /* SF-UI-Display-Bold.otf */; };
@@ -39,6 +45,7 @@
 		7579FE211BA40BE500A42D13 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE201BA40BE500A42D13 /* Images.xcassets */; };
 		7579FE241BA40BE500A42D13 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE221BA40BE500A42D13 /* LaunchScreen.xib */; };
 		7579FE301BA40BE500A42D13 /* Tech_DigestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE2F1BA40BE500A42D13 /* Tech_DigestTests.m */; };
+		758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758ACCF31BB1C90900E884F9 /* InsetUILabel.m */; settings = {ASSET_TAGS = (); }; };
 		758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758C56931BA59CDD008580FD /* RoundedRectLabel.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +61,16 @@
 
 /* Begin PBXFileReference section */
 		74DFD559C0929DE26976AE86 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		750229C81BB3F65A00AB1006 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		750229C91BB3F65A00AB1006 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		750229D01BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleCategoryAndTitleTableViewCell.h; sourceTree = "<group>"; };
+		750229D11BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleCategoryAndTitleTableViewCell.m; sourceTree = "<group>"; };
+		750229D31BB418D600AB1006 /* ArticleCategoryAndTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleCategoryAndTitle.xib; sourceTree = "<group>"; };
+		750229D51BB43E1200AB1006 /* ArticleStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleStoryTableViewCell.h; sourceTree = "<group>"; };
+		750229D61BB43E1200AB1006 /* ArticleStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleStoryTableViewCell.m; sourceTree = "<group>"; };
+		750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleStoryTableViewCell.xib; sourceTree = "<group>"; };
+		752CC8D51BAF12AE003442DF /* TimeIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeIndicatorView.h; sourceTree = "<group>"; };
+		752CC8D61BAF12AE003442DF /* TimeIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeIndicatorView.m; sourceTree = "<group>"; };
 		753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParallaxCell.xib; sourceTree = "<group>"; };
 		753C8DAE1BA47F4700D1D7B0 /* SF-UI-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Black.otf"; sourceTree = "<group>"; };
 		753C8DAF1BA47F4700D1D7B0 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -93,6 +110,8 @@
 		7579FE291BA40BE500A42D13 /* Tech DigestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tech DigestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7579FE2E1BA40BE500A42D13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7579FE2F1BA40BE500A42D13 /* Tech_DigestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tech_DigestTests.m; sourceTree = "<group>"; };
+		758ACCF21BB1C90900E884F9 /* InsetUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetUILabel.h; sourceTree = "<group>"; };
+		758ACCF31BB1C90900E884F9 /* InsetUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetUILabel.m; sourceTree = "<group>"; };
 		758C56921BA59CDD008580FD /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedRectLabel.h; sourceTree = "<group>"; };
 		758C56931BA59CDD008580FD /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedRectLabel.m; sourceTree = "<group>"; };
 		7ADAB0C08BBD365E1B40A3D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +144,46 @@
 				B0A48205897812622544C904 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		750229C31BB3F36B00AB1006 /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				750229CF1BB4086E00AB1006 /* ArticlePage */,
+				750229C41BB3F3A300AB1006 /* InsetUILabel */,
+				753C8E131BA59BB400D1D7B0 /* MMParallaxCell */,
+				752CC8D41BAF128B003442DF /* TimeIndicator */,
+			);
+			name = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		750229C41BB3F3A300AB1006 /* InsetUILabel */ = {
+			isa = PBXGroup;
+			children = (
+				758ACCF21BB1C90900E884F9 /* InsetUILabel.h */,
+				758ACCF31BB1C90900E884F9 /* InsetUILabel.m */,
+			);
+			name = InsetUILabel;
+			sourceTree = "<group>";
+		};
+		750229CF1BB4086E00AB1006 /* ArticlePage */ = {
+			isa = PBXGroup;
+			children = (
+				750229D01BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.h */,
+				750229D11BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m */,
+				750229D51BB43E1200AB1006 /* ArticleStoryTableViewCell.h */,
+				750229D61BB43E1200AB1006 /* ArticleStoryTableViewCell.m */,
+			);
+			name = ArticlePage;
+			sourceTree = "<group>";
+		};
+		752CC8D41BAF128B003442DF /* TimeIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				752CC8D51BAF12AE003442DF /* TimeIndicatorView.h */,
+				752CC8D61BAF12AE003442DF /* TimeIndicatorView.m */,
+			);
+			name = TimeIndicator;
 			sourceTree = "<group>";
 		};
 		753C8DAC1BA47F3400D1D7B0 /* Resources */ = {
@@ -205,9 +264,11 @@
 		7579FE121BA40BE500A42D13 /* Tech Digest */ = {
 			isa = PBXGroup;
 			children = (
-				753C8DAC1BA47F3400D1D7B0 /* Resources */,
+				750229C31BB3F36B00AB1006 /* Custom Classes */,
 				756F7C5B1BA4205E00C46DC6 /* MainTableViewController.h */,
 				756F7C5C1BA4205E00C46DC6 /* MainTableViewController.m */,
+				750229C81BB3F65A00AB1006 /* ArticleViewController.h */,
+				750229C91BB3F65A00AB1006 /* ArticleViewController.m */,
 				7579FE171BA40BE500A42D13 /* AppDelegate.h */,
 				7579FE181BA40BE500A42D13 /* AppDelegate.m */,
 				7579FE1A1BA40BE500A42D13 /* ViewController.h */,
@@ -215,8 +276,10 @@
 				7579FE1D1BA40BE500A42D13 /* Main.storyboard */,
 				753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */,
 				7579FE221BA40BE500A42D13 /* LaunchScreen.xib */,
-				753C8E131BA59BB400D1D7B0 /* MMParallaxCell */,
+				750229D31BB418D600AB1006 /* ArticleCategoryAndTitle.xib */,
+				750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */,
 				7579FE201BA40BE500A42D13 /* Images.xcassets */,
+				753C8DAC1BA47F3400D1D7B0 /* Resources */,
 				7579FE131BA40BE500A42D13 /* Supporting Files */,
 			);
 			path = "Tech Digest";
@@ -345,6 +408,7 @@
 				753C8DC81BA47F4700D1D7B0 /* SF-UI-Display-Regular.otf in Resources */,
 				753C8DC61BA47F4700D1D7B0 /* SF-UI-Display-Light.otf in Resources */,
 				753C8DCB1BA47F4700D1D7B0 /* SF-UI-Display-Ultralight.otf in Resources */,
+				750229D91BB43E4100AB1006 /* ArticleStoryTableViewCell.xib in Resources */,
 				753C8DCA1BA47F4700D1D7B0 /* SF-UI-Display-Thin.otf in Resources */,
 				753C8DC71BA47F4700D1D7B0 /* SF-UI-Display-Medium.otf in Resources */,
 				7579FE241BA40BE500A42D13 /* LaunchScreen.xib in Resources */,
@@ -356,6 +420,7 @@
 				753C8DD51BA47F4700D1D7B0 /* SF-UI-Text-RegularItalic.otf in Resources */,
 				753C8DD41BA47F4700D1D7B0 /* SF-UI-Text-Regular.otf in Resources */,
 				753C8DD71BA47F4700D1D7B0 /* SF-UI-Text-SemiboldItalic.otf in Resources */,
+				750229D41BB418D600AB1006 /* ArticleCategoryAndTitle.xib in Resources */,
 				753C8DC51BA47F4700D1D7B0 /* SF-UI-Display-Heavy.otf in Resources */,
 				7579FE211BA40BE500A42D13 /* Images.xcassets in Resources */,
 				753C8DCF1BA47F4700D1D7B0 /* SF-UI-Text-HeavyItalic.otf in Resources */,
@@ -413,9 +478,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750229D71BB43E1200AB1006 /* ArticleStoryTableViewCell.m in Sources */,
+				758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */,
+				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
 				758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */,
 				756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */,
 				753C8E191BA59BB400D1D7B0 /* MMParallaxCell.m in Sources */,
+				750229D21BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m in Sources */,
+				750229CA1BB3F65A00AB1006 /* ArticleViewController.m in Sources */,
 				7579FE1C1BA40BE500A42D13 /* ViewController.m in Sources */,
 				7579FE191BA40BE500A42D13 /* AppDelegate.m in Sources */,
 				7579FE161BA40BE500A42D13 /* main.m in Sources */,

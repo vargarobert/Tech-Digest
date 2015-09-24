@@ -13,6 +13,7 @@
 @interface MMParallaxCell()
 
 @property (nonatomic, strong) UITableView *parentTableView;
+@property (strong, nonatomic) UIColor *articleTypeColor;
 
 @end
 
@@ -35,6 +36,17 @@
 	[self setup];
 }
 
+- (void) setCategoryColor:(UIColor *)color {
+    self.articleTypeColor = color;
+    self.rowNumber.layer.borderColor = color.CGColor;
+    self.category.layer.backgroundColor = color.CGColor;
+    self.circleLayer.strokeColor = color.CGColor;
+}
+
+- (void) markAsRead {
+    self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
+}
+
 
 - (void) setup
 {
@@ -42,44 +54,46 @@
     self.contentView.backgroundColor = [UIColor blackColor];
 
     //circle around the Row Number
-    self.circleLayer = [CAShapeLayer layer]; //self.rowNumber.frame.size.width/2*-1
-    self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(1, 0, self.rowNumber.frame.size.height, self.rowNumber.frame.size.height)].CGPath;
-    self.circleLayer.fillColor = [UIColor clearColor].CGColor;
-    self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
-    self.circleLayer.lineWidth = 1.5f;
-//    CGRect newFrame = circleLayer.frame;
-//    newFrame.origin.x = circleLayer.frame.origin.x - (self.rowNumber.frame.size.width)/2 - circleLayer.lineWidth;
-//    circleLayer.frame = newFrame;
-    [self.rowNumber.layer insertSublayer:self.circleLayer atIndex:0];
-    
-//    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height-2, self.contentView.frame.size.width, 2)];/// change size as you need.
-//    separatorLineView.backgroundColor = [UIColor whiteColor];
-//    [[self contentView] addSubview:separatorLineView];
-
-
-
+//    self.circleLayer = [CAShapeLayer layer]; //self.rowNumber.frame.size.width/2*-1
+//    self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(1, 0, self.rowNumber.frame.size.height, self.rowNumber.frame.size.height)].CGPath;
+//    self.circleLayer.fillColor = [UIColor clearColor].CGColor;
+//    self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
+//    self.circleLayer.lineWidth = 1.5f;
+//    [self.rowNumber.layer insertSublayer:self.circleLayer atIndex:0];
 
     
-    //title
+    //ROW number
+    self.rowNumber.textColor = [UIColor whiteColor];
+    self.rowNumber.layer.borderWidth = 1;
+
+    
+    //CATEGORY label
+    self.category.textColor = [UIColor whiteColor];
+    self.category.layer.cornerRadius = 7;
+    UIEdgeInsets titleInsets = UIEdgeInsetsMake(0, 5.0, 0, 5.0);
+    self.category.edgeInsets = titleInsets;
+    
+    
+    //TITLE
     self.title.textColor = [UIColor whiteColor];
     
-    //parallax image
+    
+    //parallax IMAGE
 	self.parallaxImage = [UIImageView new];
 	[self.contentView addSubview:self.parallaxImage];
 	[self.contentView sendSubviewToBack:self.parallaxImage];
 	self.parallaxImage.backgroundColor = [UIColor whiteColor];
 	self.parallaxImage.contentMode = UIViewContentModeScaleAspectFill;
-    
     //transparent view to dim parallax image
     UIView *blackOverlay = [[UIView alloc] initWithFrame: self.parallaxImage.frame];
     blackOverlay.layer.backgroundColor = [[UIColor blackColor] CGColor];
     blackOverlay.layer.opacity = 0.5;
     blackOverlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.parallaxImage addSubview: blackOverlay];
+    self.parallaxRatio = 1.5f;
 
+    
 	self.clipsToBounds = YES;
-	
-	self.parallaxRatio = 1.5f;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview

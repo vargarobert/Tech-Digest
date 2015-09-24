@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //#import "RoundedRectLabel.h"
+#import "InsetUILabel.h"
 
 @interface MMParallaxCell : UITableViewCell
 
@@ -21,7 +22,9 @@
 
 
 @property (weak, nonatomic) IBOutlet UILabel *rowNumber;
-@property (weak, nonatomic) IBOutlet UILabel *category;
+@property (weak, nonatomic) IBOutlet InsetUILabel *category;
+-(void) setCategoryColor:(UIColor *) color;
+-(void) markAsRead;
 
 @property (nonatomic, strong) CAShapeLayer *circleLayer;
 

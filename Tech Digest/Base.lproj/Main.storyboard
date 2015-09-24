@@ -28,10 +28,11 @@
             </objects>
             <point key="canvasLocation" x="1738" y="1035"/>
         </scene>
-        <!--View Controller-->
+        <!--Article View Controller-->
         <scene sceneID="Ddk-2U-hXG">
             <objects>
-                <viewController id="UWw-jo-fcm" customClass="ViewController" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8k3-mC-tqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="UWw-jo-fcm" customClass="ArticleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H2N-Kn-lXH"/>
                         <viewControllerLayoutGuide type="bottom" id="uB8-XT-ZFI"/>
@@ -40,19 +41,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aiy-9U-isT">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4xA-1W-taP">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
-                            </scrollView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4xA-1W-taP" firstAttribute="top" secondItem="KU3-e7-Ujm" secondAttribute="top" id="BS3-MI-YaG"/>
+                            <constraint firstItem="4xA-1W-taP" firstAttribute="leading" secondItem="KU3-e7-Ujm" secondAttribute="leading" id="goW-pN-Q90"/>
+                            <constraint firstItem="4xA-1W-taP" firstAttribute="bottom" secondItem="uB8-XT-ZFI" secondAttribute="top" id="pTn-dj-Bek"/>
+                            <constraint firstAttribute="trailing" secondItem="4xA-1W-taP" secondAttribute="trailing" id="y5S-DH-Fpx"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="scrollView" destination="Aiy-9U-isT" id="3wB-4y-LDY"/>
+                        <outlet property="tableView" destination="4xA-1W-taP" id="zJf-4Z-QEk"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8k3-mC-tqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2410" y="1035"/>
         </scene>
