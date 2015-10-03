@@ -31,7 +31,6 @@
         <!--Article View Controller-->
         <scene sceneID="Ddk-2U-hXG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8k3-mC-tqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="UWw-jo-fcm" customClass="ArticleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H2N-Kn-lXH"/>
@@ -48,7 +47,7 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4xA-1W-taP" firstAttribute="top" secondItem="KU3-e7-Ujm" secondAttribute="top" id="BS3-MI-YaG"/>
                             <constraint firstItem="4xA-1W-taP" firstAttribute="leading" secondItem="KU3-e7-Ujm" secondAttribute="leading" id="goW-pN-Q90"/>
@@ -56,17 +55,19 @@
                             <constraint firstAttribute="trailing" secondItem="4xA-1W-taP" secondAttribute="trailing" id="y5S-DH-Fpx"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="4xA-1W-taP" id="zJf-4Z-QEk"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8k3-mC-tqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2410" y="1035"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VzY-Mb-bRs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DBg-AC-0SE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DBg-AC-0SE" customClass="CBNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ggz-tW-HUK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

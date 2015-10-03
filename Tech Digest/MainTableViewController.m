@@ -13,6 +13,7 @@
 #import "HexColors.h"
 #import "TimeIndicatorView.h"
 
+#import "TLYShyNavBarManager.h"
 
 @interface MainTableViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @end
@@ -95,6 +96,8 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];   //it hides
+//    self.shyNavBarManager.disable=true;
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

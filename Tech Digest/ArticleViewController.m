@@ -12,10 +12,13 @@
 #import "ArticleStoryTableViewCell.h"
 
 #import "HexColors.h"
+#import "TLYShyNavBarManager.h"
+#import "VBFPopFlatButton.h"
 
 @interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
 
 @end
 
@@ -32,11 +35,34 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 
     [self tableSetup];
     [self navigationBarSetup];
+
+
+
+//    [self.navigationController.interactivePopGestureRecognizer addTarget:self
+//                                                                  action:@selector(handlePopGesture:)];
 }
+
+
+
+//- (void)handlePopGesture:(UIGestureRecognizer *)gesture
+//{
+//    if (gesture.state == UIGestureRecognizerStateBegan)
+//    {
+//        // respond to beginning of pop gesture
+//        NSLog(@"DAS");
+////        self.shyNavBarManager.disable = true;
+////        [self.flatRoundedButton animateToType:buttonMenuType];
+//
+//    }
+//
+//    // handle other gesture states, if desired
+//}
 
 -(void)tableSetup {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.shyNavBarManager.scrollView = self.tableView;
+
     
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
 
@@ -56,21 +82,51 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
+    
+    //SETUP BACK BUTTON
+    self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
+                                                         buttonType:buttonBackType
+                                                        buttonStyle:buttonRoundedStyle
+                                              animateToInitialState:YES];
+    self.flatRoundedButton.roundBackgroundColor = [UIColor blackColor];
+    self.flatRoundedButton.lineThickness = 2.2f;
+    self.flatRoundedButton.tintColor = [UIColor whiteColor];
+    [self.flatRoundedButton addTarget:self
+                               action:@selector(popViewController)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *backButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
+    backButtonView.bounds = CGRectOffset(backButtonView.bounds, -5, -10);
+    [backButtonView addSubview:self.flatRoundedButton];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+-(void)popViewController {
+    //animate button
+    [self.flatRoundedButton animateToType:buttonMenuType];
+    
+    // Tell the controller to go back
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     [self.tableView reloadData];
-    self.navigationController.hidesBarsOnSwipe = true;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    self.navigationController.hidesBarsOnSwipe = false;
+    [self.flatRoundedButton animateToType:buttonMenuType];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.flatRoundedButton animateToType:buttonBackType];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,7 +182,7 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
          
          // ###Content
          
-         cell.story.text = @"If there's one constant on the consumer tech calendar, it's iPhone reviews day. Happening sometime between the announcement and the release of the latest iPhone, it manifests itself with glowing accounts of the latest Apple smartphone at the top of the page, and irate accusations of Apple-favoring bias in the comments at the bottom. This is as reliable a phenomenon as today's autumnal equinox.\n\nThe funny thing is that everyone's right. Readers are right to claim that the iPhone is treated differently from other smartphones, and reviewers are correct in doing so. Apple makes more in quarterly profit than many of its mobile competitors are worth, and the success and failure of its smartphone plays a large role in shaping the fate of multiple related industries. The iPhone is reviewed like a transcendental entity that's more than just the sum of its metal, plastic, and silicon parts, because that's what it is.\n\nConsider the scale of Apple’s achievement every year. With iPhone hype reaching cosmic proportions every September — and the price never falling — Apple still manages to exceed expectations and maintain some of the highest user satisfaction ratings in the United States. That’s in spite of stringing people along without a large-screened phone until last year, and despite continuing to sell an inadequate 16GB entry-level model today. The only explanation for this pattern, short of a mass delusion on a religion-like global scale, is that Apple provides substantial value to its hundreds of millions of satisfied iPhone buyers. Tech consumers are biased in favor of Apple products.\n\nThe iPhone is ubiquitous and there are many benefits accruing to its users from this omnipresence. iPhone cases and accessories are an industry unto themselves, which has most recently and impressively been highlighted by the DxO One camera. 'Made for iPhone' (MFI) is a mark of pride for peripheral makers, who dive enthusiastically into any new initiative that Apple chooses to embrace. Just witness the ill-fated iPhone game controller movement of 2013: it never had any compelling games that required physical controls, but that didn’t deter eager Apple partners from producing a broad range of weird and wonderful MFI gamepads. They did so — and they’d do it again in a heartbeat — because riding the iPhone’s coattails to sales is now a proven business strategy. Accessory makers are biased in favor of Apple products.\n";
+         cell.story.text = @"If there's one constant on the consumer tech calendar, it's iPhone reviews day. Happening sometime between the announcement and the release of the latest iPhone, it manifests itself with glowing accounts of the latess.t Apple smartphone at the top of the page, and irate accusations of Apple-favoring bias in the comments at the bottom. This is as reliable a phenomenon as today's autumnal equinox.\n\nThe funny thing is that everyone's right. Readers are right to claim that the iPhone is treated differently from other smartphones, and reviewers are correct in doing so. Apple makes more in quarterly profit than many of its mobile competitors are worth, and the success and failure of its smartphone plays a large role in shaping the fate of multiple related industries. The iPhone is reviewed like a transcendental entity that's more than just the sum of its metal, plastic, and silicon parts, because that's what it is.\n\nConsider the scale of Apple’s achievement every year. With iPhone hype reaching cosmic proportions every September — and the price never falling — Apple still manages to exceed expectations and maintain some of the highest user satisfaction ratings in the United States. That’s in spite of stringing people along without a large-screened phone until last year, and despite continuing to sell an inadequate 16GB entry-level model today. The only explanation for this pattern, short of a mass delusion on a religion-like global scale, is that Apple provides substantial value to its hundreds of millions of satisfied iPhone buyers. Tech consumers are biased in favor of Apple products.\n\nThe iPhone is ubiquitous and there are many benefits accruing to its users from this omnipresence. iPhone cases and accessories are an industry unto themselves, which has most recently and impressively been highlighted by the DxO One camera. 'Made for iPhone' (MFI) is a mark of pride for peripheral makers, who dive enthusiastically into any new initiative that Apple chooses to embrace. Just witness the ill-fated iPhone game controller movement of 2013: it never had any compelling games that required physical controls, but that didn’t deter eager Apple partners from producing a broad range of weird and wonderful MFI gamepads. They did so — and they’d do it again in a heartbeat — because riding the iPhone’s coattails to sales is now a proven business strategy. Accessory makers are biased in favor of Apple product\n";
          
          
          return cell;
@@ -181,6 +237,11 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
  // Pass the selected object to the new view controller.
  }
  */
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 
 @end

@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/HexColors" "${PODS_ROOT}/Headers/Public/JDFPeekaboo" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/SDWebImage"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/HexColors" -isystem "${PODS_ROOT}/Headers/Public/JDFPeekaboo" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-Tech DigestTests-HexColors" -l"Pods-Tech DigestTests-JDFPeekaboo" -l"Pods-Tech DigestTests-Masonry" -l"Pods-Tech DigestTests-SDWebImage" -framework "Foundation" -framework "ImageIO" -framework "UIKit"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/HexColors" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/TLYShyNavBar" "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" "${PODS_ROOT}/Headers/Public/pop"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/HexColors" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/TLYShyNavBar" -isystem "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" -isystem "${PODS_ROOT}/Headers/Public/pop"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-Tech DigestTests-HexColors" -l"Pods-Tech DigestTests-Masonry" -l"Pods-Tech DigestTests-SDWebImage" -l"Pods-Tech DigestTests-TLYShyNavBar" -l"Pods-Tech DigestTests-VBFPopFlatButton" -l"Pods-Tech DigestTests-pop" -l"c++" -framework "Foundation" -framework "ImageIO" -framework "UIKit"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

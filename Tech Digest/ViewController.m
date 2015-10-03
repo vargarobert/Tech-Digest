@@ -7,11 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "JDFPeekabooCoordinator.h"
+//#import "JDFPeekabooCoordinator.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) JDFPeekabooCoordinator *scrollCoordinator;
+//@property (nonatomic, strong) JDFPeekabooCoordinator *scrollCoordinator;
 
 @end
 

@@ -47,6 +47,7 @@
 		7579FE301BA40BE500A42D13 /* Tech_DigestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE2F1BA40BE500A42D13 /* Tech_DigestTests.m */; };
 		758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758ACCF31BB1C90900E884F9 /* InsetUILabel.m */; settings = {ASSET_TAGS = (); }; };
 		758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758C56931BA59CDD008580FD /* RoundedRectLabel.m */; };
+		75B4CE6B1BC0483C0099126E /* CBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B4CE6A1BC0483C0099126E /* CBNavigationController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,8 @@
 		758ACCF31BB1C90900E884F9 /* InsetUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetUILabel.m; sourceTree = "<group>"; };
 		758C56921BA59CDD008580FD /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedRectLabel.h; sourceTree = "<group>"; };
 		758C56931BA59CDD008580FD /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedRectLabel.m; sourceTree = "<group>"; };
+		75B4CE691BC0483C0099126E /* CBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNavigationController.h; sourceTree = "<group>"; };
+		75B4CE6A1BC0483C0099126E /* CBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNavigationController.m; sourceTree = "<group>"; };
 		7ADAB0C08BBD365E1B40A3D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A48205897812622544C904 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +152,7 @@
 		750229C31BB3F36B00AB1006 /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
+				75B4CE681BC0481E0099126E /* CBNavigationController */,
 				750229CF1BB4086E00AB1006 /* ArticlePage */,
 				750229C41BB3F3A300AB1006 /* InsetUILabel */,
 				753C8E131BA59BB400D1D7B0 /* MMParallaxCell */,
@@ -309,6 +313,15 @@
 				7579FE2E1BA40BE500A42D13 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75B4CE681BC0481E0099126E /* CBNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				75B4CE691BC0483C0099126E /* CBNavigationController.h */,
+				75B4CE6A1BC0483C0099126E /* CBNavigationController.m */,
+			);
+			name = CBNavigationController;
 			sourceTree = "<group>";
 		};
 		9181952375CF850A735D365C /* Frameworks */ = {
@@ -478,6 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75B4CE6B1BC0483C0099126E /* CBNavigationController.m in Sources */,
 				750229D71BB43E1200AB1006 /* ArticleStoryTableViewCell.m in Sources */,
 				758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */,
 				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
