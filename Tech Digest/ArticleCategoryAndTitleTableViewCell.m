@@ -54,7 +54,7 @@
     
     
     //TITLE
-    self.title.textColor = [UIColor blackColor];
+//    self.title.textColor = [UIColor blackColor];
     
     
     self.clipsToBounds = YES;

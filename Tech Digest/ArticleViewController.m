@@ -8,17 +8,34 @@
 
 #import "ArticleViewController.h"
 
+//cells
 #import "ArticleCategoryAndTitleTableViewCell.h"
 #import "ArticleStoryTableViewCell.h"
 
-#import "HexColors.h"
-#import "TLYShyNavBarManager.h"
-#import "VBFPopFlatButton.h"
+//pictures controller
+//#import "ArticlePicturesViewController.h"
 
-@interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+#import <ChameleonFramework/Chameleon.h>
+//nav bar hide
+#import "TLYShyNavBarManager.h"
+//back button
+#import "VBFPopFlatButton.h"
+//sliding images
+#import "KIImagePager.h"
+
+#import "JTSImageViewController.h"
+#import "JTSImageInfo.h"
+
+@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, JTSImageViewControllerOptionsDelegate>
+
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
+
+@property (nonatomic,strong) KIImagePager *imagePager;
+@property (nonatomic,strong) NSMutableArray *images;
+//@property (nonatomic,strong) NSArray *cellContent;
+//@property (nonatomic,strong) NSURL *imgURL;
 
 @end
 
@@ -27,20 +44,42 @@
 static NSString* cellIdentifierArticleCategoryAndTitle = @"cellIdentifierArticleCategoryAndTitle";
 static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 
+#pragma mark - KIImagePager DataSource
+- (NSArray *) arrayWithImages:(KIImagePager*)pager
+{
+    if (!_images){
+        _images = [[NSMutableArray alloc] initWithObjects:
+                   @"http://rack.1.mshcdn.com/media/ZgkyMDE1LzA4LzI0L2IxL3RpbWNvb2suZDFiYjEuanBnCnAJdGh1bWIJOTUweDUzNCMKZQlqcGc/a904b975/aee/tim-cook.jpg",
+                   @"https://cdn0.vox-cdn.com/thumbor/2zXUVPwug-pH5lJ7NVBo_9nr_vw=/800x0/filters:no_upscale()/cdn0.vox-cdn.com/uploads/chorus_asset/file/4099446/alGVuoVYfFpuqK5o.0.jpeg",
+                   @"https://cdn1.vox-cdn.com/uploads/chorus_asset/file/4093926/3D_Touch_Screenshot.0.png",
+                   nil
+                   ];
+    }
+    
+    return _images;
+}
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager*)pager
+{
+    return UIViewContentModeScaleAspectFill;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
 
     [self tableSetup];
-    [self navigationBarSetup];
+//    [self navigationBarSetup];
+    [self tableHeaderViewSetup];
 
 
+    
 
 //    [self.navigationController.interactivePopGestureRecognizer addTarget:self
 //                                                                  action:@selector(handlePopGesture:)];
 }
+
+
 
 
 
@@ -58,13 +97,11 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 //    // handle other gesture states, if desired
 //}
 
+
 -(void)tableSetup {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.shyNavBarManager.scrollView = self.tableView;
-
-    
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
 
     self.tableView.estimatedRowHeight = 100.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -83,66 +120,43 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
+    
     //SETUP BACK BUTTON
     self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
                                                          buttonType:buttonBackType
                                                         buttonStyle:buttonRoundedStyle
-                                              animateToInitialState:YES];
+                                              animateToInitialState:NO];
     self.flatRoundedButton.roundBackgroundColor = [UIColor blackColor];
     self.flatRoundedButton.lineThickness = 2.2f;
     self.flatRoundedButton.tintColor = [UIColor whiteColor];
     [self.flatRoundedButton addTarget:self
                                action:@selector(popViewController)
                      forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *backButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
-    backButtonView.bounds = CGRectOffset(backButtonView.bounds, -5, -10);
-    [backButtonView addSubview:self.flatRoundedButton];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+    self.flatRoundedButton.bounds = CGRectOffset(self.flatRoundedButton.bounds, -4, -10);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedButton];
     self.navigationItem.leftBarButtonItem = backButton;
+//    self.bckgLayer.borderColor = self.tintColor.CGColor; self.bckgLayer.borderWidth = 0.7;
 }
 
--(void)popViewController {
-    //animate button
-    [self.flatRoundedButton animateToType:buttonMenuType];
-    
-    // Tell the controller to go back
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)tableHeaderViewSetup {
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 280)];
+    self.tableView.tableHeaderView = ({
+        _imagePager = [[KIImagePager alloc] initWithFrame:self.tableView.tableHeaderView.frame];
+        _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+        _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+        _imagePager.imageCounterDisabled = true;
+        _imagePager.slideshowShouldCallScrollToDelegate = YES;
+        
+        _imagePager.dataSource = self;
+        _imagePager.delegate = self;
+        _imagePager;
+    });
 }
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.flatRoundedButton animateToType:buttonMenuType];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.flatRoundedButton animateToType:buttonBackType];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Table view data source
 
@@ -155,7 +169,7 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 }
 
 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
      
 
 
@@ -191,52 +205,97 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 
 
      
- }
+}
 
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+//    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+    
+//    [self performSegueWithIdentifier:@"showArticlePictures" sender:self];
+    
+//    UIView *blankView = [[UIView alloc] initWithFrame:self.tableView.tableHeaderView.frame];
+//    blankView.backgroundColor = [UIColor blackColor];
+//    blankView.tag = 99;
+//    [self.tableView addSubview:blankView];
+    
+    [self bigButtonTapped:index];
+    
+}
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+- (void)bigButtonTapped:(NSUInteger)index {
+    
+    // Create image info
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
+    imageInfo.imageURL = [NSURL URLWithString:[_images objectAtIndex:index]];
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+    imageInfo.referenceRect = _imagePager.frame;
+    imageInfo.referenceView = _imagePager.superview;
+    imageInfo.referenceContentMode = _imagePager.contentMode;
+    imageInfo.referenceCornerRadius = _imagePager.layer.cornerRadius;
+    
+    // Setup view controller
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundOption_None];
+    
+    // Present the view controller.
+//    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+    
+    [UIView animateWithDuration:2.5f animations:^{
+        [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+    }];
+    
+    // modified in source ->
+//    static CGFloat const JTSImageViewController_MaxScalingForExpandingOffscreenStyleTransition = 1.0f;
+//    static CGFloat const JTSImageViewController_TransitionAnimationDuration = 0;
+    
+}
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showArticlePictures"]) {
+//        UINavigationController *navigationController = segue.destinationViewController;
+//        ArticlePicturesViewController *articlePicturesViewController =[[navigationController viewControllers]objectAtIndex:0];
+//        // Pass data
+//        articlePicturesViewController.images = _images;
+//    }
+//}
+
+- (void)popViewController {    
+    // Tell the controller to go back
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //    [self.flatRoundedButton animateToType:buttonMenuType];
+    //remomve nav bar button
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.hidesBackButton = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self navigationBarSetup];
+//    [self.flatRoundedButton animateToType:buttonBackType];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 - (BOOL)prefersStatusBarHidden
 {

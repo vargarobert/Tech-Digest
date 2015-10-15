@@ -7,13 +7,17 @@
 //
 
 #import "MainTableViewController.h"
+
 #import "MMParallaxCell.h"
+
+#import "CategoryColors.h"
+
 #import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "HexColors.h"
+#import <ChameleonFramework/Chameleon.h>
 #import "TimeIndicatorView.h"
 
-#import "TLYShyNavBarManager.h"
+//#import "TLYShyNavBarManager.h"
 
 @interface MainTableViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @end
@@ -133,36 +137,42 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UIColor *articleTypeColor = [UIColor whiteColor];
+    //dummy data
+    NSString *articleCategory = @"";
     switch (indexPath.row) {
         case 0:
-            articleTypeColor = [UIColor colorWithHexString:@"1486f9"];
+            articleCategory = @"mobile";
             break;
         case 1:
-            articleTypeColor = [UIColor colorWithHexString:@"1486f9"];
+            articleCategory = @"gaming";
             break;
         case 2:
-            articleTypeColor = [UIColor colorWithHexString:@"03C383"];
+            articleCategory = @"security";
             break;
         case 3:
-            articleTypeColor = [UIColor colorWithHexString:@"8CC152"];
+            articleCategory = @"internet";
             break;
         case 4:
-            articleTypeColor = [UIColor colorWithHexString:@"F6BB42"];
+            articleCategory = @"startups";
             break;
         case 5:
-            articleTypeColor = [UIColor colorWithHexString:@"E9573F"];
+            articleCategory = @"GADGETS";
             break;
         case 6:
-            articleTypeColor = [UIColor colorWithHexString:@"DA4453"];
+            articleCategory = @"software";
             break;
         case 7:
-            articleTypeColor = [UIColor colorWithHexString:@"967ADC"];
+            articleCategory = @"infrastructure";
             break;
         case 8:
-            articleTypeColor = [UIColor colorWithHexString:@"DA4453"];
+            articleCategory = @"business it";
             break;
     }
+    articleCategory = [articleCategory uppercaseString];
+    //dummy data END
+
+
+    UIColor *articleTypeColor = [CategoryColors getCategoryColor: articleCategory ];
 
     
     // ### TOP CELL ###
@@ -182,7 +192,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         //row number and category
         cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
-        cell.category.text = [NSString stringWithFormat:@"%@", @"MOBILE"];
+        cell.category.text = articleCategory;
         
         
         
@@ -192,8 +202,9 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         
         //color set based on article
-        [cell setCategoryColor: articleTypeColor];        
+        [cell setCategoryColor: articleTypeColor];
         _timeView.color = articleTypeColor;
+
 
 
         return cell;
@@ -210,15 +221,15 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         cell.title.text = @"Amazon Introduces Four New Tablets in Groovy Colors";
         //row number and category
         cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
-        cell.category.text = @"SECURITY";
+        cell.category.text = articleCategory;
         
         //image
-        [cell.parallaxImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/400/400/technics/%ld/",(long)indexPath.row]]];
-        // +  add temp placeholder image
+        [cell.parallaxImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/900/900/technics/%ld/",(long)indexPath.row]]];
         
         
         //color set based on article
         [cell setCategoryColor: articleTypeColor];
+        
         
         //mark as read
         if (indexPath.row % 2 == 0 && cell.rowNumber.layer.backgroundColor != articleTypeColor.CGColor) { //something else  in IF to verify if the article was read allready
@@ -272,7 +283,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 
 
-//    [self.tableView setSeparatorColor:[UIColor whiteColor]];
     // Remove seperator inset
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -308,66 +318,14 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (void)viewDidLayoutSubviews {
     [self updateTimeIndicatorFrame];
 }
 
 - (void)updateTimeIndicatorFrame {
     [_timeView updateSize];
-    _timeView.frame = CGRectOffset(_timeView.frame, self.view.frame.size.width - _timeView.frame.size.width, 10.0);
+    _timeView.frame = CGRectOffset(_timeView.frame, self.view.frame.size.width - _timeView.frame.size.width+3, 10.0);
 }
 
 @end

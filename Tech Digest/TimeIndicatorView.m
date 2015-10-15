@@ -7,7 +7,7 @@
 //
 
 #import "TimeIndicatorView.h"
-#import "HexColors.h"
+#import <ChameleonFramework/Chameleon.h>
 
 @implementation TimeIndicatorView
 {

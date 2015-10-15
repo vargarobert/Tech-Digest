@@ -1,18 +1,12 @@
-//
-//  CBNavigationController.m
-//  Tech Digest
-//
-//  Created by Robert Varga on 03/10/2015.
-//  Copyright © 2015 Robert Varga. All rights reserved.
-//
-
 #import "CBNavigationController.h"
 
+@interface CBNavigationController ()
+@end
 
 @implementation CBNavigationController
-
 - (void)viewDidLoad
 {
+//    NSLog(@"%s",__FUNCTION__);
     __weak CBNavigationController *weakSelf = self;
     
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
@@ -22,10 +16,10 @@
     }
 }
 
-// Hijack the push method to disable the gesture
-
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+//    NSLog(@"%s",__FUNCTION__);
+    
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
         self.interactivePopGestureRecognizer.enabled = NO;
     
@@ -38,10 +32,19 @@
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animate
 {
-    // Enable the gesture again once the new controller is shown
+//    NSLog(@"%s",__FUNCTION__);
     
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
-        self.interactivePopGestureRecognizer.enabled = YES;
+    // Enable the gesture again once the new controller is shown AND is not the root view controller
+    if (viewController == self.viewControllers.firstObject)
+    {
+        if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+            self.interactivePopGestureRecognizer.enabled = NO;
+    }
+    else
+    {
+        if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+            self.interactivePopGestureRecognizer.enabled = YES;
+    }
 }
 
 @end

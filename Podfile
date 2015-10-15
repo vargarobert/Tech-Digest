@@ -3,9 +3,12 @@
 
 pod 'SDWebImage', '~> 3.7.3'
 pod 'Masonry', '~> 0.6.2'
-pod 'HexColors'
+pod 'ChameleonFramework'
 pod 'TLYShyNavBar'
-pod 'VBFPopFlatButton'
+pod 'JTSImageViewController', :git => 'https://github.com/jaredsinclair/JTSImageViewController'
+pod 'VBFPopFlatButton', :git => 'https://github.com/vargarobert/VBFPopFlatButton'
+pod 'KIImagePager', :git => 'https://github.com/kimar/KIImagePager'
+
 
 target 'Tech Digest' do
 

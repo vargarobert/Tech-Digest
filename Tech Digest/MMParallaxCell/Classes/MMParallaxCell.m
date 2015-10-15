@@ -7,13 +7,14 @@
 //
 
 #import "MMParallaxCell.h"
-#import "HexColors.h"
+#import <ChameleonFramework/Chameleon.h>
 
 
 @interface MMParallaxCell()
 
 @property (nonatomic, strong) UITableView *parentTableView;
 @property (strong, nonatomic) UIColor *articleTypeColor;
+@property (weak, nonatomic) IBOutlet UIView *gradientView;
 
 @end
 
@@ -41,6 +42,7 @@
     self.rowNumber.layer.borderColor = color.CGColor;
     self.category.layer.backgroundColor = color.CGColor;
     self.circleLayer.strokeColor = color.CGColor;
+    
 }
 
 - (void) markAsRead {
@@ -52,15 +54,7 @@
 {
     // Initialization code
     self.contentView.backgroundColor = [UIColor blackColor];
-
-    //circle around the Row Number
-//    self.circleLayer = [CAShapeLayer layer]; //self.rowNumber.frame.size.width/2*-1
-//    self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(1, 0, self.rowNumber.frame.size.height, self.rowNumber.frame.size.height)].CGPath;
-//    self.circleLayer.fillColor = [UIColor clearColor].CGColor;
-//    self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
-//    self.circleLayer.lineWidth = 1.5f;
-//    [self.rowNumber.layer insertSublayer:self.circleLayer atIndex:0];
-
+    
     
     //ROW number
     self.rowNumber.textColor = [UIColor whiteColor];
@@ -82,16 +76,10 @@
 	self.parallaxImage = [UIImageView new];
 	[self.contentView addSubview:self.parallaxImage];
 	[self.contentView sendSubviewToBack:self.parallaxImage];
-	self.parallaxImage.backgroundColor = [UIColor whiteColor];
+	self.parallaxImage.backgroundColor = [UIColor blackColor];
 	self.parallaxImage.contentMode = UIViewContentModeScaleAspectFill;
-    //transparent view to dim parallax image
-    UIView *blackOverlay = [[UIView alloc] initWithFrame: self.parallaxImage.frame];
-    blackOverlay.layer.backgroundColor = [[UIColor blackColor] CGColor];
-    blackOverlay.layer.opacity = 0.5;
-    blackOverlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.parallaxImage addSubview: blackOverlay];
+    
     self.parallaxRatio = 1.5f;
-
     
 	self.clipsToBounds = YES;
 }
@@ -167,11 +155,11 @@
     [super layoutSubviews];
     
     self.parallaxRatio = self.parallaxRatio;
-    
-//        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-2, self.frame.size.width, 2)];/// change size as you need.
-//        separatorLineView.backgroundColor = [UIColor whiteColor];
-//        [[self contentView] addSubview:separatorLineView];
 
+    //add gradient over the parallax image
+    NSArray *colors = [NSArray arrayWithObjects:[[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1], [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.1], nil];
+    self.gradientView.layer.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleTopToBottom
+                                                                    withFrame:self.parallaxImage.frame                                                               andColors:colors].CGColor;
     return;
 }
 

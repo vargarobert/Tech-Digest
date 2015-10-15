@@ -40,7 +40,6 @@
 		756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 756F7C5C1BA4205E00C46DC6 /* MainTableViewController.m */; };
 		7579FE161BA40BE500A42D13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE151BA40BE500A42D13 /* main.m */; };
 		7579FE191BA40BE500A42D13 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE181BA40BE500A42D13 /* AppDelegate.m */; };
-		7579FE1C1BA40BE500A42D13 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE1B1BA40BE500A42D13 /* ViewController.m */; };
 		7579FE1F1BA40BE500A42D13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE1D1BA40BE500A42D13 /* Main.storyboard */; };
 		7579FE211BA40BE500A42D13 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE201BA40BE500A42D13 /* Images.xcassets */; };
 		7579FE241BA40BE500A42D13 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE221BA40BE500A42D13 /* LaunchScreen.xib */; };
@@ -48,6 +47,8 @@
 		758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758ACCF31BB1C90900E884F9 /* InsetUILabel.m */; settings = {ASSET_TAGS = (); }; };
 		758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758C56931BA59CDD008580FD /* RoundedRectLabel.m */; };
 		75B4CE6B1BC0483C0099126E /* CBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B4CE6A1BC0483C0099126E /* CBNavigationController.m */; settings = {ASSET_TAGS = (); }; };
+		75DE39651BC929C3007361FC /* ArticlePicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DE39641BC929C3007361FC /* ArticlePicturesViewController.m */; settings = {ASSET_TAGS = (); }; };
+		75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB61C11BCF8FF60057E478 /* CategoryColors.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,8 +104,6 @@
 		7579FE151BA40BE500A42D13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7579FE171BA40BE500A42D13 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7579FE181BA40BE500A42D13 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7579FE1A1BA40BE500A42D13 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7579FE1B1BA40BE500A42D13 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7579FE1E1BA40BE500A42D13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7579FE201BA40BE500A42D13 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7579FE231BA40BE500A42D13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -117,6 +116,10 @@
 		758C56931BA59CDD008580FD /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedRectLabel.m; sourceTree = "<group>"; };
 		75B4CE691BC0483C0099126E /* CBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNavigationController.h; sourceTree = "<group>"; };
 		75B4CE6A1BC0483C0099126E /* CBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNavigationController.m; sourceTree = "<group>"; };
+		75DE39631BC929C3007361FC /* ArticlePicturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlePicturesViewController.h; sourceTree = "<group>"; };
+		75DE39641BC929C3007361FC /* ArticlePicturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlePicturesViewController.m; sourceTree = "<group>"; };
+		75FB61C01BCF8FF60057E478 /* CategoryColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryColors.h; sourceTree = "<group>"; };
+		75FB61C11BCF8FF60057E478 /* CategoryColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryColors.m; sourceTree = "<group>"; };
 		7ADAB0C08BBD365E1B40A3D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A48205897812622544C904 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +155,7 @@
 		750229C31BB3F36B00AB1006 /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
+				75FB61BC1BCF8D290057E478 /* Category Colors */,
 				75B4CE681BC0481E0099126E /* CBNavigationController */,
 				750229CF1BB4086E00AB1006 /* ArticlePage */,
 				750229C41BB3F3A300AB1006 /* InsetUILabel */,
@@ -273,10 +277,10 @@
 				756F7C5C1BA4205E00C46DC6 /* MainTableViewController.m */,
 				750229C81BB3F65A00AB1006 /* ArticleViewController.h */,
 				750229C91BB3F65A00AB1006 /* ArticleViewController.m */,
+				75DE39631BC929C3007361FC /* ArticlePicturesViewController.h */,
+				75DE39641BC929C3007361FC /* ArticlePicturesViewController.m */,
 				7579FE171BA40BE500A42D13 /* AppDelegate.h */,
 				7579FE181BA40BE500A42D13 /* AppDelegate.m */,
-				7579FE1A1BA40BE500A42D13 /* ViewController.h */,
-				7579FE1B1BA40BE500A42D13 /* ViewController.m */,
 				7579FE1D1BA40BE500A42D13 /* Main.storyboard */,
 				753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */,
 				7579FE221BA40BE500A42D13 /* LaunchScreen.xib */,
@@ -322,6 +326,15 @@
 				75B4CE6A1BC0483C0099126E /* CBNavigationController.m */,
 			);
 			name = CBNavigationController;
+			sourceTree = "<group>";
+		};
+		75FB61BC1BCF8D290057E478 /* Category Colors */ = {
+			isa = PBXGroup;
+			children = (
+				75FB61C01BCF8FF60057E478 /* CategoryColors.h */,
+				75FB61C11BCF8FF60057E478 /* CategoryColors.m */,
+			);
+			name = "Category Colors";
 			sourceTree = "<group>";
 		};
 		9181952375CF850A735D365C /* Frameworks */ = {
@@ -497,10 +510,11 @@
 				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
 				758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */,
 				756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */,
+				75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */,
 				753C8E191BA59BB400D1D7B0 /* MMParallaxCell.m in Sources */,
 				750229D21BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m in Sources */,
 				750229CA1BB3F65A00AB1006 /* ArticleViewController.m in Sources */,
-				7579FE1C1BA40BE500A42D13 /* ViewController.m in Sources */,
+				75DE39651BC929C3007361FC /* ArticlePicturesViewController.m in Sources */,
 				7579FE191BA40BE500A42D13 /* AppDelegate.m in Sources */,
 				7579FE161BA40BE500A42D13 /* main.m in Sources */,
 			);

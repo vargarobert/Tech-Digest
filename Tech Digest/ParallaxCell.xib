@@ -14,6 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="53G-0G-vrx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="none" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-BY-EL7">
                         <rect key="frame" x="8" y="181" width="359" height="24"/>
                         <animations/>
@@ -33,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Securiy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2" customClass="InsetUILabel">
-                        <rect key="frame" x="24" y="15" width="43" height="22"/>
+                        <rect key="frame" x="23" y="15" width="43" height="22"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="NN8-Mn-2kA"/>
@@ -46,10 +51,14 @@
                 <animations/>
                 <constraints>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="8" id="3wn-b4-hcV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="53G-0G-vrx" secondAttribute="bottom" constant="-8" id="5fr-J6-M0P"/>
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="top" constant="15" id="8rd-Uh-aMc"/>
                     <constraint firstAttribute="bottom" secondItem="hGS-BY-EL7" secondAttribute="bottom" constant="8" id="E6D-Gu-OUm"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="53G-0G-vrx" secondAttribute="trailing" constant="-8" id="P0p-hW-njm"/>
                     <constraint firstItem="LDI-9P-Rq2" firstAttribute="centerY" secondItem="4Nk-rh-FkM" secondAttribute="centerY" id="Uhj-HI-Fab"/>
-                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="-5" id="eal-WV-oBR"/>
+                    <constraint firstItem="53G-0G-vrx" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="topMargin" constant="-8" id="V8N-vD-f87"/>
+                    <constraint firstItem="53G-0G-vrx" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leadingMargin" constant="-8" id="eLn-CY-Eeo"/>
+                    <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="-6" id="eal-WV-oBR"/>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="centerX" secondItem="1dJ-Ly-5xZ" secondAttribute="centerX" id="fji-YE-9oz"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LDI-9P-Rq2" secondAttribute="trailing" constant="200" id="idZ-7e-oRL"/>
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="-3" id="nci-YZ-L5X"/>
@@ -59,6 +68,7 @@
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="category" destination="LDI-9P-Rq2" id="ZMW-oN-RWB"/>
+                <outlet property="gradientView" destination="53G-0G-vrx" id="qsX-4l-zJ5"/>
                 <outlet property="rowNumber" destination="4Nk-rh-FkM" id="Ya2-am-Qbo"/>
                 <outlet property="title" destination="hGS-BY-EL7" id="PD1-d6-qFc"/>
             </connections>

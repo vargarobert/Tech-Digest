@@ -57,6 +57,14 @@ install_resource()
       ;;
   esac
 }
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
+fi
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then
