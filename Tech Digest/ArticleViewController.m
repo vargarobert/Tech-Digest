@@ -11,6 +11,8 @@
 //cells
 #import "ArticleCategoryAndTitleTableViewCell.h"
 #import "ArticleStoryTableViewCell.h"
+#import "ArticleStoryQuoteTableViewCell.h"
+#import "ArticleReferenceTableViewCell.h"
 
 //pictures controller
 //#import "ArticlePicturesViewController.h"
@@ -22,6 +24,8 @@
 #import "VBFPopFlatButton.h"
 //sliding images
 #import "KIImagePager.h"
+//category colors
+#import "CategoryColors.h"
 
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
@@ -33,7 +37,7 @@
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
 
 @property (nonatomic,strong) KIImagePager *imagePager;
-@property (nonatomic,strong) NSMutableArray *images;
+@property (nonatomic,strong) NSArray *images;
 //@property (nonatomic,strong) NSArray *cellContent;
 //@property (nonatomic,strong) NSURL *imgURL;
 
@@ -43,17 +47,21 @@
 
 static NSString* cellIdentifierArticleCategoryAndTitle = @"cellIdentifierArticleCategoryAndTitle";
 static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
+static NSString* cellIdentifierArticleStoryQuote = @"cellIdentifierArticleStoryQuote";
+static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReference";
+
 
 #pragma mark - KIImagePager DataSource
 - (NSArray *) arrayWithImages:(KIImagePager*)pager
 {
     if (!_images){
-        _images = [[NSMutableArray alloc] initWithObjects:
-                   @"http://rack.1.mshcdn.com/media/ZgkyMDE1LzA4LzI0L2IxL3RpbWNvb2suZDFiYjEuanBnCnAJdGh1bWIJOTUweDUzNCMKZQlqcGc/a904b975/aee/tim-cook.jpg",
-                   @"https://cdn0.vox-cdn.com/thumbor/2zXUVPwug-pH5lJ7NVBo_9nr_vw=/800x0/filters:no_upscale()/cdn0.vox-cdn.com/uploads/chorus_asset/file/4099446/alGVuoVYfFpuqK5o.0.jpeg",
-                   @"https://cdn1.vox-cdn.com/uploads/chorus_asset/file/4093926/3D_Touch_Screenshot.0.png",
-                   nil
-                   ];
+//        _images = [[NSMutableArray alloc] initWithObjects:
+//                   @"http://rack.1.mshcdn.com/media/ZgkyMDE1LzA4LzI0L2IxL3RpbWNvb2suZDFiYjEuanBnCnAJdGh1bWIJOTUweDUzNCMKZQlqcGc/a904b975/aee/tim-cook.jpg",
+//                   @"https://cdn0.vox-cdn.com/thumbor/2zXUVPwug-pH5lJ7NVBo_9nr_vw=/800x0/filters:no_upscale()/cdn0.vox-cdn.com/uploads/chorus_asset/file/4099446/alGVuoVYfFpuqK5o.0.jpeg",
+//                   @"https://cdn1.vox-cdn.com/uploads/chorus_asset/file/4093926/3D_Touch_Screenshot.0.png",
+//                   nil
+//                   ];
+        _images = _articleObject.imagesUrls;
     }
     
     return _images;
@@ -69,18 +77,13 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 
 
     [self tableSetup];
-//    [self navigationBarSetup];
+    [self navigationBarSetup];
     [self tableHeaderViewSetup];
-
-
     
-
+NSLog(@"%@",self.articleObject.category.title);
 //    [self.navigationController.interactivePopGestureRecognizer addTarget:self
 //                                                                  action:@selector(handlePopGesture:)];
 }
-
-
-
 
 
 //- (void)handlePopGesture:(UIGestureRecognizer *)gesture
@@ -101,14 +104,18 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 -(void)tableSetup {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
     self.shyNavBarManager.scrollView = self.tableView;
+    self.tableView.backgroundColor = [UIColor blackColor];
 
-    self.tableView.estimatedRowHeight = 100.0;
+    self.tableView.estimatedRowHeight = 500.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     //nibs and cell identifiers
     [self.tableView registerNib:[UINib nibWithNibName:@"ArticleCategoryAndTitle" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleCategoryAndTitle];
     [self.tableView registerNib:[UINib nibWithNibName:@"ArticleStoryTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleStory];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ArticleStoryQuoteTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleStoryQuote];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ArticleReferenceTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleReference];
 }
 
 
@@ -127,6 +134,10 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     
     //SETUP BACK BUTTON
+    [self backButonSetup];
+}
+
+- (void)backButonSetup {
     self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
                                                          buttonType:buttonBackType
                                                         buttonStyle:buttonRoundedStyle
@@ -140,7 +151,7 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
     self.flatRoundedButton.bounds = CGRectOffset(self.flatRoundedButton.bounds, -4, -10);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedButton];
     self.navigationItem.leftBarButtonItem = backButton;
-//    self.bckgLayer.borderColor = self.tintColor.CGColor; self.bckgLayer.borderWidth = 0.7;
+    //    self.bckgLayer.borderColor = self.tintColor.CGColor; self.bckgLayer.borderWidth = 0.7;
 }
 
 - (void)tableHeaderViewSetup {
@@ -165,62 +176,99 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 5;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
      
+    UIColor *articleTypeColor = [CategoryColors getCategoryColor: _articleObject.category.title ];
 
 
      if (indexPath.row == 0) {
          
-          ArticleCategoryAndTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle forIndexPath:indexPath];
+         ArticleCategoryAndTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle   forIndexPath:indexPath];
+         if (cell == nil) {
+             cell = [[ArticleCategoryAndTitleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+         }
          
          // ###Content
          
          //title
-         cell.title.text = @"Android Fans Bomb Apple’s ‘Move to iOS’ Android App With One-Star Reviews";
+         cell.title.text = _articleObject.title;
          //row number and category
-         cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
-         cell.category.text = [NSString stringWithFormat:@"%@", @"MOBILE"];
+         cell.rowNumber.text = _articleOrder;
+         cell.category.text = [_articleObject.category.title uppercaseString];
          
-         [cell setCategoryColor: [UIColor colorWithHexString:@"1486f9"]];
+         [cell setCategoryColor: articleTypeColor];
 
-         // cell.title.text = @"Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions.";
+        
          return cell;
 
-     } else {
+     } else if (indexPath.row == 1 || indexPath.row == 3 ) {
          
-         ArticleStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory forIndexPath:indexPath];
+         ArticleStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory   forIndexPath:indexPath];
+         if (cell == nil) {
+             cell = [[ArticleStoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+         }
          
          // ###Content
          
-         cell.story.text = @"If there's one constant on the consumer tech calendar, it's iPhone reviews day. Happening sometime between the announcement and the release of the latest iPhone, it manifests itself with glowing accounts of the latess.t Apple smartphone at the top of the page, and irate accusations of Apple-favoring bias in the comments at the bottom. This is as reliable a phenomenon as today's autumnal equinox.\n\nThe funny thing is that everyone's right. Readers are right to claim that the iPhone is treated differently from other smartphones, and reviewers are correct in doing so. Apple makes more in quarterly profit than many of its mobile competitors are worth, and the success and failure of its smartphone plays a large role in shaping the fate of multiple related industries. The iPhone is reviewed like a transcendental entity that's more than just the sum of its metal, plastic, and silicon parts, because that's what it is.\n\nConsider the scale of Apple’s achievement every year. With iPhone hype reaching cosmic proportions every September — and the price never falling — Apple still manages to exceed expectations and maintain some of the highest user satisfaction ratings in the United States. That’s in spite of stringing people along without a large-screened phone until last year, and despite continuing to sell an inadequate 16GB entry-level model today. The only explanation for this pattern, short of a mass delusion on a religion-like global scale, is that Apple provides substantial value to its hundreds of millions of satisfied iPhone buyers. Tech consumers are biased in favor of Apple products.\n\nThe iPhone is ubiquitous and there are many benefits accruing to its users from this omnipresence. iPhone cases and accessories are an industry unto themselves, which has most recently and impressively been highlighted by the DxO One camera. 'Made for iPhone' (MFI) is a mark of pride for peripheral makers, who dive enthusiastically into any new initiative that Apple chooses to embrace. Just witness the ill-fated iPhone game controller movement of 2013: it never had any compelling games that required physical controls, but that didn’t deter eager Apple partners from producing a broad range of weird and wonderful MFI gamepads. They did so — and they’d do it again in a heartbeat — because riding the iPhone’s coattails to sales is now a proven business strategy. Accessory makers are biased in favor of Apple product\n";
-         
+         cell.story.text = _articleObject.descriptions[0];
+   
          
          return cell;
 
+     } else if (indexPath.row == 2 ) {
+         ArticleStoryQuoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStoryQuote   forIndexPath:indexPath];
+         if (cell == nil) {
+             cell = [[ArticleStoryQuoteTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+         }
+         
+         
+         // ###Content
+
+         [cell setQuote:_articleObject.quotes[0][@"quote"]
+              forAuthor:_articleObject.quotes[0][@"author"]];
+         
+         [cell setCategoryColor: articleTypeColor];
+
+         return cell;
+         
+     } else {
+         ArticleReferenceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
+         if (cell == nil) {
+             cell = [[ArticleReferenceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+         }
+         
+         
+         // ###Content
+         
+         [cell setReference:_articleObject.source[@"title"]];
+         [cell setCategoryColor: articleTypeColor];
+         
+
+         
+         return cell;
      }
 
 
      
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ArticleReferenceTableViewCell class]])
+    {
+        [[UIApplication sharedApplication] openURL:_articleObject.source[@"url"]];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 
 - (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
-//    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
-    
-//    [self performSegueWithIdentifier:@"showArticlePictures" sender:self];
-    
-//    UIView *blankView = [[UIView alloc] initWithFrame:self.tableView.tableHeaderView.frame];
-//    blankView.backgroundColor = [UIColor blackColor];
-//    blankView.tag = 99;
-//    [self.tableView addSubview:blankView];
-    
+    //open header image full-screen
     [self bigButtonTapped:index];
-    
 }
 
 - (void)bigButtonTapped:(NSUInteger)index {
@@ -242,16 +290,8 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
                                            backgroundStyle:JTSImageViewControllerBackgroundOption_None];
     
     // Present the view controller.
-//    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
-    
-    [UIView animateWithDuration:2.5f animations:^{
-        [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
-    }];
-    
-    // modified in source ->
-//    static CGFloat const JTSImageViewController_MaxScalingForExpandingOffscreenStyleTransition = 1.0f;
-//    static CGFloat const JTSImageViewController_TransitionAnimationDuration = 0;
-    
+    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+
 }
 
 
@@ -288,8 +328,8 @@ static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self navigationBarSetup];
-//    [self.flatRoundedButton animateToType:buttonBackType];
+    [self backButonSetup];
+//    [self navigationBarSetup];
 }
 
 - (void)didReceiveMemoryWarning {

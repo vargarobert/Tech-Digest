@@ -1,21 +1,114 @@
 PODS:
-  - HexColors (2.3.0)
-  - JDFPeekaboo (0.2.1)
-  - Masonry (0.6.2)
+  - AFNetworking (2.6.1):
+    - AFNetworking/NSURLConnection (= 2.6.1)
+    - AFNetworking/NSURLSession (= 2.6.1)
+    - AFNetworking/Reachability (= 2.6.1)
+    - AFNetworking/Security (= 2.6.1)
+    - AFNetworking/Serialization (= 2.6.1)
+    - AFNetworking/UIKit (= 2.6.1)
+  - AFNetworking/NSURLConnection (2.6.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.1)
+  - AFNetworking/Security (2.6.1)
+  - AFNetworking/Serialization (2.6.1)
+  - AFNetworking/UIKit (2.6.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Bolts/Tasks (1.4.0)
+  - ChameleonFramework (2.0.4):
+    - ChameleonFramework/Default (= 2.0.4)
+  - ChameleonFramework/Default (2.0.4)
+  - DGActivityIndicatorView (2.0)
+  - DZNEmptyDataSet (1.7.2)
+  - FontAwesomeKit/Core (2.2.0)
+  - FontAwesomeKit/FontAwesome (2.2.0):
+    - FontAwesomeKit/Core
+  - INSPullToRefresh (1.0.12)
+  - JTSImageViewController (1.5.1)
+  - KIImagePager (2.1.0)
+  - Masonry (0.6.3)
+  - Parse (1.9.1):
+    - Bolts/Tasks (>= 1.4.0)
+  - pop (1.0.8)
+  - RKDropdownAlert (0.3.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
+  - TLYShyNavBar (0.10.1)
+  - UIActivityIndicator-for-SDWebImage (1.2):
+    - SDWebImage (~> 3.7)
+  - VBFPopFlatButton (0.0.6):
+    - pop
 
 DEPENDENCIES:
-  - HexColors
-  - JDFPeekaboo
+  - AFNetworking
+  - ChameleonFramework
+  - DGActivityIndicatorView
+  - DZNEmptyDataSet
+  - FontAwesomeKit/FontAwesome
+  - INSPullToRefresh
+  - JTSImageViewController (from `https://github.com/vargarobert/JTSImageViewController`)
+  - KIImagePager (from `https://github.com/vargarobert/KIImagePager`)
   - Masonry (~> 0.6.2)
+  - Parse
+  - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
   - SDWebImage (~> 3.7.3)
+  - TLYShyNavBar
+  - UIActivityIndicator-for-SDWebImage (from `https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage`)
+  - VBFPopFlatButton (from `https://github.com/vargarobert/VBFPopFlatButton`)
+
+EXTERNAL SOURCES:
+  JTSImageViewController:
+    :git: https://github.com/vargarobert/JTSImageViewController
+  KIImagePager:
+    :git: https://github.com/vargarobert/KIImagePager
+  RKDropdownAlert:
+    :git: https://github.com/vargarobert/RKDropdownAlert
+  UIActivityIndicator-for-SDWebImage:
+    :git: https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage
+  VBFPopFlatButton:
+    :git: https://github.com/vargarobert/VBFPopFlatButton
+
+CHECKOUT OPTIONS:
+  JTSImageViewController:
+    :commit: 2ddbf19e817f19cfb5af35ef4677489966d563e3
+    :git: https://github.com/vargarobert/JTSImageViewController
+  KIImagePager:
+    :commit: ad2c44a428f17c258a88e3d511f39d024db397c7
+    :git: https://github.com/vargarobert/KIImagePager
+  RKDropdownAlert:
+    :commit: 2dc33602a23c38d17b49f844db9ad5ba5cc30ee9
+    :git: https://github.com/vargarobert/RKDropdownAlert
+  UIActivityIndicator-for-SDWebImage:
+    :commit: 978f56504771d1677fe5787106ae17f6fe4c07eb
+    :git: https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage
+  VBFPopFlatButton:
+    :commit: c6a420e3846d828e058960c8475ef8e3cc8db892
+    :git: https://github.com/vargarobert/VBFPopFlatButton
 
 SPEC CHECKSUMS:
-  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  JDFPeekaboo: 24baf48f53e51210919f8160c1c235ccc7055021
-  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
+  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
+  DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
+  DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
+  FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
+  INSPullToRefresh: 3c3840b1837870d6553f749dab6520e31f551a76
+  JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
+  KIImagePager: aea488f00879fda4a4b81e2b83187da070907c85
+  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
+  Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  RKDropdownAlert: d0a662ad524d2712b1661e483a878a28259ca7e1
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  TLYShyNavBar: abeab693235fc21b5bd9c8de6e971da62fc3d1d9
+  UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
+  VBFPopFlatButton: 782344da63f104c279a857d806e065117a7e1196
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.39.0

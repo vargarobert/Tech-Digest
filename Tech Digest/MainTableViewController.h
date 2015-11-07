@@ -12,7 +12,7 @@
 
 
 //@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
+//@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @end
 

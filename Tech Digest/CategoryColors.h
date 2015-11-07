@@ -10,6 +10,7 @@
 
 @interface CategoryColors : UIColor
 
++ (NSDictionary *)getAllCategories;
 + (UIColor *)getCategoryColor:(NSString *)category;
 
 @end

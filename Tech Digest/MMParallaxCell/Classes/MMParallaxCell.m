@@ -14,23 +14,12 @@
 
 @property (nonatomic, strong) UITableView *parentTableView;
 @property (strong, nonatomic) UIColor *articleTypeColor;
-@property (weak, nonatomic) IBOutlet UIView *gradientView;
+@property (strong, nonatomic) UIView *gradientMask;
 
 @end
 
 @implementation MMParallaxCell
 
-
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setup];
-    }
-    
-    return self;
-}
 
 - (void)awakeFromNib
 {
@@ -42,13 +31,12 @@
     self.rowNumber.layer.borderColor = color.CGColor;
     self.category.layer.backgroundColor = color.CGColor;
     self.circleLayer.strokeColor = color.CGColor;
-    
 }
 
 - (void) markAsRead {
     self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
+//    self.rowNumber.layer.opacity=0.5f;
 }
-
 
 - (void) setup
 {
@@ -66,7 +54,7 @@
     self.category.layer.cornerRadius = 7;
     UIEdgeInsets titleInsets = UIEdgeInsetsMake(0, 5.0, 0, 5.0);
     self.category.edgeInsets = titleInsets;
-    
+
     
     //TITLE
     self.title.textColor = [UIColor whiteColor];
@@ -80,6 +68,7 @@
 	self.parallaxImage.contentMode = UIViewContentModeScaleAspectFill;
     
     self.parallaxRatio = 1.5f;
+
     
 	self.clipsToBounds = YES;
 }
@@ -157,9 +146,15 @@
     self.parallaxRatio = self.parallaxRatio;
 
     //add gradient over the parallax image
-    NSArray *colors = [NSArray arrayWithObjects:[[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1], [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.1], nil];
-    self.gradientView.layer.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleTopToBottom
-                                                                    withFrame:self.parallaxImage.frame                                                               andColors:colors].CGColor;
+    if(!self.gradientMask) {
+        NSArray *colors = [NSArray arrayWithObjects:[[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.7], [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0], nil];
+        self.gradientMask = [[UIView alloc] initWithFrame:self.contentView.frame];
+        self.gradientMask.layer.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleTopToBottom
+                                                                         withFrame:self.contentView.frame                                                               andColors:colors].CGColor;
+        // add it as a subview
+        [self.contentView insertSubview:self.gradientMask atIndex:1];
+    }
+    
     return;
 }
 
@@ -201,6 +196,7 @@
     CGRect rect = self.parallaxImage.frame;
     rect.origin.y = -extraHeight*percent;
     self.parallaxImage.frame = rect;
+
 }
 
 @end

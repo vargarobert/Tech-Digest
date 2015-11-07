@@ -11,7 +11,7 @@
 
 @implementation CategoryColors
 
-NSDictionary *inventory;
+NSDictionary *categoryColors;
 
 - (id)init {
     self = [super init];
@@ -23,27 +23,33 @@ NSDictionary *inventory;
 
 
 + (void)initialize {
-    if(!inventory)
-        inventory = @{
-                       @"MOBILE" : [UIColor colorWithHexString:@"1486f9"], //blue
+    if(!categoryColors)
+        categoryColors = @{
+                       @"MOBILE" : [UIColor colorWithHexString:@"DE5149"], //red
                        @"SECURITY@" : [UIColor flatNavyBlueColor],
                        @"STARTUPS" : [UIColor flatPurpleColorDark],
                        @"GAMING" : [UIColor colorWithHexString:@"F0B80C"],//yellow
                        @"INTERNET" : [UIColor flatGreenColorDark],
                        @"BUSINESS IT" : [UIColor flatTealColor],
-                       @"SOFTWARE" : [UIColor flatRedColor],
+                       @"SOFTWARE" : [UIColor colorWithHexString:@"1486f9"], //blue
                        @"INFRASTRUCTURE" : [UIColor flatPlumColor],
-                       @"GADGETS" : [UIColor flatOrangeColor]
+                       @"GADGETS" : [UIColor flatOrangeColor],
+                       @"HARDWARE" : [UIColor flatCoffeeColor]
                        };
 }
 
++ (NSDictionary *)getAllCategories {
+    return categoryColors;
+}
+
+
 + (UIColor *)getCategoryColor:(NSString *)category {
 
-    for (id key in inventory) {
+    for (id key in categoryColors) {
         
         if( [key caseInsensitiveCompare:category] == NSOrderedSame ) {
             //reuturn UIColor for cateogry
-            return inventory[key];
+            return categoryColors[key];
         }
         
     }

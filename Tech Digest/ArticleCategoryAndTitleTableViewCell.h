@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rowNumber;
 @property (weak, nonatomic) IBOutlet InsetUILabel *category;
 
--(void) setCategoryColor:(UIColor *) color;
+-(void)setCategoryColor:(UIColor *)color;
 
 
 @end

@@ -8,17 +8,58 @@
 
 #import "AppDelegate.h"
 
+//alert view
+#import "RKDropdownAlert.h"
+//colors
+#import <ChameleonFramework/Chameleon.h>
+//reachability (connection)
+#import <AFNetworkReachabilityManager.h>
+//parse
+#import <Parse/Parse.h>
+#import "PFArticle.h"
+
+
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    //PARSE base setup
+    [Parse enableLocalDatastore];
+    // Initialize Parse.
+    [Parse setApplicationId:@"qKpgNk7qQyYyl4Yn98O4vhYP4xuPVpKfRHROA1Us" clientKey:@"bUGTIANQ7t6IZbpWJtTEeMWlycereNKsLM78oZaV"];
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+
+
+    //DETECT INTERNET CONNECTION
+    [self reachabilityCheck];
+
+    
     return YES;
+}
+
+
+-(void)reachabilityCheck {
+    //start monitor
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    //Checking the Internet connection...
+    [[AFNetworkReachabilityManager sharedManager]setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
+        if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            //connection exists
+            [RKDropdownAlert dismissAllAlert];
+        }else{
+            // NO connection
+            [RKDropdownAlert title:@"No Internet Connection" backgroundColor:[UIColor colorWithHexString:@"FA275C" withAlpha:0.95] textColor:[UIColor whiteColor]];
+        }
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -1,6 +1,0 @@
-#include "Pods-Tech Digest-Masonry.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Masonry" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ChameleonFramework" "${PODS_ROOT}/Headers/Public/JTSImageViewController" "${PODS_ROOT}/Headers/Public/KIImagePager" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/TLYShyNavBar" "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" "${PODS_ROOT}/Headers/Public/pop"
-OTHER_LDFLAGS = ${PODS_TECH_DIGEST_MASONRY_OTHER_LDFLAGS} -ObjC
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

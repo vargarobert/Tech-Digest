@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+//Article Model
+#import "PFArticle.h"
 
 @interface ArticleViewController : UIViewController
+
+@property (nonatomic,strong) PFArticle *articleObject;
+@property (nonatomic,strong) NSString *articleOrder;
 
 @end

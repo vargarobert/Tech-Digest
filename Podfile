@@ -5,10 +5,17 @@ pod 'SDWebImage', '~> 3.7.3'
 pod 'Masonry', '~> 0.6.2'
 pod 'ChameleonFramework'
 pod 'TLYShyNavBar'
-pod 'JTSImageViewController', :git => 'https://github.com/jaredsinclair/JTSImageViewController'
+pod 'INSPullToRefresh'
+pod 'FontAwesomeKit/FontAwesome'
+pod 'JTSImageViewController', :git => 'https://github.com/vargarobert/JTSImageViewController'
 pod 'VBFPopFlatButton', :git => 'https://github.com/vargarobert/VBFPopFlatButton'
-pod 'KIImagePager', :git => 'https://github.com/kimar/KIImagePager'
-
+pod 'KIImagePager', :git => 'https://github.com/vargarobert/KIImagePager'
+pod 'UIActivityIndicator-for-SDWebImage', :git => 'https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage'
+pod 'DGActivityIndicatorView'
+pod 'RKDropdownAlert', :git => 'https://github.com/vargarobert/RKDropdownAlert'
+pod 'DZNEmptyDataSet'
+pod 'Parse'
+pod 'AFNetworking'
 
 target 'Tech Digest' do
 
