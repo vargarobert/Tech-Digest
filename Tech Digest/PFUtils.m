@@ -9,6 +9,8 @@
 #import "PFUtils.h"
 #import "PFArticle.h"
 
+typedef void(^completion)(NSArray *array);
+
 @implementation PFUtils
 
 + (id)sharedInstance {
@@ -35,6 +37,37 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *articles, NSError *error) {
         resultBlock(articles, error);
     }];
+}
+///
+
++(void)_getArticlesFromDatastoreForDate:(NSDate*)today completion:(void (^)(NSArray *array))completionBlock  {
+    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                value:1
+                                                               toDate:today
+                                                              options:0];
+    //query parameters
+    PFQuery *query = [PFArticle query];
+    //get from local datastore
+    [query fromLocalDatastore];
+    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
+    [query whereKey:@"batchDate" lessThan:tomorrow];
+    
+//    __block NSArray *data = [[NSArray alloc] init];
+    NSLog(@"%@", today);
+    
+    //begin query
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            //sucess
+//            data = objects;
+//            if ( objects.count ) {
+//                return objects;
+//            }
+            completionBlock(objects);
+            //sucess end
+        }
+    }];
+    
 }
 
 

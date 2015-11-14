@@ -14,4 +14,6 @@
 + (id)sharedInstance;
 - (void)findAllArticlesInBackgroundWithBlock:(PFArrayResultBlock)resultBlock;
 
++(void)_getArticlesFromDatastoreForDate:(NSDate*)today completion:(void (^)(NSArray *array))completionBlock;
+
 @end

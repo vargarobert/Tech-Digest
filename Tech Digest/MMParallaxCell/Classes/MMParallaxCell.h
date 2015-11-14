@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet InsetUILabel *category;
 -(void) setCategoryColor:(UIColor *) color;
 -(void) markAsRead;
+- (void) markAsReadAnimated;
 
 @property (nonatomic, strong) CAShapeLayer *circleLayer;
 

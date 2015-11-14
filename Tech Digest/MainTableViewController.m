@@ -9,8 +9,9 @@
 #import "MainTableViewController.h"
 //Article full view controller
 #import "ArticleViewController.h"
-
 #import "MMParallaxCell.h"
+//userdefaults utils
+#import "NSUserDefaultsUtils.h"
 
 #import "CategoryColors.h"
 //time circle view
@@ -66,10 +67,25 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 - (id)init {
     if (self = [super init]) {
         self.firstLoadDone = NO;
-        self.articleData = [[NSArray alloc] init];
     }
     return self;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,19 +93,98 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     //setup table
     [self tableSetup];
     
-    //PULL to REFRESH
+    //PULL to REFRESH setup
     [self pullToRefresh];
     
-    //get articles and set today's date
     //get today's DATE for current location with time 00:00:00
     self.today = [self resetTimeFromDateByLocation:[NSDate date]];
-    //start getting new data through pull to refresh
-    [self.tableView ins_beginPullToRefresh];
+    
+    //GET ARTICLES
+//    [self getInitialData];
+    
+    //get data for today only from LOCALDATASTORE
+    [PFUtils _getArticlesFromDatastoreForDate:self.today completion:^(NSArray *array) {
+        //in the case of local data store populate only if it exists for temporary purposes. Ultimately rely on network as a master source
+        if (array) {
+            self.articleData = array;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            //first load occured
+            self.firstLoadDone = YES;
+            //reload table background for an empty table case
+            [self.tableView reloadEmptyDataSet];
+        }
+    }];
 
+
+     
+    
+    
+//    if ( localData.count ) {
+//        NSLog(@"sdas");
+//        self.articleData = localData;
+//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+//        //first load occured
+//        self.firstLoadDone = YES;
+//        //reload table background for an empty table case
+//        [self.tableView reloadEmptyDataSet];
+//    }
+    
+    //start getting new data through pull to refresh from CLOUD
+    [self.tableView ins_beginPullToRefresh];
 }
 
 
 #pragma mark TEST PARSE
+
+- (void)_getArticlesFromDatastoreforDate:(NSDate*)today {
+    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                value:1
+                                                               toDate:today
+                                                              options:0];
+    //query parameters
+    PFQuery *query = [PFArticle query];
+    //get from local datastore
+    [query fromLocalDatastore];
+    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
+    [query whereKey:@"batchDate" lessThan:tomorrow];
+    
+    NSLog(@"%@", today);
+    
+    //begin query
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            //sucess
+            if ( objects.count ) {
+                self.articleData = objects;
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+                //first load occured
+                self.firstLoadDone = YES;
+                //reload table background for an empty table case
+                [self.tableView reloadEmptyDataSet];
+            }
+            //sucess end
+        }
+    }];
+    
+}
+
+- (void)pullToRefresh {
+    //get new data selector
+    [self.tableView ins_addPullToRefreshWithHeight:70.0 handler:^(UIScrollView *scrollView) {
+        int64_t delayInSeconds = 1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            //get data from PARSE
+            [self getDataForDate:self.today];
+        });
+    }];
+    
+    //table Pull To Refresh
+    CGRect defaultFrame = CGRectMake(0, 0, 50, 50);
+    UIView <INSPullToRefreshBackgroundViewDelegate> *pullToRefresh = [[INSTwitterPullToRefresh alloc] initWithFrame:defaultFrame];
+    self.tableView.ins_pullToRefreshBackgroundView.delegate = pullToRefresh;
+    [self.tableView.ins_pullToRefreshBackgroundView addSubview:pullToRefresh];
+}
 
 - (void)getDataForDate:(NSDate*)today {
     //prepare yesterday date incase no data for today
@@ -110,6 +205,9 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
             if (result==HTTPCode200OK) {
                 //YES results
                 NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
+                //save to localdatastore
+                [PFObject pinAllInBackground:self.articleData];
+                //reload table
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
             }
             //stop refresh spinner
@@ -137,7 +235,13 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
     [query whereKey:@"batchDate" lessThan:tomorrow];
     
-    
+    //only for the first run, today, try to get from localDatastore
+//    if( !self.firstLoadDone ) {
+//        [query fromLocalDatastore];
+//        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+//        NSLog(@"fromLocalDatastore %@", today);
+//    }
+
     NSLog(@"%@", today);
     //    NSLog(@"%@", tomorrow);
     
@@ -157,13 +261,15 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
                 if ( objects.count ) {
                     resultBlock(HTTPCode200OK);
                 } else {
-                    resultBlock(HTTPCode204NoContent);
+                    resultBlock(HTTPCode204NoContent); 
                 }
             }
             //sucess end
         } else {
             //error
             if (resultBlock) { resultBlock(HTTPCode599NetworkConnectTimeoutErrorUnknown); }
+
+            
             
             if ([error code] == kPFErrorObjectNotFound) {
                 NSLog(@"Uh oh, we couldn't find the object!");
@@ -198,23 +304,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 
 
-- (void)pullToRefresh {
-    //get new data selector
-    [self.tableView ins_addPullToRefreshWithHeight:70.0 handler:^(UIScrollView *scrollView) {
-        int64_t delayInSeconds = 1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            //get data from PARSE
-            [self getDataForDate:self.today];
-        });
-    }];
-    
-    //table Pull To Refresh
-    CGRect defaultFrame = CGRectMake(0, 0, 50, 50);
-    UIView <INSPullToRefreshBackgroundViewDelegate> *pullToRefresh = [[INSTwitterPullToRefresh alloc] initWithFrame:defaultFrame];
-    self.tableView.ins_pullToRefreshBackgroundView.delegate = pullToRefresh;
-    [self.tableView.ins_pullToRefreshBackgroundView addSubview:pullToRefresh];
-}
+
 
 
 
@@ -243,52 +333,14 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //dummy data
-    NSString *articleCategory = @"";
-    switch (indexPath.row) {
-        case 0:
-            articleCategory = @"mobile";
-            break;
-        case 1:
-            articleCategory = @"gaming";
-            break;
-        case 2:
-            articleCategory = @"security";
-            break;
-        case 3:
-            articleCategory = @"internet";
-            break;
-        case 4:
-            articleCategory = @"startups";
-            break;
-        case 5:
-            articleCategory = @"gadgets";
-            break;
-        case 6:
-            articleCategory = @"software";
-            break;
-        case 7:
-            articleCategory = @"infrastructure";
-            break;
-        case 8:
-            articleCategory = @"business it";
-            break;
-    }
-    articleCategory = [articleCategory uppercaseString];
-    //dummy data END
-    
     PFArticle *articleObject = self.articleData[indexPath.row];
-    UIColor *articleTypeColor = [CategoryColors getCategoryColor: articleObject.category.title ];
+    UIColor *articleTypeColor = [CategoryColors getCategoryColor: articleObject.category.title];
     
     
     // ### TOP CELL ###
     if (indexPath.row == 0) {
-        MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierFirst   forIndexPath:indexPath];
-        
-        if (cell == nil) {
-            cell = [[MMParallaxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        }
-        
+        MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierFirst];
+
         
         // ###Content
         //TIME label setup
@@ -310,21 +362,27 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         //image
         [cell.parallaxImage setImageWithURL:[NSURL URLWithString:articleObject.mainImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         
-        
         //color set based on article
         [cell setCategoryColor: articleTypeColor];
         _timeView.color = articleTypeColor;
         
-        
+        //mark as read
+        if ([NSUserDefaultsUtils isObjectMarkedAsRead:articleObject.objectId]) {
+            [cell markAsRead];
+        }
+
+    
         return cell;
     }
     
     // ### STANDARD CELL ###
     else {
-        MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierStandard   forIndexPath:indexPath];
-        if (cell == nil) {
-            cell = [[MMParallaxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        }
+        MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierStandard];
+
+        
+//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        
         
         // ###Content
         
@@ -342,13 +400,9 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         
         //mark as read
-        if (indexPath.row % 2 == 0 && cell.rowNumber.layer.backgroundColor != articleTypeColor.CGColor) { //something else  in IF to verify if the article was read allready
+        if ([NSUserDefaultsUtils isObjectMarkedAsRead:articleObject.objectId]) {
             [cell markAsRead];
-            
-            //title longer REMOVE===
-//            cell.title.text = @"Android Fans Bomb Apple’s ‘Move to iOS’ Android App With One-Star Reviews Android Fans Bomb Apple’s ‘Move to iOS’ Android App With One-Star ReviewsAndroid Fans Bomb Apple’s ‘Move to iOS’ Android App With One-Star Reviews";
         }
-        
         
         return cell;
     }
@@ -363,7 +417,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     // SEPARATOR between cells
     static NSInteger const separatorTag = 123;
     UIView* separatorLineView = (UIView *)[cell.contentView viewWithTag:separatorTag];
@@ -490,7 +544,13 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];   //it hides
-    //    self.shyNavBarManager.disable=true;
+
+    //help reload table for marking cell article as READ
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadData];
+    if(indexPath) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -522,8 +582,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 #pragma mark - General settings
 
 -(void)tableSetup {
-    
-    
     //tableView setup
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;

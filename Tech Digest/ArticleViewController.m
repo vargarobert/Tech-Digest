@@ -14,6 +14,9 @@
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
 
+//userdefaults utils
+#import "NSUserDefaultsUtils.h"
+
 //pictures controller
 //#import "ArticlePicturesViewController.h"
 
@@ -30,16 +33,14 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 
+
 @interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, JTSImageViewControllerOptionsDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
-
 @property (nonatomic,strong) KIImagePager *imagePager;
 @property (nonatomic,strong) NSArray *images;
-//@property (nonatomic,strong) NSArray *cellContent;
-//@property (nonatomic,strong) NSURL *imgURL;
 
 @end
 
@@ -51,25 +52,7 @@ static NSString* cellIdentifierArticleStoryQuote = @"cellIdentifierArticleStoryQ
 static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReference";
 
 
-#pragma mark - KIImagePager DataSource
-- (NSArray *) arrayWithImages:(KIImagePager*)pager
-{
-    if (!_images){
-//        _images = [[NSMutableArray alloc] initWithObjects:
-//                   @"http://rack.1.mshcdn.com/media/ZgkyMDE1LzA4LzI0L2IxL3RpbWNvb2suZDFiYjEuanBnCnAJdGh1bWIJOTUweDUzNCMKZQlqcGc/a904b975/aee/tim-cook.jpg",
-//                   @"https://cdn0.vox-cdn.com/thumbor/2zXUVPwug-pH5lJ7NVBo_9nr_vw=/800x0/filters:no_upscale()/cdn0.vox-cdn.com/uploads/chorus_asset/file/4099446/alGVuoVYfFpuqK5o.0.jpeg",
-//                   @"https://cdn1.vox-cdn.com/uploads/chorus_asset/file/4093926/3D_Touch_Screenshot.0.png",
-//                   nil
-//                   ];
-        _images = _articleObject.imagesUrls;
-    }
-    
-    return _images;
-}
-- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager*)pager
-{
-    return UIViewContentModeScaleAspectFill;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,7 +63,10 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
     
-NSLog(@"%@",self.articleObject.category.title);
+    //mark article as read
+    [NSUserDefaultsUtils markObjectAsRead:self.articleObject.objectId];
+    
+    NSLog(@"%@",self.articleObject.objectId);
 //    [self.navigationController.interactivePopGestureRecognizer addTarget:self
 //                                                                  action:@selector(handlePopGesture:)];
 }
@@ -100,6 +86,7 @@ NSLog(@"%@",self.articleObject.category.title);
 //    // handle other gesture states, if desired
 //}
 
+#pragma mark - General SETUP
 
 -(void)tableSetup {
     self.tableView.delegate = self;
@@ -172,99 +159,142 @@ NSLog(@"%@",self.articleObject.category.title);
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    int sections = 2; // title + source
+//    
+//    sections += _articleObject.descriptions.count; //number of description sections
+//    
+//    return sections;
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    int rows = 2; // title + source
+    
+    rows += _articleObject.descriptions.count;
+    rows += _articleObject.quotes.count;
+
+    return rows;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-     
+    
+    //ArticleCategoryAndTitleTableViewCell
+    ArticleCategoryAndTitleTableViewCell *articleCategoryAndTitleTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle   forIndexPath:indexPath];
+    
+    //ArticleStoryTableViewCell
+    ArticleStoryTableViewCell *articleStoryTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory   forIndexPath:indexPath];
+    
+    //ArticleStoryQuoteTableViewCell
+    ArticleStoryQuoteTableViewCell *articleStoryQuoteTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStoryQuote   forIndexPath:indexPath];
+
+    //ArticleReferenceTableViewCell
+    ArticleReferenceTableViewCell *articleReferenceTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
+
+    
     UIColor *articleTypeColor = [CategoryColors getCategoryColor: _articleObject.category.title ];
 
-
+    
      if (indexPath.row == 0) {
          
-         ArticleCategoryAndTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle   forIndexPath:indexPath];
-         if (cell == nil) {
-             cell = [[ArticleCategoryAndTitleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-         }
-         
          // ###Content
-         
          //title
-         cell.title.text = _articleObject.title;
+         articleCategoryAndTitleTableViewCell.title.text = _articleObject.title;
          //row number and category
-         cell.rowNumber.text = _articleOrder;
-         cell.category.text = [_articleObject.category.title uppercaseString];
+         articleCategoryAndTitleTableViewCell.rowNumber.text = _articleOrder;
+         articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
          
-         [cell setCategoryColor: articleTypeColor];
+         [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
 
         
-         return cell;
+         return articleCategoryAndTitleTableViewCell;
 
-     } else if (indexPath.row == 1 || indexPath.row == 3 ) {
-         
-         ArticleStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory   forIndexPath:indexPath];
-         if (cell == nil) {
-             cell = [[ArticleStoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-         }
+     } else if (indexPath.row == 1 && _articleObject.descriptions.count >= 1) {
          
          // ###Content
-         
-         cell.story.text = _articleObject.descriptions[0];
+         articleStoryTableViewCell.story.text = _articleObject.descriptions[0];
    
          
-         return cell;
+         return articleStoryTableViewCell;
 
-     } else if (indexPath.row == 2 ) {
-         ArticleStoryQuoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStoryQuote   forIndexPath:indexPath];
-         if (cell == nil) {
-             cell = [[ArticleStoryQuoteTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-         }
-         
+     } else if (indexPath.row == 2 && _articleObject.quotes.count >= 1) {
          
          // ###Content
-
-         [cell setQuote:_articleObject.quotes[0][@"quote"]
+         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[0][@"quote"]
               forAuthor:_articleObject.quotes[0][@"author"]];
          
-         [cell setCategoryColor: articleTypeColor];
+         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
 
-         return cell;
+         return articleStoryQuoteTableViewCell;
          
-     } else {
-         ArticleReferenceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
-         if (cell == nil) {
-             cell = [[ArticleReferenceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-         }
-         
+     } else if ( indexPath.row == 3 && _articleObject.descriptions.count >= 2 ) {
          
          // ###Content
+         articleStoryTableViewCell.story.text = _articleObject.descriptions[1];
          
-         [cell setReference:_articleObject.source[@"title"]];
-         [cell setCategoryColor: articleTypeColor];
          
+         return articleStoryTableViewCell;
+         
+     } else if (indexPath.row == 4 && _articleObject.quotes.count >= 2) {
+         
+         // ###Content
+         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[1][@"quote"]
+                                        forAuthor:_articleObject.quotes[1][@"author"]];
+         
+         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
+         
+         return articleStoryQuoteTableViewCell;
+         
+     } else {
 
+         // ###Content
+         [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
+         [articleReferenceTableViewCell setCategoryColor: articleTypeColor];
          
-         return cell;
+         return articleReferenceTableViewCell;
      }
-
+    
 
      
 }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ArticleReferenceTableViewCell class]])
     {
-        [[UIApplication sharedApplication] openURL:_articleObject.source[@"url"]];
+        //alert view
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Open this in Safari?"
+                                                                       message:@""
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  //open in Safari
+                                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_articleObject.source[@"url"]]];
+                                                              }];
+        [alert addAction:cancelAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        //deselect cell
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
 
+#pragma mark - IMAGES pager + fullscreen (table header)
+
+- (NSArray *) arrayWithImages:(KIImagePager*)pager
+{
+    if (!_images){
+        _images = _articleObject.imagesUrls;
+    }
+    return _images;
+}
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager*)pager
+{
+    return UIViewContentModeScaleAspectFill;
+}
 - (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     //open header image full-screen
@@ -304,6 +334,8 @@ NSLog(@"%@",self.articleObject.category.title);
 //        articlePicturesViewController.images = _images;
 //    }
 //}
+
+#pragma mark - View settings
 
 - (void)popViewController {    
     // Tell the controller to go back

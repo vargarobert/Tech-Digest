@@ -29,13 +29,26 @@
 - (void) setCategoryColor:(UIColor *)color {
     self.articleTypeColor = color;
     self.rowNumber.layer.borderColor = color.CGColor;
+    self.rowNumber.layer.backgroundColor = [self.articleTypeColor colorWithAlphaComponent:0.3].CGColor;//[UIColor clearColor].CGColor;
     self.category.layer.backgroundColor = color.CGColor;
     self.circleLayer.strokeColor = color.CGColor;
 }
 
 - (void) markAsRead {
     self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
-//    self.rowNumber.layer.opacity=0.5f;
+}
+
+- (void) markAsReadAnimated {
+    [UIView animateWithDuration:0.5
+                          delay:0.5
+                        options: UIViewAnimationOptionTransitionCrossDissolve
+                     animations:^{
+                         self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         NSLog(@"Done!");
+                     }];
 }
 
 - (void) setup

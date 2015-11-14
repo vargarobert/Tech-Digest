@@ -55,9 +55,9 @@
 		7579FE241BA40BE500A42D13 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7579FE221BA40BE500A42D13 /* LaunchScreen.xib */; };
 		7579FE301BA40BE500A42D13 /* Tech_DigestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7579FE2F1BA40BE500A42D13 /* Tech_DigestTests.m */; };
 		758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758ACCF31BB1C90900E884F9 /* InsetUILabel.m */; };
-		758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 758C56931BA59CDD008580FD /* RoundedRectLabel.m */; };
 		75B4CE6B1BC0483C0099126E /* CBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B4CE6A1BC0483C0099126E /* CBNavigationController.m */; };
 		75F86D721BED338C000B580D /* FTHTTPCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F86D711BED338C000B580D /* FTHTTPCodes.m */; };
+		75F86D771BEE7601000B580D /* NSUserDefaultsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F86D761BEE7601000B580D /* NSUserDefaultsUtils.m */; };
 		75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB61C11BCF8FF60057E478 /* CategoryColors.m */; };
 /* End PBXBuildFile section */
 
@@ -117,8 +117,8 @@
 		753C8DC01BA47F4700D1D7B0 /* SF-UI-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-RegularItalic.otf"; sourceTree = "<group>"; };
 		753C8DC11BA47F4700D1D7B0 /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Semibold.otf"; sourceTree = "<group>"; };
 		753C8DC21BA47F4700D1D7B0 /* SF-UI-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
-		753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMParallaxCell.h; sourceTree = "<group>"; };
-		753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMParallaxCell.m; sourceTree = "<group>"; };
+		753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMParallaxCell.h; path = Classes/MMParallaxCell.h; sourceTree = "<group>"; };
+		753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMParallaxCell.m; path = Classes/MMParallaxCell.m; sourceTree = "<group>"; };
 		755DD9031BE16A6D00B48E0C /* PFArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArticle.h; sourceTree = "<group>"; };
 		755DD9041BE16A6D00B48E0C /* PFArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFArticle.m; sourceTree = "<group>"; };
 		7568174E1BE4DE5600F254CA /* PFCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCategory.h; sourceTree = "<group>"; };
@@ -140,12 +140,12 @@
 		7579FE2F1BA40BE500A42D13 /* Tech_DigestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tech_DigestTests.m; sourceTree = "<group>"; };
 		758ACCF21BB1C90900E884F9 /* InsetUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetUILabel.h; sourceTree = "<group>"; };
 		758ACCF31BB1C90900E884F9 /* InsetUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetUILabel.m; sourceTree = "<group>"; };
-		758C56921BA59CDD008580FD /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedRectLabel.h; sourceTree = "<group>"; };
-		758C56931BA59CDD008580FD /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedRectLabel.m; sourceTree = "<group>"; };
 		75B4CE691BC0483C0099126E /* CBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNavigationController.h; sourceTree = "<group>"; };
 		75B4CE6A1BC0483C0099126E /* CBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNavigationController.m; sourceTree = "<group>"; };
 		75F86D701BED338C000B580D /* FTHTTPCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTHTTPCodes.h; sourceTree = "<group>"; };
 		75F86D711BED338C000B580D /* FTHTTPCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTHTTPCodes.m; sourceTree = "<group>"; };
+		75F86D751BEE7601000B580D /* NSUserDefaultsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDefaultsUtils.h; sourceTree = "<group>"; };
+		75F86D761BEE7601000B580D /* NSUserDefaultsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDefaultsUtils.m; sourceTree = "<group>"; };
 		75FB61C01BCF8FF60057E478 /* CategoryColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryColors.h; sourceTree = "<group>"; };
 		75FB61C11BCF8FF60057E478 /* CategoryColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryColors.m; sourceTree = "<group>"; };
 		7ADAB0C08BBD365E1B40A3D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -306,20 +306,10 @@
 		753C8E131BA59BB400D1D7B0 /* MMParallaxCell */ = {
 			isa = PBXGroup;
 			children = (
-				753C8E141BA59BB400D1D7B0 /* Classes */,
-			);
-			path = MMParallaxCell;
-			sourceTree = "<group>";
-		};
-		753C8E141BA59BB400D1D7B0 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				758C56921BA59CDD008580FD /* RoundedRectLabel.h */,
-				758C56931BA59CDD008580FD /* RoundedRectLabel.m */,
 				753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */,
 				753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */,
 			);
-			path = Classes;
+			path = MMParallaxCell;
 			sourceTree = "<group>";
 		};
 		755DD9021BE1694700B48E0C /* Models */ = {
@@ -426,6 +416,8 @@
 			children = (
 				75F86D701BED338C000B580D /* FTHTTPCodes.h */,
 				75F86D711BED338C000B580D /* FTHTTPCodes.m */,
+				75F86D751BEE7601000B580D /* NSUserDefaultsUtils.h */,
+				75F86D761BEE7601000B580D /* NSUserDefaultsUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -625,12 +617,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				750E22571BD1910100EE3EC3 /* ArticleReferenceTableViewCell.m in Sources */,
+				75F86D771BEE7601000B580D /* NSUserDefaultsUtils.m in Sources */,
 				75B4CE6B1BC0483C0099126E /* CBNavigationController.m in Sources */,
 				750229D71BB43E1200AB1006 /* ArticleStoryTableViewCell.m in Sources */,
 				752818F51BCFF10C00645B09 /* ArticleStoryQuoteTableViewCell.m in Sources */,
 				758ACCF41BB1C90900E884F9 /* InsetUILabel.m in Sources */,
 				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
-				758C56941BA59CDD008580FD /* RoundedRectLabel.m in Sources */,
 				756817501BE4DE5600F254CA /* PFCategory.m in Sources */,
 				756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */,
 				75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */,
