@@ -16,6 +16,7 @@ pod 'RKDropdownAlert', :git => 'https://github.com/vargarobert/RKDropdownAlert'
 pod 'DZNEmptyDataSet'
 pod 'Parse'
 pod 'AFNetworking'
+pod 'SwipeBack'
 
 target 'Tech Digest' do
 

@@ -40,6 +40,7 @@ PODS:
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
+  - SwipeBack (1.1.0)
   - TLYShyNavBar (0.10.1)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - Parse
   - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
   - SDWebImage (~> 3.7.3)
+  - SwipeBack
   - TLYShyNavBar
   - UIActivityIndicator-for-SDWebImage (from `https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage`)
   - VBFPopFlatButton (from `https://github.com/vargarobert/VBFPopFlatButton`)
@@ -107,6 +109,7 @@ SPEC CHECKSUMS:
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RKDropdownAlert: d0a662ad524d2712b1661e483a878a28259ca7e1
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SwipeBack: 45a42c333b7b9657b9f02cf19673339b3a006195
   TLYShyNavBar: abeab693235fc21b5bd9c8de6e971da62fc3d1d9
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   VBFPopFlatButton: 782344da63f104c279a857d806e065117a7e1196

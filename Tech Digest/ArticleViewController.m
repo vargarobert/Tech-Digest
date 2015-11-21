@@ -13,6 +13,8 @@
 #import "ArticleStoryTableViewCell.h"
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
+//navigation swipe
+#import <SwipeBack/SwipeBack.h>
 
 //userdefaults utils
 #import "NSUserDefaultsUtils.h"
@@ -95,7 +97,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     self.shyNavBarManager.scrollView = self.tableView;
     self.tableView.backgroundColor = [UIColor blackColor];
 
-    self.tableView.estimatedRowHeight = 500.0;
+    self.tableView.estimatedRowHeight = 50.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     //nibs and cell identifiers
@@ -360,6 +362,8 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.swipeBackEnabled = YES;
+
     [self backButonSetup];
 //    [self navigationBarSetup];
 }

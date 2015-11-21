@@ -10,6 +10,8 @@
 //Article full view controller
 #import "ArticleViewController.h"
 #import "MMParallaxCell.h"
+//navigation swipe
+#import <SwipeBack/SwipeBack.h>
 //userdefaults utils
 #import "NSUserDefaultsUtils.h"
 
@@ -73,20 +75,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -99,73 +87,31 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     //get today's DATE for current location with time 00:00:00
     self.today = [self resetTimeFromDateByLocation:[NSDate date]];
     
-    //GET ARTICLES
-//    [self getInitialData];
-    
-    //get data for today only from LOCALDATASTORE
+    //GET ARTICLES data
+    [self getInitialDataOnViewDidLoad];
+}
+
+
+#pragma mark GET PARSE DATA
+
+- (void)getInitialDataOnViewDidLoad {
+    // 1. get data for today only from LOCALDATASTORE
     [PFUtils _getArticlesFromDatastoreForDate:self.today completion:^(NSArray *array) {
         //in the case of local data store populate only if it exists for temporary purposes. Ultimately rely on network as a master source
-        if (array) {
+        if (array.count) {
             self.articleData = array;
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             //first load occured
             self.firstLoadDone = YES;
             //reload table background for an empty table case
             [self.tableView reloadEmptyDataSet];
+            NSLog(@"local data count: %lu",(unsigned long)array.count);
+        } else {
+            //no cache data for today
+            // 2. start getting new data through pull to refresh from CLOUD
+            [self.tableView ins_beginPullToRefresh];
         }
     }];
-
-
-     
-    
-    
-//    if ( localData.count ) {
-//        NSLog(@"sdas");
-//        self.articleData = localData;
-//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-//        //first load occured
-//        self.firstLoadDone = YES;
-//        //reload table background for an empty table case
-//        [self.tableView reloadEmptyDataSet];
-//    }
-    
-    //start getting new data through pull to refresh from CLOUD
-    [self.tableView ins_beginPullToRefresh];
-}
-
-
-#pragma mark TEST PARSE
-
-- (void)_getArticlesFromDatastoreforDate:(NSDate*)today {
-    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
-                                                                value:1
-                                                               toDate:today
-                                                              options:0];
-    //query parameters
-    PFQuery *query = [PFArticle query];
-    //get from local datastore
-    [query fromLocalDatastore];
-    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
-    [query whereKey:@"batchDate" lessThan:tomorrow];
-    
-    NSLog(@"%@", today);
-    
-    //begin query
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            //sucess
-            if ( objects.count ) {
-                self.articleData = objects;
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-                //first load occured
-                self.firstLoadDone = YES;
-                //reload table background for an empty table case
-                [self.tableView reloadEmptyDataSet];
-            }
-            //sucess end
-        }
-    }];
-    
 }
 
 - (void)pullToRefresh {
@@ -192,20 +138,19 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
                                                                  value:-1
                                                                 toDate:today
                                                                options:0];
-
-
-    //GET
-    [self _getArticles:^(int result) {
-        if (result==HTTPCode204NoContent) {
+    
+    [PFUtils _getArticlesFromCloudForDate:today completion:^(int HTTPCode, NSArray *array) {
+        if (HTTPCode==HTTPCode204NoContent) {
             //NO results
             //get date -1
             [self getDataForDate:yesterday];
         } else {
             //reload table data only if new data
-            if (result==HTTPCode200OK) {
-                //YES results
+            if (HTTPCode==HTTPCode200OK) {
+                //YES results populate with new data
+                self.articleData = array;
                 NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
-                //save to localdatastore
+                //save new data to localdatastore
                 [PFObject pinAllInBackground:self.articleData];
                 //reload table
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
@@ -217,72 +162,12 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
             //reload table background for an empty table case
             [self.tableView reloadEmptyDataSet];
         }
-        
-    } forDate:today];
-
-}
-
-
-- (void)_getArticles:(PFResultBlock)resultBlock forDate:(NSDate*)today {
-    
-    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
-                                                                value:1
-                                                               toDate:today
-                                                              options:0];
-    
-    //query parameters
-    PFQuery *query = [PFArticle query];
-    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
-    [query whereKey:@"batchDate" lessThan:tomorrow];
-    
-    //only for the first run, today, try to get from localDatastore
-//    if( !self.firstLoadDone ) {
-//        [query fromLocalDatastore];
-//        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-//        NSLog(@"fromLocalDatastore %@", today);
-//    }
-
-    NSLog(@"%@", today);
-    //    NSLog(@"%@", tomorrow);
-    
-    //begin query
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-            for (PFArticle *object in objects) {
-                NSLog(@"%@", object.category.title);
-            }
-            
-            //sucess
-            //if there is no previous data or there are query results
-            if ( !self.articleData.count || objects.count ) self.articleData = objects;
-            
-            if (resultBlock) {
-                if ( objects.count ) {
-                    resultBlock(HTTPCode200OK);
-                } else {
-                    resultBlock(HTTPCode204NoContent); 
-                }
-            }
-            //sucess end
-        } else {
-            //error
-            if (resultBlock) { resultBlock(HTTPCode599NetworkConnectTimeoutErrorUnknown); }
-
-            
-            
-            if ([error code] == kPFErrorObjectNotFound) {
-                NSLog(@"Uh oh, we couldn't find the object!");
-            } else if ([error code] == kPFErrorConnectionFailed) {
-                NSLog(@"ROBERT - Uh oh, we couldn't even connect to the Parse Cloud!");
-            } else if (error) {
-                NSLog(@"Error: %@", [error userInfo][@"error"]);
-            }
-            //error end
-        }
     }];
     
+
 }
+
+
 
 - (NSDate*)resetTimeFromDateByLocation:(NSDate*)date{
     //local time zone
@@ -296,12 +181,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     
     return clearedDate;
 }
-
-
-
-
-
-
 
 
 
@@ -544,6 +423,8 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];   //it hides
+    self.navigationController.swipeBackEnabled = NO;
+
 
     //help reload table for marking cell article as READ
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];

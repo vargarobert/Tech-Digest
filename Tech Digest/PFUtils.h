@@ -11,9 +11,7 @@
 
 @interface PFUtils : NSObject
 
-+ (id)sharedInstance;
-- (void)findAllArticlesInBackgroundWithBlock:(PFArrayResultBlock)resultBlock;
-
 +(void)_getArticlesFromDatastoreForDate:(NSDate*)today completion:(void (^)(NSArray *array))completionBlock;
++(void)_getArticlesFromCloudForDate:(NSDate*)today completion:(void (^)(int HTTPCode, NSArray *array))completionBlock;
 
 @end
