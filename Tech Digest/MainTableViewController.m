@@ -41,7 +41,8 @@
 #import "PFUtils.h"
 //HTTP codes
 #import "FTHTTPCodes.h"
-
+//Date utils
+#import "DateUtils.h"
 
 
 
@@ -85,7 +86,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     [self pullToRefresh];
     
     //get today's DATE for current location with time 00:00:00
-    self.today = [self resetTimeFromDateByLocation:[NSDate date]];
+    self.today = [DateUtils resetTimeFromDateByLocation:[NSDate date]];
     
     //GET ARTICLES data
     [self getInitialDataOnViewDidLoad];
@@ -166,23 +167,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     
 
 }
-
-
-
-- (NSDate*)resetTimeFromDateByLocation:(NSDate*)date{
-    //local time zone
-    //    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-    //    NSString *tzName = [timeZone abbreviation];
-    
-    //remove abbreviation
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
-    [components setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSDate *clearedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
-    
-    return clearedDate;
-}
-
-
 
 
 
@@ -273,7 +257,8 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         //image
         [cell.parallaxImage setImageWithURL:[NSURL URLWithString:articleObject.mainImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        
+       
+   
         //color set based on article
         [cell setCategoryColor: articleTypeColor];
         
@@ -334,6 +319,11 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         ArticleViewController *articleViewController = (ArticleViewController *)segue.destinationViewController;
         articleViewController.articleObject = [self.articleData objectAtIndex:indexPath.row];
         articleViewController.articleOrder = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
+        
+        //Mark article as READ
+        [NSUserDefaultsUtils markObjectAsRead:articleViewController.articleObject.objectId];
+        MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [cell markAsRead];
     }
 }
 
@@ -427,11 +417,11 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 
     //help reload table for marking cell article as READ
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    [self.tableView reloadData];
-    if(indexPath) {
-        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
+//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//    [self.tableView reloadData];
+//    if(indexPath) {
+//        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -474,13 +464,11 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     //nibs and cell identifiers
     [self.tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:cellIdentifierFirst];
     [self.tableView registerNib:[UINib nibWithNibName:@"ParallaxCell" bundle:nil] forCellReuseIdentifier:cellIdentifierStandard];
-    
-    
 }
 
 - (void)updateTimeIndicatorFrame {
     [_timeView updateSize];
-    _timeView.frame = CGRectOffset(_timeView.frame, self.view.frame.size.width - _timeView.frame.size.width+3, 10.0);
+    _timeView.frame = CGRectOffset(_timeView.frame, self.view.frame.size.width - _timeView.frame.size.width, 10);
 }
 
 

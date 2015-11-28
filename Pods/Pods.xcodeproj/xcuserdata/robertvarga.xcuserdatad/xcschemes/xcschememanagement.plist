@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DGActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,12 +44,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JTSImageViewController.xcscheme</key>
+		<key>KIImagePager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>KIImagePager.xcscheme</key>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -112,27 +127,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04AAE99294210DADB299BF289FEB7B76</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>0E44717E0BD8FDC2D8BFA4C4E4AECCDA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>12AC35F9C569FA2A4543EFEDD802D2C9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>15F67AAEE080F53E3955BB98706D8DF2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>361FC69435F04E2CD76ED046B684C99C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,7 +157,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>61CD9C48D61F6BAC8915862C2086509E</key>
+		<key>5813251FEA21E4AEE97385709F1912DE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>686505184F35ED2AAE3691328CE5253B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>703745FEFF1428B1F5D061553EEED25D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -177,42 +187,62 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7EDBC06B3D447B9192D12E139BD4ACFE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>80ADBA5FB1A3613CCD721BADF756DF4A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8404075883633CC2D3E8F7028DB5F7BC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8AA7F1F5C3410F45727222DA25CF48A9</key>
+		<key>8E7AAD6AE61EA567EC5F4B8CFEC47D12</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4C9472ACE9B56E20130D356A3A33E5A</key>
+		<key>9775596B3CA16905FC8F66DA8E2A3C67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC16EB46B50FE9E6E8FEB7C5DA3CC27C</key>
+		<key>DB62A66FA52A9D8BECC5D22C1B732851</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E232B6A80D1021F8580DFF3F50621C1E</key>
+		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2555E17F529FEC35EA5CBCEF0F38AF9</key>
+		<key>E2FE87384A67337831E53490EEA8BF11</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E833F09600758E286BDC042ECE2F44AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8B4D629B6B0D42311ABD38B8F99E88E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB0EC94D3251171413D6015BA9B165BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB323851A6AF1214DAD6F96FE58DCAAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDA14EDF48E2991609D9C11F9D33D012</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE2F1D7B9D9FCEA148517E4657B243F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

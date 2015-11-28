@@ -41,6 +41,9 @@
     //DETECT INTERNET CONNECTION
     [self reachabilityCheck];
 
+    //pormpt to rate APP
+    [self rateApp];
+    
     
     return YES;
 }
@@ -61,6 +64,61 @@
         }
     }];
 }
+
+
+- (void)rateApp {
+    
+    int launchCount = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"launchCount"];
+    launchCount++;
+    [[NSUserDefaults standardUserDefaults] setInteger:launchCount forKey:@"launchCount"];
+    
+    BOOL neverRate = [[NSUserDefaults standardUserDefaults] boolForKey:@"neverRate"];
+    
+    if ((neverRate != YES) && (launchCount > 2)) {
+        //alert view
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Rate Tech Digest"
+                                                                       message:@"If you enjoy using Tech Digest, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* laterAction = [UIAlertAction actionWithTitle:@"Remind me later" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {}];
+        UIAlertAction* rateAction = [UIAlertAction actionWithTitle:@"Rate now" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             //open in App Store
+                                                             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
+                                                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=661175387"]];
+                                                         }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"No, Thanks" style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction * action) {
+                                                               [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
+                                                           }];
+    
+        [alert addAction:rateAction];
+        [alert addAction:laterAction];
+        [alert addAction:cancelAction];
+
+        //present alertView
+        [self.window makeKeyAndVisible];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        });
+    }
+
+}
+
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex == 0) {
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=661175387"]];
+//    }
+//    
+//    else if (buttonIndex == 1) {
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
+//    }
+//    
+//    else if (buttonIndex == 2) {
+//        // Do nothing
+//    }
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

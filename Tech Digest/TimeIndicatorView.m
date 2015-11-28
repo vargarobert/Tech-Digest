@@ -8,6 +8,8 @@
 
 #import "TimeIndicatorView.h"
 #import <ChameleonFramework/Chameleon.h>
+//Date utils
+#import "DateUtils.h"
 
 @implementation TimeIndicatorView
 {
@@ -26,11 +28,23 @@
         // format and style the date
         NSDateFormatter* format = [NSDateFormatter new];
         [format setDateFormat:@"dd\rMMMM\ryyyy"];
-        NSString* formattedDate = [format stringFromDate:date];
+        
+        NSMutableString *formattedDate = [[NSMutableString alloc] init];
+
+        //identify if weekend
+        int weekday = [DateUtils weekdayForDate:date];
+        if(weekday == 1 || weekday == 7)
+            [formattedDate appendString:@"weekend\n"];
+        
+        //date
+        [formattedDate appendString:[format stringFromDate:date]];
+
+        
         _label.text = [formattedDate uppercaseString];
         _label.textAlignment = NSTextAlignmentCenter;
         _label.textColor = [UIColor whiteColor];
         _label.numberOfLines = 0;
+
         
         self.color = [UIColor colorWithHexString:@"000"];
         
@@ -61,7 +75,11 @@
     float padding = 5.0f;
     self.center = CGPointMake(self.center.x + _label.frame.origin.x - padding,
                               self.center.y - _label.frame.origin.y + padding);
-    
+
+    //fill circle corner view -right-top
+    UIView *fillView = [[UIView alloc] initWithFrame:CGRectMake(radius, 0, radius, radius)];
+    fillView.backgroundColor = self.color;
+    [self insertSubview:fillView atIndex:0];
 }
 
 // calculates the radius of the circle that surrounds the label

@@ -7,7 +7,6 @@ pod 'ChameleonFramework'
 pod 'TLYShyNavBar'
 pod 'INSPullToRefresh'
 pod 'FontAwesomeKit/FontAwesome'
-pod 'JTSImageViewController', :git => 'https://github.com/vargarobert/JTSImageViewController'
 pod 'VBFPopFlatButton', :git => 'https://github.com/vargarobert/VBFPopFlatButton'
 pod 'KIImagePager', :git => 'https://github.com/vargarobert/KIImagePager'
 pod 'UIActivityIndicator-for-SDWebImage', :git => 'https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage'
@@ -17,6 +16,9 @@ pod 'DZNEmptyDataSet'
 pod 'Parse'
 pod 'AFNetworking'
 pod 'SwipeBack'
+pod 'MWPhotoBrowser'
+
+
 
 target 'Tech Digest' do
 

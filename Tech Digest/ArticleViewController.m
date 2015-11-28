@@ -18,10 +18,7 @@
 
 //userdefaults utils
 #import "NSUserDefaultsUtils.h"
-
-//pictures controller
-//#import "ArticlePicturesViewController.h"
-
+//colors
 #import <ChameleonFramework/Chameleon.h>
 //nav bar hide
 #import "TLYShyNavBarManager.h"
@@ -31,18 +28,19 @@
 #import "KIImagePager.h"
 //category colors
 #import "CategoryColors.h"
+//SDWebImage with custom activity
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+//full screen photo browser
+#import "MWPhotoBrowserCustom.h"
 
-#import "JTSImageViewController.h"
-#import "JTSImageInfo.h"
-
-
-@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, JTSImageViewControllerOptionsDelegate>
+@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
 @property (nonatomic,strong) KIImagePager *imagePager;
 @property (nonatomic,strong) NSArray *images;
+@property (nonatomic,strong) NSMutableArray *MWPhotos;
 
 @end
 
@@ -64,29 +62,11 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [self tableSetup];
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
-    
-    //mark article as read
-    [NSUserDefaultsUtils markObjectAsRead:self.articleObject.objectId];
-    
-    NSLog(@"%@",self.articleObject.objectId);
-//    [self.navigationController.interactivePopGestureRecognizer addTarget:self
-//                                                                  action:@selector(handlePopGesture:)];
+
 }
 
 
-//- (void)handlePopGesture:(UIGestureRecognizer *)gesture
-//{
-//    if (gesture.state == UIGestureRecognizerStateBegan)
-//    {
-//        // respond to beginning of pop gesture
-//        NSLog(@"DAS");
-////        self.shyNavBarManager.disable = true;
-////        [self.flatRoundedButton animateToType:buttonMenuType];
-//
-//    }
-//
-//    // handle other gesture states, if desired
-//}
+
 
 #pragma mark - General SETUP
 
@@ -140,7 +120,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     self.flatRoundedButton.bounds = CGRectOffset(self.flatRoundedButton.bounds, -4, -10);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedButton];
     self.navigationItem.leftBarButtonItem = backButton;
-    //    self.bckgLayer.borderColor = self.tintColor.CGColor; self.bckgLayer.borderWidth = 0.7;
 }
 
 - (void)tableHeaderViewSetup {
@@ -297,45 +276,115 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 {
     return UIViewContentModeScaleAspectFill;
 }
-- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+- (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     //open header image full-screen
-    [self bigButtonTapped:index];
+    
+    // Create array of MWPhoto objects
+    self.MWPhotos = [NSMutableArray array];
+    
+    // Add photos
+    for(int i=0; i < _images.count; i++) {
+        [self.MWPhotos addObject:[MWPhoto photoWithURL:[NSURL URLWithString:[_images objectAtIndex:i]]]];
+    }
+
+    // Create browser (must be done each time photo browser is
+    // displayed. Photo browser objects cannot be re-used)
+    MWPhotoBrowserCustom *browser = [[MWPhotoBrowserCustom alloc] initWithDelegate:self];
+    // Set options
+    browser.displayActionButton = NO; // Show action button to allow sharing, copying, etc (defaults to YES)
+    
+    // Optionally set the current visible photo before displaying
+    [browser setCurrentPhotoIndex:index];
+    
+    // Present
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
-- (void)bigButtonTapped:(NSUInteger)index {
-    
-    // Create image info
-    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-
-    imageInfo.imageURL = [NSURL URLWithString:[_images objectAtIndex:index]];
-
-    imageInfo.referenceRect = _imagePager.frame;
-    imageInfo.referenceView = _imagePager.superview;
-    imageInfo.referenceContentMode = _imagePager.contentMode;
-    imageInfo.referenceCornerRadius = _imagePager.layer.cornerRadius;
-    
-    // Setup view controller
-    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
-                                           initWithImageInfo:imageInfo
-                                           mode:JTSImageViewControllerMode_Image
-                                           backgroundStyle:JTSImageViewControllerBackgroundOption_None];
-    
-    // Present the view controller.
-    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
-
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowserCustom *)photoBrowser {
+    return self.MWPhotos.count;
 }
 
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowserCustom *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.MWPhotos.count) {
+        return [self.MWPhotos objectAtIndex:index];
+    }
+    return nil;
+}
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showArticlePictures"]) {
-//        UINavigationController *navigationController = segue.destinationViewController;
-//        ArticlePicturesViewController *articlePicturesViewController =[[navigationController viewControllers]objectAtIndex:0];
-//        // Pass data
-//        articlePicturesViewController.images = _images;
+//
+//- (void)bigButtonTapped:(NSUInteger)index {
+//    
+////    // Create image info
+////    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+////
+////    imageInfo.imageURL = [NSURL URLWithString:[_images objectAtIndex:index]];
+////
+////    imageInfo.referenceRect = _imagePager.frame;
+////    imageInfo.referenceView = _imagePager.superview;
+////    imageInfo.referenceContentMode = _imagePager.contentMode;
+////    imageInfo.referenceCornerRadius = _imagePager.layer.cornerRadius;
+////    
+////    // Setup view controller
+////    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+////                                           initWithImageInfo:imageInfo
+////                                           mode:JTSImageViewControllerMode_Image
+////                                           backgroundStyle:JTSImageViewControllerBackgroundOption_None];
+////    
+////    // Present the view controller.
+////    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+//
+//    
+//    
+//    NSMutableArray *photos = [[NSMutableArray alloc] initWithCapacity:_images.count];
+//    for(int i=0; i < _images.count; i++) {
+//        NYTExamplePhoto *tempImage = [[NYTExamplePhoto alloc] init];
+//        tempImage.image = nil;
+//        [photos addObject:tempImage];
 //    }
+//
+////    for (NSString *url in self.images) {
+////        UIImageView *imageView = [[UIImageView alloc] init];
+////        [imageView setImageWithURL:[NSURL URLWithString:url] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+////        
+////        NYTExamplePhoto *photo = [[NYTExamplePhoto alloc] init];
+////        photo.image = imageView.image;
+////
+////        [photos addObject:photo];
+////    }
+//
+//    NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:photos initialPhoto:[photos objectAtIndex:index]];
+//    photosViewController.leftBarButtonItem.tintColor = [UIColor whiteColor];
+//    [self presentViewController:photosViewController animated:YES completion:nil];
+//    photosViewController.delegate = self;
+//
+//    [self updateImagesOnPhotosViewController:photosViewController afterDelayWithPhotos:photos];
+//
+//
 //}
+
+// This method simulates previously blank photos loading their images after some time.
+//- (void)updateImagesOnPhotosViewController:(NYTPhotosViewController *)photosViewController afterDelayWithPhotos:(NSArray *)photos {
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        for (NYTExamplePhoto *photo in photos) {
+//            if (!photo.image) {
+//                NSString *photoUrl = [_images objectAtIndex:[photos indexOfObject:photo]];
+//                UIImageView *imageView = [[UIImageView alloc] init];
+//            
+//                [imageView setImageWithURL:[NSURL URLWithString:photoUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//                    photo.image = image;
+//                    [photosViewController updateImageForPhoto:photo];
+//                } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//                
+//
+//            }
+//        }
+//    });
+//}
+
+
 
 #pragma mark - View settings
 
@@ -365,7 +414,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     self.navigationController.swipeBackEnabled = YES;
 
     [self backButonSetup];
-//    [self navigationBarSetup];
 }
 
 - (void)didReceiveMemoryWarning {

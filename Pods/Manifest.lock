@@ -24,15 +24,20 @@ PODS:
   - ChameleonFramework (2.0.4):
     - ChameleonFramework/Default (= 2.0.4)
   - ChameleonFramework/Default (2.0.4)
+  - DACircularProgress (2.3.1)
   - DGActivityIndicatorView (2.0)
   - DZNEmptyDataSet (1.7.2)
   - FontAwesomeKit/Core (2.2.0)
   - FontAwesomeKit/FontAwesome (2.2.0):
     - FontAwesomeKit/Core
   - INSPullToRefresh (1.0.12)
-  - JTSImageViewController (1.5.1)
   - KIImagePager (2.1.0)
   - Masonry (0.6.3)
+  - MBProgressHUD (0.9.1)
+  - MWPhotoBrowser (2.1.1):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
   - Parse (1.9.1):
     - Bolts/Tasks (>= 1.4.0)
   - pop (1.0.8)
@@ -54,9 +59,9 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - FontAwesomeKit/FontAwesome
   - INSPullToRefresh
-  - JTSImageViewController (from `https://github.com/vargarobert/JTSImageViewController`)
   - KIImagePager (from `https://github.com/vargarobert/KIImagePager`)
   - Masonry (~> 0.6.2)
+  - MWPhotoBrowser
   - Parse
   - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
   - SDWebImage (~> 3.7.3)
@@ -66,8 +71,6 @@ DEPENDENCIES:
   - VBFPopFlatButton (from `https://github.com/vargarobert/VBFPopFlatButton`)
 
 EXTERNAL SOURCES:
-  JTSImageViewController:
-    :git: https://github.com/vargarobert/JTSImageViewController
   KIImagePager:
     :git: https://github.com/vargarobert/KIImagePager
   RKDropdownAlert:
@@ -78,9 +81,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/vargarobert/VBFPopFlatButton
 
 CHECKOUT OPTIONS:
-  JTSImageViewController:
-    :commit: 2ddbf19e817f19cfb5af35ef4677489966d563e3
-    :git: https://github.com/vargarobert/JTSImageViewController
   KIImagePager:
     :commit: ad2c44a428f17c258a88e3d511f39d024db397c7
     :git: https://github.com/vargarobert/KIImagePager
@@ -98,13 +98,15 @@ SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
   INSPullToRefresh: 3c3840b1837870d6553f749dab6520e31f551a76
-  JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   KIImagePager: aea488f00879fda4a4b81e2b83187da070907c85
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RKDropdownAlert: d0a662ad524d2712b1661e483a878a28259ca7e1

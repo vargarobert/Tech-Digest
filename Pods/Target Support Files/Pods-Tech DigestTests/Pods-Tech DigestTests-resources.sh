@@ -62,12 +62,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
