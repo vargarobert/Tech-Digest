@@ -74,7 +74,7 @@
     
     BOOL neverRate = [[NSUserDefaults standardUserDefaults] boolForKey:@"neverRate"];
     
-    if ((neverRate != YES) && (launchCount > 2)) {
+    if ((neverRate != YES) && (launchCount > 7)) {
         //alert view
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Rate Tech Digest"
                                                                        message:@"If you enjoy using Tech Digest, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!"
@@ -85,7 +85,7 @@
                                                          handler:^(UIAlertAction * action) {
                                                              //open in App Store
                                                              [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
-                                                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=661175387"]];
+                                                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1038551733&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
                                                          }];
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"No, Thanks" style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction * action) {
