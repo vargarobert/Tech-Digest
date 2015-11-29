@@ -29,7 +29,7 @@
 - (void) setCategoryColor:(UIColor *)color {
     self.articleTypeColor = color;
     self.rowNumber.layer.borderColor = color.CGColor;
-    self.rowNumber.layer.backgroundColor = [self.articleTypeColor colorWithAlphaComponent:0.3].CGColor;//[UIColor clearColor].CGColor;
+    self.rowNumber.layer.backgroundColor = [self.articleTypeColor colorWithAlphaComponent:0.3].CGColor;
     self.category.layer.backgroundColor = color.CGColor;
     self.circleLayer.strokeColor = color.CGColor;
 }
@@ -39,8 +39,8 @@
 }
 
 - (void) markAsReadAnimated {
-    [UIView animateWithDuration:0.5
-                          delay:0.5
+    [UIView animateWithDuration:0.7
+                          delay:0
                         options: UIViewAnimationOptionTransitionCrossDissolve
                      animations:^{
                          self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;

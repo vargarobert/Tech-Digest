@@ -62,7 +62,8 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [self tableSetup];
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
-
+    
+//    [self shareText:@"test" andImage:nil andUrl:nil];
 }
 
 
@@ -384,6 +385,25 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 //    });
 //}
 
+#pragma mark - Share settings
+
+- (void)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSURL *)url
+{
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    
+    if (text) {
+        [sharingItems addObject:text];
+    }
+    if (image) {
+        [sharingItems addObject:image];
+    }
+    if (url) {
+        [sharingItems addObject:url];
+    }
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
+}
 
 
 #pragma mark - View settings

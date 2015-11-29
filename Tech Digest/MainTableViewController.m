@@ -51,9 +51,14 @@ typedef void (^PFResultBlock)(int result);
 
 @interface MainTableViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
+//first load attempt done, to be used to display info when empty table
 @property (nonatomic, assign) BOOL firstLoadDone;
+//today's date for location of the user
 @property (nonatomic,strong) NSDate *today;
+//article data downloaded from Parse
 @property (nonatomic,strong) NSArray *articleData;
+//index of cell selected, to be used when swipe back from ArticleView
+@property (nonatomic,strong) NSIndexPath *indexPathSelected;
 
 @end
 
@@ -321,9 +326,10 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         articleViewController.articleOrder = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
         
         //Mark article as READ
-        [NSUserDefaultsUtils markObjectAsRead:articleViewController.articleObject.objectId];
-        MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        [cell markAsRead];
+//        [NSUserDefaultsUtils markObjectAsRead:articleViewController.articleObject.objectId];
+//        MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//        [cell markAsRead];
+        _indexPathSelected = indexPath;
     }
 }
 
@@ -414,14 +420,19 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];   //it hides
     self.navigationController.swipeBackEnabled = NO;
+}
 
-
-    //help reload table for marking cell article as READ
-//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//    [self.tableView reloadData];
-//    if(indexPath) {
-//        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    }
+-(void)viewDidAppear:(BOOL)animated {
+    //marking cell ARTICLE as READ with ANIMATION
+    if(_indexPathSelected) {
+        NSString *objectId = [[self.articleData objectAtIndex:_indexPathSelected.row] objectId];
+        //object was never marked, do ANIMATION mark
+        if(! [NSUserDefaultsUtils isObjectMarkedAsRead:objectId] ) {
+            [NSUserDefaultsUtils markObjectAsRead:objectId];
+            MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:_indexPathSelected];
+            [cell markAsReadAnimated];
+        }
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -447,7 +458,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 - (void)viewDidLayoutSubviews {
     [self updateTimeIndicatorFrame];
 }
-
 
 
 #pragma mark - General settings
