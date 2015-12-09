@@ -32,12 +32,15 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
-
+ #import "Social/Social.h"
 @interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) VBFPopFlatButton *flatRoundedButton;
+
+@property (nonatomic, strong) VBFPopFlatButton *flatRoundedBackButton;
+@property (nonatomic, strong) VBFPopFlatButton *flatRoundedShareButton;
+
 @property (nonatomic,strong) KIImagePager *imagePager;
 @property (nonatomic,strong) NSArray *images;
 @property (nonatomic,strong) NSMutableArray *MWPhotos;
@@ -63,7 +66,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
     
-//    [self shareText:@"test" andImage:nil andUrl:nil];
 }
 
 
@@ -104,23 +106,39 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     
     //SETUP BACK BUTTON
-    [self backButonSetup];
+    [self navButonSetup];
 }
 
-- (void)backButonSetup {
-    self.flatRoundedButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
+- (void)navButonSetup {
+    //BACK button
+    self.flatRoundedBackButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
                                                          buttonType:buttonBackType
                                                         buttonStyle:buttonRoundedStyle
                                               animateToInitialState:NO];
-    self.flatRoundedButton.roundBackgroundColor = [UIColor blackColor];
-    self.flatRoundedButton.lineThickness = 2.2f;
-    self.flatRoundedButton.tintColor = [UIColor whiteColor];
-    [self.flatRoundedButton addTarget:self
+    self.flatRoundedBackButton.roundBackgroundColor = [UIColor blackColor];
+    self.flatRoundedBackButton.lineThickness = 2.2f;
+    self.flatRoundedBackButton.tintColor = [UIColor whiteColor];
+    [self.flatRoundedBackButton addTarget:self
                                action:@selector(popViewController)
                      forControlEvents:UIControlEventTouchUpInside];
-    self.flatRoundedButton.bounds = CGRectOffset(self.flatRoundedButton.bounds, -4, -10);
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedButton];
+    self.flatRoundedBackButton.bounds = CGRectOffset(self.flatRoundedBackButton.bounds, -4, -10);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedBackButton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    //SHARE button
+    self.flatRoundedShareButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
+                                                             buttonType:buttonShareType
+                                                            buttonStyle:buttonRoundedStyle
+                                                  animateToInitialState:NO];
+    self.flatRoundedShareButton.roundBackgroundColor = [UIColor blackColor];
+    self.flatRoundedShareButton.lineThickness = 2.2f;
+    self.flatRoundedShareButton.tintColor = [UIColor whiteColor];
+    [self.flatRoundedShareButton addTarget:self
+                                   action:@selector(shareArticleAction)
+                         forControlEvents:UIControlEventTouchUpInside];
+    self.flatRoundedShareButton.bounds = CGRectOffset(self.flatRoundedShareButton.bounds, 4, -10);
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedShareButton];
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 - (void)tableHeaderViewSetup {
@@ -315,79 +333,22 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     return nil;
 }
 
-//
-//- (void)bigButtonTapped:(NSUInteger)index {
-//    
-////    // Create image info
-////    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-////
-////    imageInfo.imageURL = [NSURL URLWithString:[_images objectAtIndex:index]];
-////
-////    imageInfo.referenceRect = _imagePager.frame;
-////    imageInfo.referenceView = _imagePager.superview;
-////    imageInfo.referenceContentMode = _imagePager.contentMode;
-////    imageInfo.referenceCornerRadius = _imagePager.layer.cornerRadius;
-////    
-////    // Setup view controller
-////    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
-////                                           initWithImageInfo:imageInfo
-////                                           mode:JTSImageViewControllerMode_Image
-////                                           backgroundStyle:JTSImageViewControllerBackgroundOption_None];
-////    
-////    // Present the view controller.
-////    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
-//
-//    
-//    
-//    NSMutableArray *photos = [[NSMutableArray alloc] initWithCapacity:_images.count];
-//    for(int i=0; i < _images.count; i++) {
-//        NYTExamplePhoto *tempImage = [[NYTExamplePhoto alloc] init];
-//        tempImage.image = nil;
-//        [photos addObject:tempImage];
-//    }
-//
-////    for (NSString *url in self.images) {
-////        UIImageView *imageView = [[UIImageView alloc] init];
-////        [imageView setImageWithURL:[NSURL URLWithString:url] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-////        
-////        NYTExamplePhoto *photo = [[NYTExamplePhoto alloc] init];
-////        photo.image = imageView.image;
-////
-////        [photos addObject:photo];
-////    }
-//
-//    NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:photos initialPhoto:[photos objectAtIndex:index]];
-//    photosViewController.leftBarButtonItem.tintColor = [UIColor whiteColor];
-//    [self presentViewController:photosViewController animated:YES completion:nil];
-//    photosViewController.delegate = self;
-//
-//    [self updateImagesOnPhotosViewController:photosViewController afterDelayWithPhotos:photos];
-//
-//
-//}
-
-// This method simulates previously blank photos loading their images after some time.
-//- (void)updateImagesOnPhotosViewController:(NYTPhotosViewController *)photosViewController afterDelayWithPhotos:(NSArray *)photos {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        for (NYTExamplePhoto *photo in photos) {
-//            if (!photo.image) {
-//                NSString *photoUrl = [_images objectAtIndex:[photos indexOfObject:photo]];
-//                UIImageView *imageView = [[UIImageView alloc] init];
-//            
-//                [imageView setImageWithURL:[NSURL URLWithString:photoUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                    photo.image = image;
-//                    [photosViewController updateImageForPhoto:photo];
-//                } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-//                
-//
-//            }
-//        }
-//    });
-//}
 
 #pragma mark - Share settings
 
-- (void)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSURL *)url
+-(void)shareArticleAction {
+    //SDWebimage CACHE - robert
+    UIImageView *imageView = [[UIImageView alloc] init];
+    [imageView setImageWithURL:_articleObject.imagesUrls[0] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [self shareText:_articleObject.title andImage:image andUrl:_articleObject.source[@"url"]];
+
+    } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+
+    
+}
+
+- (void)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSString *)url
 {
     NSMutableArray *sharingItems = [NSMutableArray new];
     
@@ -401,8 +362,45 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
         [sharingItems addObject:url];
     }
     
+    [sharingItems addObject:@"\nvia TECH DIGEST - http://apple.co/1XZxGcb"];
+
+    
+    
+    
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
+    
+    
+//    SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+//    
+//    
+//    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+//    {
+//        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+//            
+//            [fbController dismissViewControllerAnimated:YES completion:nil];
+//            
+//            switch(result){
+//                case SLComposeViewControllerResultCancelled:
+//                default:
+//                {
+//                    NSLog(@"Cancelled.....");
+//                    
+//                }
+//                    break;
+//                case SLComposeViewControllerResultDone:
+//                {
+//                    NSLog(@"Posted....");
+//                }
+//                    break;
+//            }};
+//        
+//        [fbController addImage:image];
+//        [fbController setInitialText:@"sda"];
+//        [fbController addURL:[NSURL URLWithString:url]];
+//        [fbController setCompletionHandler:completionHandler];
+//        [self presentViewController:fbController animated:YES completion:nil];
+//    }
 }
 
 
@@ -425,6 +423,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     //    [self.flatRoundedButton animateToType:buttonMenuType];
     //remomve nav bar button
     self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
 }
 
@@ -433,7 +432,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [super viewWillAppear:animated];
     self.navigationController.swipeBackEnabled = YES;
 
-    [self backButonSetup];
+    [self navButonSetup];
 }
 
 - (void)didReceiveMemoryWarning {
