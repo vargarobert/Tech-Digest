@@ -38,6 +38,7 @@ PODS:
     - DACircularProgress (~> 2.3)
     - MBProgressHUD (~> 0.9)
     - SDWebImage (!= 3.7.2, ~> 3.7)
+  - MXParallaxHeader (0.4.1)
   - Parse (1.9.1):
     - Bolts/Tasks (>= 1.4.0)
   - pop (1.0.8)
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - KIImagePager (from `https://github.com/vargarobert/KIImagePager`)
   - Masonry (~> 0.6.2)
   - MWPhotoBrowser
+  - MXParallaxHeader
   - Parse
   - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
   - SDWebImage (~> 3.7.3)
@@ -107,6 +109,7 @@ SPEC CHECKSUMS:
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
+  MXParallaxHeader: fb500b2cb08be46b8e641fe185476b76a4e30fc3
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RKDropdownAlert: d0a662ad524d2712b1661e483a878a28259ca7e1

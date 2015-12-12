@@ -33,6 +33,11 @@
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
 
+
+
+#define HEADER_HEIGHT 280.0f
+#define HEADER_INIT_FRAME CGRectMake(0, 0, self.tableView.frame.size.width, HEADER_HEIGHT)
+
 @interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
@@ -142,7 +147,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 }
 
 - (void)tableHeaderViewSetup {
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 280)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:HEADER_INIT_FRAME];
     self.tableView.tableHeaderView = ({
         _imagePager = [[KIImagePager alloc] initWithFrame:self.tableView.tableHeaderView.frame];
         _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
@@ -155,6 +160,26 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
         _imagePager;
     });
 }
+
+//-(void)scrollViewDidScroll:(UIScrollView*)scrollView {
+//    
+//    CGRect rect = CGRectMake(0, -HEADER_HEIGHT, self.tableView.bounds.size.width, HEADER_HEIGHT);
+//    
+//    // Only allow the header to stretch if pulled down
+////    if (_tableView.contentOffset.y < 0.0f)
+////    {
+////        // Scroll down
+////        delta = fabs(MIN(0.0f, _tableView.contentOffset.y));
+////    }
+////    
+////    rect.origin.y -= delta+40;
+////    rect.size.height += delta;
+//    if(self.tableView.contentOffset.y < 0) {
+//        rect.origin.y = self.tableView.contentOffset.y;
+//        rect.size.height += fabs(MIN(0.0f, _tableView.contentOffset.y));
+//    }
+//    self.tableView.tableHeaderView.frame = rect;
+//}
 
 #pragma mark - Table view data source
 
