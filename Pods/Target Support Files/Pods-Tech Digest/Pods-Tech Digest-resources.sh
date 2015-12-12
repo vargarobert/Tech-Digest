@@ -59,6 +59,7 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/ionicons.ttf"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "Parse/Parse/Resources/en.lproj"
@@ -66,6 +67,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/ionicons.ttf"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "Parse/Parse/Resources/en.lproj"

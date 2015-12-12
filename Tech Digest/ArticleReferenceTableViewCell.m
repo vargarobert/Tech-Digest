@@ -8,7 +8,6 @@
 
 #import "ArticleReferenceTableViewCell.h"
 #import "FontAwesomeKit/FAKFontAwesome.h"
-#import <ChameleonFramework/Chameleon.h>
 
 @interface ArticleReferenceTableViewCell()
 

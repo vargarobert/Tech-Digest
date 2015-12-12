@@ -7,10 +7,11 @@
 //
 
 #import "ArticleCategoryAndTitleTableViewCell.h"
-
+#import "FontAwesomeKit/FAKIonIcons.h"
 
 @interface ArticleCategoryAndTitleTableViewCell()
 
+@property (weak, nonatomic) IBOutlet UIView *shareView;
 
 @end
 
@@ -33,7 +34,17 @@
     self.rowNumber.layer.backgroundColor = color.CGColor;
     self.rowNumber.layer.borderColor = color.CGColor;
     self.category.layer.backgroundColor = color.CGColor;
+    
+    //share icon button
+    FAKIonIcons *shareIcon = [FAKIonIcons androidShareAltIconWithSize:22];
+    [shareIcon addAttribute:NSForegroundColorAttributeName value:color];
+    UIImage *shareIconImage = [shareIcon imageWithSize:CGSizeMake(22, 22)];
+    self.shareButton.tintColor = color;
+    self.shareButton.frame = CGRectMake(0, 0, shareIconImage.size.width, shareIconImage.size.height);
+    [self.shareButton setImage:shareIconImage forState:UIControlStateNormal];
 }
+
+
 
 - (void) setup
 {
@@ -53,9 +64,12 @@
     self.category.edgeInsets = titleInsets;
     
     
-    //TITLE
-//    self.title.textColor = [UIColor blackColor];
-    
+    //SHARE
+    self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.shareButton.contentMode = UIViewContentModeScaleAspectFill;
+    self.shareView.backgroundColor = [UIColor clearColor];
+    [self.shareView addSubview:self.shareButton];
+
     
     self.clipsToBounds = YES;
 }

@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *rowNumber;
 @property (weak, nonatomic) IBOutlet InsetUILabel *category;
 
+@property (nonatomic,strong) UIButton *shareButton;
+
+
 -(void)setCategoryColor:(UIColor *)color;
 
 

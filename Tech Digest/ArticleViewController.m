@@ -44,7 +44,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedBackButton;
-@property (nonatomic, strong) VBFPopFlatButton *flatRoundedShareButton;
 
 @property (nonatomic,strong) KIImagePager *imagePager;
 @property (nonatomic,strong) NSArray *images;
@@ -129,21 +128,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     self.flatRoundedBackButton.bounds = CGRectOffset(self.flatRoundedBackButton.bounds, -4, -10);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedBackButton];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-    //SHARE button
-    self.flatRoundedShareButton = [[VBFPopFlatButton alloc]initWithFrame:CGRectMake(0, 0, 27, 27)
-                                                             buttonType:buttonShareType
-                                                            buttonStyle:buttonRoundedStyle
-                                                  animateToInitialState:NO];
-    self.flatRoundedShareButton.roundBackgroundColor = [UIColor blackColor];
-    self.flatRoundedShareButton.lineThickness = 2.2f;
-    self.flatRoundedShareButton.tintColor = [UIColor whiteColor];
-    [self.flatRoundedShareButton addTarget:self
-                                   action:@selector(shareArticleAction)
-                         forControlEvents:UIControlEventTouchUpInside];
-    self.flatRoundedShareButton.bounds = CGRectOffset(self.flatRoundedShareButton.bounds, 4, -10);
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithCustomView:self.flatRoundedShareButton];
-    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 - (void)tableHeaderViewSetup {
@@ -230,8 +214,10 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
          articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
          
          [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
+         
+         //share button target
+         [articleCategoryAndTitleTableViewCell.shareButton addTarget:self action:@selector(shareArticleAction:) forControlEvents:UIControlEventTouchUpInside];
 
-        
          return articleCategoryAndTitleTableViewCell;
 
      } else if (indexPath.row == 1 && _articleObject.descriptions.count >= 1) {
@@ -361,7 +347,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 
 #pragma mark - Share settings
 
--(void)shareArticleAction {
+-(void)shareArticleAction:(UIButton *)sender {
     //SDWebimage CACHE - robert
     UIImageView *imageView = [[UIImageView alloc] init];
     [imageView setImageWithURL:_articleObject.imagesUrls[0] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -416,7 +402,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     //    [self.flatRoundedButton animateToType:buttonMenuType];
     //remomve nav bar button
     self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.rightBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
 }
 
