@@ -31,7 +31,7 @@
     [query whereKey:@"batchDate" lessThan:tomorrow];
     
 //    __block NSArray *data = [[NSArray alloc] init];
-    NSLog(@"_getArticlesFromDatastoreForDate %@", today);
+//    NSLog(@"_getArticlesFromDatastoreForDate %@", today);
     
     //begin query
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -56,16 +56,16 @@
     [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
     [query whereKey:@"batchDate" lessThan:tomorrow];
     
-    NSLog(@"_getArticlesFromCloudForDate %@", today);
+//    NSLog(@"_getArticlesFromCloudForDate %@", today);
     //    NSLog(@"%@", tomorrow);
     
     //begin query
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             
-            for (PFArticle *object in objects) {
-                NSLog(@"%@", object.category.title);
-            }
+//            for (PFArticle *object in objects) {
+//                NSLog(@"%@", object.category.title);
+//            }
             
             //sucess
             //if there is no previous data or there are query results
@@ -84,11 +84,11 @@
             if (completionBlock) { completionBlock(HTTPCode599NetworkConnectTimeoutErrorUnknown, objects); }
             
             if ([error code] == kPFErrorObjectNotFound) {
-                NSLog(@"Uh oh, we couldn't find the object!");
+//                NSLog(@"Uh oh, we couldn't find the object!");
             } else if ([error code] == kPFErrorConnectionFailed) {
-                NSLog(@"ROBERT - Uh oh, we couldn't even connect to the Parse Cloud!");
+//                NSLog(@"ROBERT - Uh oh, we couldn't even connect to the Parse Cloud!");
             } else if (error) {
-                NSLog(@"Error: %@", [error userInfo][@"error"]);
+//                NSLog(@"Error: %@", [error userInfo][@"error"]);
             }
             //error end
         }

@@ -11,13 +11,13 @@
 @implementation NSUserDefaultsUtils
 
 
-+(void)markObjectAsRead:(NSString*)objectId {
++(void)markObjectAsTrue:(NSString*)objectId {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:YES forKey:objectId];
     [prefs synchronize];
 }
 
-+(BOOL)isObjectMarkedAsRead:(NSString*)objectId {
++(BOOL)isObjectMarkedAsTrue:(NSString*)objectId {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if( [prefs floatForKey:objectId] )
         return true;

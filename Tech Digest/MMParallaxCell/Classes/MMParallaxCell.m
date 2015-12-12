@@ -8,7 +8,7 @@
 
 #import "MMParallaxCell.h"
 #import <ChameleonFramework/Chameleon.h>
-#import <pop/POP.h>
+//#import <pop/POP.h>
 
 
 @interface MMParallaxCell()
@@ -40,24 +40,24 @@
 }
 
 - (void) markAsReadAnimated {
-//    [UIView animateWithDuration:0.7
-//                          delay:0
-//                        options: UIViewAnimationOptionTransitionCrossDissolve
-//                     animations:^{
-//                         self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
-//                         
-//                     }
-//                     completion:^(BOOL finished){
+    [UIView animateWithDuration:0.7
+                          delay:0
+                        options: UIViewAnimationOptionTransitionCrossDissolve
+                     animations:^{
+                         self.rowNumber.layer.backgroundColor = self.articleTypeColor.CGColor;
+                         
+                     }
+                     completion:^(BOOL finished){
 //                         NSLog(@"Done!");
-//                     }];
+                     }];
     
-    POPSpringAnimation *colorAnimation = [POPSpringAnimation animation];
-    colorAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewBackgroundColor];
-    
-    colorAnimation.toValue = (id)self.articleTypeColor.CGColor;
-    
-    
-    [self.rowNumber pop_addAnimation:colorAnimation forKey:@"colorAnimation"];
+//    POPSpringAnimation *colorAnimation = [POPSpringAnimation animation];
+//    colorAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewBackgroundColor];
+//    
+//    colorAnimation.toValue = (id)self.articleTypeColor.CGColor;
+//    
+//    
+//    [self.rowNumber pop_addAnimation:colorAnimation forKey:@"colorAnimation"];
 }
 
 - (void) setup

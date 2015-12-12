@@ -11,7 +11,7 @@
 @interface NSUserDefaultsUtils : NSObject
 
 
-+(void)markObjectAsRead:(NSString*)objectId;
-+(BOOL)isObjectMarkedAsRead:(NSString*)objectId;
++(void)markObjectAsTrue:(NSString*)objectId;
++(BOOL)isObjectMarkedAsTrue:(NSString*)objectId;
 
 @end

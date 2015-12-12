@@ -17,7 +17,12 @@
 //parse
 #import <Parse/Parse.h>
 #import "PFArticle.h"
-
+//Date utils
+#import "DateUtils.h"
+//PARSE utils
+#import "PFUtils.h"
+//HTTP codes
+#import "FTHTTPCodes.h"
 
 @interface AppDelegate ()
 
@@ -35,9 +40,16 @@
     [Parse setApplicationId:@"qKpgNk7qQyYyl4Yn98O4vhYP4xuPVpKfRHROA1Us" clientKey:@"bUGTIANQ7t6IZbpWJtTEeMWlycereNKsLM78oZaV"];
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
+    //setup NOTIFICATIONS
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [self setupNotifications];
+    //reset badge
+    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotification) {
+        application.applicationIconBadgeNumber = 0;
+    }
     
-
-
     //DETECT INTERNET CONNECTION
     [self reachabilityCheck];
 
@@ -48,6 +60,10 @@
     return YES;
 }
 
+-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    return true;
+}
 
 -(void)reachabilityCheck {
     //start monitor
@@ -105,20 +121,76 @@
 
 }
 
-//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex == 0) {
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=661175387"]];
+-(void)setupNotifications {
+    //Ask to register the NOTIFICATIONS
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *notifSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notifSettings];
+    
+    //schedule notification only once
+//    if(![NSUserDefaultsUtils isObjectMarkedAsTrue:@"scheduledLocalNotification"]) {
+        NSCalendar* calendar = [NSCalendar currentCalendar];
+        NSDate *now = [NSDate date];
+        NSDateComponents *componentsForFireDate = [calendar components:(NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate: now];
+        [componentsForFireDate setHour: 8] ; //for fixing 8AM hour
+        [componentsForFireDate setMinute:0] ;
+        [componentsForFireDate setSecond:0] ;
+        
+        NSDate *fireDateOfNotification = [calendar dateFromComponents: componentsForFireDate];
+        UILocalNotification *notification = [[UILocalNotification alloc] init] ;
+        notification.repeatInterval = NSCalendarUnitDay;
+        notification.fireDate = fireDateOfNotification ;
+        notification.timeZone = [NSTimeZone localTimeZone] ;
+        notification.alertBody = [NSString stringWithFormat: @"Your daily Tech Digest is ready."] ;
+        notification.userInfo= [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"New technology digest added for that day!"] forKey:@"new"];
+        notification.soundName=UILocalNotificationDefaultSoundName;
+        notification.applicationIconBadgeNumber = 1;
+        
+        NSLog(@"notification: %@",notification);//it indicates when the notification will be triggered
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        
+//        [NSUserDefaultsUtils markObjectAsTrue:@"scheduledLocalNotification"];
 //    }
-//    
-//    else if (buttonIndex == 1) {
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"neverRate"];
-//    }
-//    
-//    else if (buttonIndex == 2) {
-//        // Do nothing
-//    }
-//}
+}
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"Fetch started");
+    
+    //get today's DATE for current location with time 00:00:00
+    NSDate *today = [DateUtils resetTimeFromDateByLocation:[NSDate date]];
+    [self getDataForDate:today];
+    
+    NSLog(@"Fetch completed");
+}
+
+- (void)getDataForDate:(NSDate*)today {
+    //prepare yesterday date incase no data for today
+    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                 value:-1
+                                                                toDate:today
+                                                               options:0];
+    
+    [PFUtils _getArticlesFromCloudForDate:today completion:^(int HTTPCode, NSArray *array) {
+        if (HTTPCode==HTTPCode204NoContent) {
+            //NO results
+            //get date -1
+            [self getDataForDate:yesterday];
+        } else {
+            //reload table data only if new data
+            if (HTTPCode==HTTPCode200OK) {
+                //save new data to localdatastore
+                [PFObject pinAllInBackground:array];
+            }
+        }
+    }];
+}
+
+//By tapping on action button of the notification, users will launch the app. Then reset the number on badge
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    application.applicationIconBadgeNumber = 0;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -136,6 +208,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //reset badge
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

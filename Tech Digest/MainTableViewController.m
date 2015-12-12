@@ -111,7 +111,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
             self.firstLoadDone = YES;
             //reload table background for an empty table case
             [self.tableView reloadEmptyDataSet];
-            NSLog(@"local data count: %lu",(unsigned long)array.count);
+//            NSLog(@"local data count: %lu",(unsigned long)array.count);
         } else {
             //no cache data for today
             // 2. start getting new data through pull to refresh from CLOUD
@@ -155,7 +155,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
             if (HTTPCode==HTTPCode200OK) {
                 //YES results populate with new data
                 self.articleData = array;
-                NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
+//                NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
                 //save new data to localdatastore
                 [PFObject pinAllInBackground:self.articleData];
                 //reload table
@@ -235,7 +235,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         _timeView.color = articleTypeColor;
         
         //mark as read
-        if ([NSUserDefaultsUtils isObjectMarkedAsRead:articleObject.objectId]) {
+        if ([NSUserDefaultsUtils isObjectMarkedAsTrue:articleObject.objectId]) {
             [cell markAsRead];
         }
 
@@ -269,7 +269,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         
         //mark as read
-        if ([NSUserDefaultsUtils isObjectMarkedAsRead:articleObject.objectId]) {
+        if ([NSUserDefaultsUtils isObjectMarkedAsTrue:articleObject.objectId]) {
             [cell markAsRead];
         }
         
@@ -325,10 +325,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         articleViewController.articleObject = [self.articleData objectAtIndex:indexPath.row];
         articleViewController.articleOrder = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
         
-        //Mark article as READ
-//        [NSUserDefaultsUtils markObjectAsRead:articleViewController.articleObject.objectId];
-//        MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//        [cell markAsRead];
+        //save index path for later when the view loads again to mark the cell as read
         _indexPathSelected = indexPath;
     }
 }
@@ -427,8 +424,8 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     if(_indexPathSelected) {
         NSString *objectId = [[self.articleData objectAtIndex:_indexPathSelected.row] objectId];
         //object was never marked, do ANIMATION mark
-        if(! [NSUserDefaultsUtils isObjectMarkedAsRead:objectId] ) {
-            [NSUserDefaultsUtils markObjectAsRead:objectId];
+        if(! [NSUserDefaultsUtils isObjectMarkedAsTrue:objectId] ) {
+            [NSUserDefaultsUtils markObjectAsTrue:objectId];
             MMParallaxCell *cell = [self.tableView cellForRowAtIndexPath:_indexPathSelected];
             [cell markAsReadAnimated];
         }

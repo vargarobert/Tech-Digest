@@ -32,7 +32,7 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
- #import "Social/Social.h"
+
 @interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
@@ -362,45 +362,13 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
         [sharingItems addObject:url];
     }
     
-    [sharingItems addObject:@"\nvia TECH DIGEST - http://apple.co/1XZxGcb"];
-
-    
-    
+    [sharingItems addObject:@"\nvia TECH DIGEST for iOS - http://apple.co/1XZxGcb"];
     
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
-    [self presentViewController:activityController animated:YES completion:nil];
-    
-    
-//    SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-//    
-//    
-//    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-//    {
-//        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
-//            
-//            [fbController dismissViewControllerAnimated:YES completion:nil];
-//            
-//            switch(result){
-//                case SLComposeViewControllerResultCancelled:
-//                default:
-//                {
-//                    NSLog(@"Cancelled.....");
-//                    
-//                }
-//                    break;
-//                case SLComposeViewControllerResultDone:
-//                {
-//                    NSLog(@"Posted....");
-//                }
-//                    break;
-//            }};
-//        
-//        [fbController addImage:image];
-//        [fbController setInitialText:@"sda"];
-//        [fbController addURL:[NSURL URLWithString:url]];
-//        [fbController setCompletionHandler:completionHandler];
-//        [self presentViewController:fbController animated:YES completion:nil];
-//    }
+    //exclude share options
+    activityController.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypeAssignToContact];
+    //present share view
+    [self presentViewController:activityController animated:YES completion:nil];   
 }
 
 

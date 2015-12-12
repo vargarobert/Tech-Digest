@@ -349,6 +349,7 @@
 		7579FE121BA40BE500A42D13 /* Tech Digest */ = {
 			isa = PBXGroup;
 			children = (
+				75F86D6F1BED3382000B580D /* Utils */,
 				75C0BA561BDD2C6B0098EE69 /* Parse */,
 				750229C31BB3F36B00AB1006 /* Custom Views */,
 				7579FE171BA40BE500A42D13 /* AppDelegate.h */,
@@ -397,7 +398,6 @@
 		75C0BA561BDD2C6B0098EE69 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
-				75F86D6F1BED3382000B580D /* Utils */,
 				755DD9021BE1694700B48E0C /* Models */,
 			);
 			name = Parse;
@@ -497,6 +497,11 @@
 					7579FE0F1BA40BE500A42D13 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 2U4S34TN3K;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					7579FE281BA40BE500A42D13 = {
 						CreatedOnToolsVersion = 6.4;
