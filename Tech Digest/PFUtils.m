@@ -18,16 +18,16 @@
 @implementation PFUtils
 
 //LOCAL DATASTORE
-+(void)_getArticlesFromDatastoreForDate:(NSDate*)today completion:(void (^)(NSArray *array))completionBlock {
++(void)_getArticlesFromDatastoreForDate:(NSDate*)date completion:(void (^)(NSArray *array))completionBlock {
     NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
                                                                 value:1
-                                                               toDate:today
+                                                               toDate:date
                                                               options:0];
     //query parameters
     PFQuery *query = [PFArticle query];
     //get from local datastore
     [query fromLocalDatastore];
-    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
+    [query whereKey:@"batchDate" greaterThanOrEqualTo:date];
     [query whereKey:@"batchDate" lessThan:tomorrow];
     
 //    __block NSArray *data = [[NSArray alloc] init];
@@ -45,15 +45,15 @@
 }
 
 //CLOUD
-+(void)_getArticlesFromCloudForDate:(NSDate*)today completion:(void (^)(int HTTPCode, NSArray *array))completionBlock {
++(void)_getArticlesFromCloudForDate:(NSDate*)date completion:(void (^)(int HTTPCode, NSArray *array))completionBlock {
     
     NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
                                                                 value:1
-                                                               toDate:today
+                                                               toDate:date
                                                               options:0];
     //query parameters
     PFQuery *query = [PFArticle query];
-    [query whereKey:@"batchDate" greaterThanOrEqualTo:today];
+    [query whereKey:@"batchDate" greaterThanOrEqualTo:date];
     [query whereKey:@"batchDate" lessThan:tomorrow];
     
 //    NSLog(@"_getArticlesFromCloudForDate %@", today);

@@ -74,7 +74,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 - (id)init {
     if (self = [super init]) {
-        self.firstLoadDone = NO;
+//        self.firstLoadDone = NO;
     }
     return self;
 }
@@ -186,16 +186,17 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-//        return 9;
     return self.articleData.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    //first row cell height (full screen)
     if(indexPath.row==0)
     {
         return tableView.frame.size.height;
     }
+    
+    //standard cell height
     return 300;
 }
 
@@ -224,7 +225,6 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         //row number and category
         cell.rowNumber.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row+1];
         cell.category.text = [articleObject.category.title uppercaseString];
-        
         
         
         //image

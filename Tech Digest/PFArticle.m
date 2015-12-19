@@ -38,8 +38,6 @@
     [query includeKey:@"category"];
     [query orderByAscending:@"order"];
     
-    // Load from the cache if network requests fail
-//    query.cachePolicy = kPFCachePolicyNetworkElseCache;
     
     return query;
 }

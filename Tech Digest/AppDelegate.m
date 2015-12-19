@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "ArticleViewController.h"
+
 //alert view
 #import "RKDropdownAlert.h"
 //colors
@@ -33,7 +35,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
+
     //PARSE base setup
     [Parse enableLocalDatastore];
     // Initialize Parse.
@@ -127,31 +129,25 @@
     UIUserNotificationSettings *notifSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:notifSettings];
     
-    //schedule notification only once
-//    if(![NSUserDefaultsUtils isObjectMarkedAsTrue:@"scheduledLocalNotification"]) {
-        NSCalendar* calendar = [NSCalendar currentCalendar];
-        NSDate *now = [NSDate date];
-        NSDateComponents *componentsForFireDate = [calendar components:(NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate: now];
-        [componentsForFireDate setHour: 8] ; //for fixing 8AM hour
-        [componentsForFireDate setMinute:0] ;
-        [componentsForFireDate setSecond:0] ;
-        
-        NSDate *fireDateOfNotification = [calendar dateFromComponents: componentsForFireDate];
-        UILocalNotification *notification = [[UILocalNotification alloc] init] ;
-        notification.repeatInterval = NSCalendarUnitDay;
-        notification.fireDate = fireDateOfNotification ;
-        notification.timeZone = [NSTimeZone localTimeZone] ;
-        notification.alertBody = [NSString stringWithFormat: @"Your daily Tech Digest is ready."] ;
-        notification.userInfo= [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"New technology digest added for that day!"] forKey:@"new"];
-        notification.soundName=UILocalNotificationDefaultSoundName;
-        notification.applicationIconBadgeNumber = 1;
-        
-        NSLog(@"notification: %@",notification);//it indicates when the notification will be triggered
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        
-//        [NSUserDefaultsUtils markObjectAsTrue:@"scheduledLocalNotification"];
-//    }
+    //schedule notification
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDate *now = [NSDate date];
+    NSDateComponents *componentsForFireDate = [calendar components:(NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate: now];
+    [componentsForFireDate setHour: 8]; //for fixing 8AM hour
+    [componentsForFireDate setMinute:0];
+    [componentsForFireDate setSecond:0];
+    
+    NSDate *fireDateOfNotification = [calendar dateFromComponents: componentsForFireDate];
+    UILocalNotification *notification = [[UILocalNotification alloc] init] ;
+    notification.repeatInterval = NSCalendarUnitDay;
+    notification.fireDate = fireDateOfNotification ;
+    notification.timeZone = [NSTimeZone localTimeZone] ;
+    notification.alertBody = [NSString stringWithFormat: @"Your daily Tech Digest is ready."] ;
+    notification.userInfo= [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"New technology digest added for that day!"] forKey:@"new"];
+    notification.soundName=UILocalNotificationDefaultSoundName;
+    notification.applicationIconBadgeNumber = 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -184,6 +180,30 @@
             }
         }
     }];
+}
+
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if([[url host] isEqualToString:@"page"]){
+        if([[url path] isEqualToString:@"/sharedArticle"]){
+//            [self.mainController pushViewController:@[[[ArticleViewController alloc] init]] animated:YES];
+            [self.mainController pushViewController:[[ArticleViewController alloc] init] animated:YES];
+            NSLog(@"sharedArticle");
+        }
+//        else if([[url path] isEqualToString:@"/page1"]){
+//            [self.mainController pushViewController:[[Page1ViewController alloc] init] animated:YES];
+//        }
+//        else if([[url path] isEqualToString:@"/page2"]){
+//            [self.mainController pushViewController:[[Page2ViewController alloc] init] animated:YES];
+//        }
+//        else if([[url path] isEqualToString:@"/page3"]){
+//            [self.mainController pushViewController:[[Page3ViewController alloc] init] animated:YES];
+//        }
+        return YES;
+    }
+    else{
+        return NO;
+    }
 }
 
 //By tapping on action button of the notification, users will launch the app. Then reset the number on badge

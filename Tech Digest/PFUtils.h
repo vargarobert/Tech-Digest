@@ -11,7 +11,21 @@
 
 @interface PFUtils : NSObject
 
-+(void)_getArticlesFromDatastoreForDate:(NSDate*)today completion:(void (^)(NSArray *array))completionBlock;
-+(void)_getArticlesFromCloudForDate:(NSDate*)today completion:(void (^)(int HTTPCode, NSArray *array))completionBlock;
+/**
+ Returns through completionBlock the tarticles from the local Parse data store.
+ 
+ @param date Date for which to return articles.
+ @param completionBlock The block to be executed on the completion of a  request. This block has no return value and takes two arguments: the HTTPCode of the operation and the object constructed from the response data of the request.rguments: the HTTPCode of the operation and the object constructed from the response data of the request.
+ */
++(void)_getArticlesFromDatastoreForDate:(NSDate*)date completion:(void (^)(NSArray *array))completionBlock;
+
+
+/**
+ Returns through completionBlock the articles from the cloud Parse data store through a HTTP connection.
+ 
+ @param date Date for which to return articles.
+ @param completionBlock The block to be executed on the completion of a  request. This block has no return value and takes two arguments: the HTTPCode of the operation and the object constructed from the response data of the request.
+ */
++(void)_getArticlesFromCloudForDate:(NSDate*)date completion:(void (^)(int HTTPCode, NSArray *array))completionBlock;
 
 @end

@@ -18,7 +18,7 @@ pod 'Parse'
 pod 'AFNetworking'
 pod 'SwipeBack'
 pod 'MWPhotoBrowser'
-
+pod 'Branch'
 
 
 target 'Tech Digest' do

@@ -399,7 +399,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    //    [self.flatRoundedButton animateToType:buttonMenuType];
     //remomve nav bar button
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;

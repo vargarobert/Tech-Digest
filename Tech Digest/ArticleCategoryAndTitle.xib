@@ -39,9 +39,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-f9-kep" userLabel="Share">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-f9-kep" userLabel="Share">
                         <rect key="frame" x="345" y="22" width="22" height="22"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="gsK-og-ldI"/>
+                            <constraint firstAttribute="height" constant="22" id="iKA-Is-am3"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <constraints>
@@ -55,7 +59,9 @@
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="trailing" secondItem="1dJ-Ly-5xZ" secondAttribute="trailingMargin" id="e4u-MT-FfP"/>
                     <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="-6" id="eal-WV-oBR"/>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="centerX" secondItem="1dJ-Ly-5xZ" secondAttribute="centerX" id="fji-YE-9oz"/>
+                    <constraint firstItem="R2z-f9-kep" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="topMargin" constant="14" id="iKS-GT-kfB"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LDI-9P-Rq2" secondAttribute="trailing" constant="200" id="idZ-7e-oRL"/>
+                    <constraint firstItem="R2z-f9-kep" firstAttribute="trailing" secondItem="1dJ-Ly-5xZ" secondAttribute="trailingMargin" id="nBp-Xe-TNK"/>
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="-3" id="nci-YZ-L5X"/>
                 </constraints>
             </tableViewCellContentView>
