@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -11,19 +11,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="213" tableViewCell="pfJ-Az-CJJ" id="1dJ-Ly-5xZ">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="213.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="none" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-BY-EL7">
                         <rect key="frame" x="8" y="181" width="359" height="24"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-rh-FkM">
                         <rect key="frame" x="-3" y="15" width="32" height="22"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="DKn-Cv-FXr"/>
                             <constraint firstAttribute="width" constant="32" id="aj0-HK-UgP"/>
@@ -34,7 +32,6 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Securiy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2" customClass="InsetUILabel">
                         <rect key="frame" x="23" y="15" width="43" height="22"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="NN8-Mn-2kA"/>
                         </constraints>
@@ -43,7 +40,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="8" id="3wn-b4-hcV"/>
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="top" secondItem="1dJ-Ly-5xZ" secondAttribute="top" constant="15" id="8rd-Uh-aMc"/>
@@ -55,7 +51,6 @@
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="-3" id="nci-YZ-L5X"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>

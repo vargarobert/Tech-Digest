@@ -19,7 +19,7 @@
 //time circle view
 #import "TimeIndicatorView.h"
 
-#import <Masonry/Masonry.h>
+//#import <Masonry/Masonry.h>
 //load images async
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //custom colors
@@ -34,11 +34,10 @@
 //fonts awesome
 #import "FontAwesomeKit/FAKFontAwesome.h"
 //PARSE
-#import <Parse/Parse.h>
 //Article Model
 #import "PFArticle.h"
 //Parse utils
-#import "PFUtils.h"
+#import "ParseAPI.h"
 //HTTP codes
 #import "FTHTTPCodes.h"
 //Date utils
@@ -74,7 +73,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 - (id)init {
     if (self = [super init]) {
-//        self.firstLoadDone = NO;
+        //        self.firstLoadDone = NO;
     }
     return self;
 }
@@ -102,7 +101,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 - (void)getInitialDataOnViewDidLoad {
     // 1. get data for today only from LOCALDATASTORE
-    [PFUtils _getArticlesFromDatastoreForDate:self.today completion:^(NSArray *array) {
+    [ParseAPI _getArticlesFromDatastoreForDate:self.today completion:^(NSArray *array) {
         //in the case of local data store populate only if it exists for temporary purposes. Ultimately rely on network as a master source
         if (array.count) {
             self.articleData = array;
@@ -145,7 +144,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
                                                                 toDate:today
                                                                options:0];
     
-    [PFUtils _getArticlesFromCloudForDate:today completion:^(int HTTPCode, NSArray *array) {
+    [ParseAPI _getArticlesFromCloudForDate:today completion:^(int HTTPCode, NSArray *array) {
         if (HTTPCode==HTTPCode204NoContent) {
             //NO results
             //get date -1
@@ -155,7 +154,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
             if (HTTPCode==HTTPCode200OK) {
                 //YES results populate with new data
                 self.articleData = array;
-//                NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
+                //                NSLog(@"Retrieved %lu data.", (unsigned long)self.articleData.count);
                 //save new data to localdatastore
                 [PFObject pinAllInBackground:self.articleData];
                 //reload table
@@ -170,7 +169,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         }
     }];
     
-
+    
 }
 
 
@@ -209,7 +208,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     // ### TOP CELL ###
     if (indexPath.row == 0) {
         MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierFirst];
-
+        
         
         // ###Content
         //TIME label setup
@@ -238,18 +237,18 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         if ([NSUserDefaultsUtils isObjectMarkedAsTrue:articleObject.objectId]) {
             [cell markAsRead];
         }
-
-    
+        
+        
         return cell;
     }
     
     // ### STANDARD CELL ###
     else {
         MMParallaxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierStandard];
-
         
-//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        
+        //        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        //        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
         
         
         // ###Content
@@ -262,8 +261,8 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         //image
         [cell.parallaxImage setImageWithURL:[NSURL URLWithString:articleObject.mainImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-       
-   
+        
+        
         //color set based on article
         [cell setCategoryColor: articleTypeColor];
         
@@ -286,7 +285,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     // SEPARATOR between cells
     static NSInteger const separatorTag = 123;
     UIView* separatorLineView = (UIView *)[cell.contentView viewWithTag:separatorTag];
@@ -355,7 +354,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         //any load
         text = @"No Data Is Currently Available";
     }
-
+    
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
                                  NSForegroundColorAttributeName: [UIColor whiteColor]};
     

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
 #import "PFCategory.h"
 
 @interface PFArticle : PFObject<PFSubclassing>

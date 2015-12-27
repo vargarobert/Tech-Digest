@@ -10,6 +10,8 @@
 
 #import "ArticleViewController.h"
 
+//deep linking
+#import "Branch.h"
 //alert view
 #import "RKDropdownAlert.h"
 //colors
@@ -17,12 +19,11 @@
 //reachability (connection)
 #import <AFNetworkReachabilityManager.h>
 //parse
-#import <Parse/Parse.h>
 #import "PFArticle.h"
 //Date utils
 #import "DateUtils.h"
 //PARSE utils
-#import "PFUtils.h"
+#import "ParseAPI.h"
 //HTTP codes
 #import "FTHTTPCodes.h"
 
@@ -35,10 +36,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //deep linking setup
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        if (!error) {
+            // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
+            // params will be empty if no data found
+            // ... insert custom logic here ...
+//            NSLog(@"params: %@", params.description);
+        }
+    }];
 
     //PARSE base setup
     [Parse enableLocalDatastore];
-    // Initialize Parse.
+    // Initialize Parse.performFetchWithCompletionHandle
     [Parse setApplicationId:@"qKpgNk7qQyYyl4Yn98O4vhYP4xuPVpKfRHROA1Us" clientKey:@"bUGTIANQ7t6IZbpWJtTEeMWlycereNKsLM78oZaV"];
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -151,59 +162,88 @@
 }
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"Fetch started");
     
     //get today's DATE for current location with time 00:00:00
     NSDate *today = [DateUtils resetTimeFromDateByLocation:[NSDate date]];
-    [self getDataForDate:today];
-    
-    NSLog(@"Fetch completed");
-}
 
-- (void)getDataForDate:(NSDate*)today {
-    //prepare yesterday date incase no data for today
-    NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
-                                                                 value:-1
-                                                                toDate:today
-                                                               options:0];
-    
-    [PFUtils _getArticlesFromCloudForDate:today completion:^(int HTTPCode, NSArray *array) {
-        if (HTTPCode==HTTPCode204NoContent) {
-            //NO results
-            //get date -1
-            [self getDataForDate:yesterday];
-        } else {
-            //reload table data only if new data
-            if (HTTPCode==HTTPCode200OK) {
-                //save new data to localdatastore
-                [PFObject pinAllInBackground:array];
+    __block int counter = 1; //recursive counter
+    __block void(^getDataForDate)(id,NSDate *) = ^(id thisblock, NSDate *date){
+        //this block for recursive calls http://stackoverflow.com/questions/13090598/recursive-block-retain-cycles
+        void(^block)(id,NSDate*) = thisblock;
+
+        //prepare yesterday date incase no data for today
+        NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                     value:-counter
+                                                                    toDate:today
+                                                                   options:0];
+        
+        [ParseAPI _getArticlesFromCloudForDate:date completion:^(int HTTPCode, NSArray *array) {
+            //NSLog(@"%d", HTTPCode);
+            //NSLog(@"%@", date);
+
+            if (HTTPCode==HTTPCode204NoContent) {
+                //NO results
+                //get date -1
+                counter += 1;
+                //max 30 RECURSIVE trials
+                if (counter <= 30) {
+                    block(thisblock, yesterday);
+                } else {
+                    completionHandler(UIBackgroundFetchResultNoData);
+                }
+            } else {
+                //reload table data only if new data
+                if (HTTPCode==HTTPCode200OK) {
+                    //save new data to localdatastore
+                    [PFObject pinAllInBackground:array];
+                    //end bg fetch
+                    completionHandler(UIBackgroundFetchResultNewData);
+                }
             }
-        }
-    }];
+        }];
+
+    };
+    
+    //get data
+    getDataForDate(getDataForDate, today);
+
 }
 
+//-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+//    if([[url host] isEqualToString:@"page"]){
+//        if([[url path] isEqualToString:@"/sharedArticle"]){
+////            [self.mainController pushViewController:@[[[ArticleViewController alloc] init]] animated:YES];
+//            [self.mainController pushViewController:[[ArticleViewController alloc] init] animated:YES];
+//            NSLog(@"sharedArticle");
+//        }
+////        else if([[url path] isEqualToString:@"/page1"]){
+////            [self.mainController pushViewController:[[Page1ViewController alloc] init] animated:YES];
+////        }
+////        else if([[url path] isEqualToString:@"/page2"]){
+////            [self.mainController pushViewController:[[Page2ViewController alloc] init] animated:YES];
+////        }
+////        else if([[url path] isEqualToString:@"/page3"]){
+////            [self.mainController pushViewController:[[Page3ViewController alloc] init] animated:YES];
+////        }
+//        return YES;
+//    }
+//    else{
+//        return NO;
+//    }
+//}
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    if([[url host] isEqualToString:@"page"]){
-        if([[url path] isEqualToString:@"/sharedArticle"]){
-//            [self.mainController pushViewController:@[[[ArticleViewController alloc] init]] animated:YES];
-            [self.mainController pushViewController:[[ArticleViewController alloc] init] animated:YES];
-            NSLog(@"sharedArticle");
-        }
-//        else if([[url path] isEqualToString:@"/page1"]){
-//            [self.mainController pushViewController:[[Page1ViewController alloc] init] animated:YES];
-//        }
-//        else if([[url path] isEqualToString:@"/page2"]){
-//            [self.mainController pushViewController:[[Page2ViewController alloc] init] animated:YES];
-//        }
-//        else if([[url path] isEqualToString:@"/page3"]){
-//            [self.mainController pushViewController:[[Page3ViewController alloc] init] animated:YES];
-//        }
-        return YES;
-    }
-    else{
-        return NO;
-    }
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // pass the url to the handle deep link call
+    [[Branch getInstance] handleDeepLink:url];
+    
+    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+    BOOL handledByBranch = [[Branch getInstance] continueUserActivity:userActivity];
+    
+    return handledByBranch;
 }
 
 //By tapping on action button of the notification, users will launch the app. Then reset the number on badge

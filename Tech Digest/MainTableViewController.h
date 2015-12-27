@@ -11,8 +11,6 @@
 @interface MainTableViewController : UITableViewController
 
 
-//@property (strong, nonatomic) IBOutlet UITableView *tableView;
-//@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @end
 

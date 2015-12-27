@@ -13,11 +13,13 @@
 #import "ArticleStoryTableViewCell.h"
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
+
 //navigation swipe
 #import <SwipeBack/SwipeBack.h>
-
 //userdefaults utils
 #import "NSUserDefaultsUtils.h"
+//social media utils
+#import "ShareUtils.h"
 //colors
 #import <ChameleonFramework/Chameleon.h>
 //nav bar hide
@@ -96,18 +98,18 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 
 
 -(void)navigationBarSetup {
-    //transparet NAV BAR
+//    //transparet NAV BAR
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     
-    self.edgesForExtendedLayout = UIRectEdgeAll;
-    self.automaticallyAdjustsScrollViewInsets = YES;
-    self.extendedLayoutIncludesOpaqueBars = NO;
-    
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
+//    self.edgesForExtendedLayout = UIRectEdgeAll;
+//    self.automaticallyAdjustsScrollViewInsets = YES;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+//    
+//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     
     //SETUP BACK BUTTON
     [self navButonSetup];
@@ -168,11 +170,6 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    int sections = 2; // title + source
-//    
-//    sections += _articleObject.descriptions.count; //number of description sections
-//    
-//    return sections;
     return 1;
 }
 
@@ -352,34 +349,12 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     UIImageView *imageView = [[UIImageView alloc] init];
     [imageView setImageWithURL:_articleObject.imagesUrls[0] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
-        [self shareText:_articleObject.title andImage:image andUrl:_articleObject.source[@"url"]];
+        //build share vc
+        UIActivityViewController *activityController = [ShareUtils shareText:_articleObject.title andImage:image andUrl:_articleObject.source[@"url"]];
+        //present vc with share data
+        [self presentViewController:activityController animated:YES completion:nil];
 
     } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-
-    
-}
-
-- (void)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSString *)url
-{
-    NSMutableArray *sharingItems = [NSMutableArray new];
-    
-    if (text) {
-        [sharingItems addObject:text];
-    }
-    if (image) {
-        [sharingItems addObject:image];
-    }
-    if (url) {
-        [sharingItems addObject:url];
-    }
-    
-    [sharingItems addObject:@"\nvia TECH DIGEST for iOS - http://apple.co/1XZxGcb"];
-    
-    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
-    //exclude share options
-    activityController.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypeAssignToContact];
-    //present share view
-    [self presentViewController:activityController animated:YES completion:nil];   
 }
 
 

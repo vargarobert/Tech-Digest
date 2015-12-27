@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
 
-@interface PFUtils : NSObject
+@interface ParseAPI : NSObject
 
 /**
  Returns through completionBlock the tarticles from the local Parse data store.

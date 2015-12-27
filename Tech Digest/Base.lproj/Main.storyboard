@@ -18,6 +18,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="CQv-Q7-h9H"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="TZr-Av-SyI" id="Pb9-cb-iBg"/>
                         <segue destination="UWw-jo-fcm" kind="show" identifier="showArticle" id="Cck-tC-IIs"/>
@@ -53,7 +55,7 @@
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="4xA-1W-taP" id="zJf-4Z-QEk"/>
                     </connections>
@@ -67,6 +69,7 @@
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="DBg-AC-0SE" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ggz-tW-HUK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

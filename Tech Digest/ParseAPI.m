@@ -6,7 +6,7 @@
 //  Copyright © 2015 Robert Varga. All rights reserved.
 //
 
-#import "PFUtils.h"
+#import "ParseAPI.h"
 
 //Article model
 #import "PFArticle.h"
@@ -15,7 +15,7 @@
 
 
 
-@implementation PFUtils
+@implementation ParseAPI
 
 //LOCAL DATASTORE
 +(void)_getArticlesFromDatastoreForDate:(NSDate*)date completion:(void (^)(NSArray *array))completionBlock {

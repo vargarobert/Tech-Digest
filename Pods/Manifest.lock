@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.4.0)
+  - Branch (0.11.13)
   - ChameleonFramework (2.0.4):
     - ChameleonFramework/Default (= 2.0.4)
   - ChameleonFramework/Default (2.0.4)
@@ -34,7 +35,6 @@ PODS:
     - FontAwesomeKit/Core
   - INSPullToRefresh (1.0.12)
   - KIImagePager (2.1.0)
-  - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - MWPhotoBrowser (2.1.1):
     - DACircularProgress (~> 2.3)
@@ -56,6 +56,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - Branch
   - ChameleonFramework
   - DGActivityIndicatorView
   - DZNEmptyDataSet
@@ -63,7 +64,6 @@ DEPENDENCIES:
   - FontAwesomeKit/IonIcons
   - INSPullToRefresh
   - KIImagePager (from `https://github.com/vargarobert/KIImagePager`)
-  - Masonry (~> 0.6.2)
   - MWPhotoBrowser
   - Parse
   - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
@@ -100,6 +100,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  Branch: 37553775450de2d844b03a0854c37d6271d967e7
   ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
@@ -107,7 +108,6 @@ SPEC CHECKSUMS:
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
   INSPullToRefresh: 3c3840b1837870d6553f749dab6520e31f551a76
   KIImagePager: aea488f00879fda4a4b81e2b83187da070907c85
-  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
