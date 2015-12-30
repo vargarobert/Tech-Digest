@@ -26,6 +26,11 @@
 		755DD9051BE16A6D00B48E0C /* PFArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 755DD9041BE16A6D00B48E0C /* PFArticle.m */; };
 		75631A7D1C2EA40D00282572 /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A7C1C2EA40D00282572 /* ShareUtils.m */; };
 		75631A881C2FF48F00282572 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A871C2FF48F00282572 /* TwitterAPI.m */; };
+		75631A931C30326500282572 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A921C30326500282572 /* SwipeView.m */; };
+		75631A961C30328C00282572 /* ArticleTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */; };
+		75631A981C30332800282572 /* ArticleTwitterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */; };
+		75631A9A1C30355300282572 /* TwitterBox2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75631A991C30355300282572 /* TwitterBox2.xib */; };
+		75631A9C1C304F2500282572 /* TwitterBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75631A9B1C304F2500282572 /* TwitterBox.xib */; };
 		756817501BE4DE5600F254CA /* PFCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7568174F1BE4DE5600F254CA /* PFCategory.m */; };
 		756817531BE654A200F254CA /* ParseAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 756817521BE654A200F254CA /* ParseAPI.m */; };
 		756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 756F7C5C1BA4205E00C46DC6 /* MainTableViewController.m */; };
@@ -86,6 +91,13 @@
 		75631A7C1C2EA40D00282572 /* ShareUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUtils.m; sourceTree = "<group>"; };
 		75631A861C2FF48F00282572 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAPI.h; sourceTree = "<group>"; };
 		75631A871C2FF48F00282572 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAPI.m; sourceTree = "<group>"; };
+		75631A911C30326500282572 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		75631A921C30326500282572 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
+		75631A941C30328C00282572 /* ArticleTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTwitterTableViewCell.h; sourceTree = "<group>"; };
+		75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTwitterTableViewCell.m; sourceTree = "<group>"; };
+		75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleTwitterTableViewCell.xib; sourceTree = "<group>"; };
+		75631A991C30355300282572 /* TwitterBox2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterBox2.xib; sourceTree = "<group>"; };
+		75631A9B1C304F2500282572 /* TwitterBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterBox.xib; sourceTree = "<group>"; };
 		7568174E1BE4DE5600F254CA /* PFCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCategory.h; sourceTree = "<group>"; };
 		7568174F1BE4DE5600F254CA /* PFCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFCategory.m; sourceTree = "<group>"; };
 		756817511BE654A200F254CA /* ParseAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseAPI.h; sourceTree = "<group>"; };
@@ -151,6 +163,10 @@
 		750229C31BB3F36B00AB1006 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				75631A911C30326500282572 /* SwipeView.h */,
+				75631A921C30326500282572 /* SwipeView.m */,
+				75631A941C30328C00282572 /* ArticleTwitterTableViewCell.h */,
+				75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */,
 				75F733F91C050050001C54EA /* MWPhotoBrowser */,
 				752818E91BCFD1DD00645B09 /* INSPullToRefresh */,
 				75FB61BC1BCF8D290057E478 /* Category Colors */,
@@ -193,6 +209,9 @@
 				750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */,
 				752818F11BCFEF1900645B09 /* ArticleStoryQuoteTableViewCell.xib */,
 				750E22521BD1904C00EE3EC3 /* ArticleReferenceTableViewCell.xib */,
+				75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */,
+				75631A991C30355300282572 /* TwitterBox2.xib */,
+				75631A9B1C304F2500282572 /* TwitterBox.xib */,
 			);
 			name = ArticleStory;
 			sourceTree = "<group>";
@@ -486,11 +505,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				752818F21BCFEF1900645B09 /* ArticleStoryQuoteTableViewCell.xib in Resources */,
+				75631A9C1C304F2500282572 /* TwitterBox.xib in Resources */,
+				75631A981C30332800282572 /* ArticleTwitterTableViewCell.xib in Resources */,
 				7579FE1F1BA40BE500A42D13 /* Main.storyboard in Resources */,
 				750229D91BB43E4100AB1006 /* ArticleStoryTableViewCell.xib in Resources */,
 				7579FE241BA40BE500A42D13 /* LaunchScreen.xib in Resources */,
 				750E22531BD1904C00EE3EC3 /* ArticleReferenceTableViewCell.xib in Resources */,
 				753C8DAB1BA42F1400D1D7B0 /* ParallaxCell.xib in Resources */,
+				75631A9A1C30355300282572 /* TwitterBox2.xib in Resources */,
 				750229D41BB418D600AB1006 /* ArticleCategoryAndTitle.xib in Resources */,
 				7579FE211BA40BE500A42D13 /* Images.xcassets in Resources */,
 			);
@@ -560,6 +582,7 @@
 			files = (
 				750E22571BD1910100EE3EC3 /* ArticleReferenceTableViewCell.m in Sources */,
 				75F86D771BEE7601000B580D /* NSUserDefaultsUtils.m in Sources */,
+				75631A961C30328C00282572 /* ArticleTwitterTableViewCell.m in Sources */,
 				750229D71BB43E1200AB1006 /* ArticleStoryTableViewCell.m in Sources */,
 				752818F51BCFF10C00645B09 /* ArticleStoryQuoteTableViewCell.m in Sources */,
 				75631A881C2FF48F00282572 /* TwitterAPI.m in Sources */,
@@ -567,6 +590,7 @@
 				75F733FC1C05011F001C54EA /* DateUtils.m in Sources */,
 				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
 				756817501BE4DE5600F254CA /* PFCategory.m in Sources */,
+				75631A931C30326500282572 /* SwipeView.m in Sources */,
 				756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */,
 				75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */,
 				753C8E191BA59BB400D1D7B0 /* MMParallaxCell.m in Sources */,

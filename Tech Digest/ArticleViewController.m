@@ -13,6 +13,7 @@
 #import "ArticleStoryTableViewCell.h"
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
+#import "ArticleTwitterTableViewCell.h"
 
 //navigation swipe
 #import <SwipeBack/SwipeBack.h>
@@ -59,6 +60,7 @@ static NSString* cellIdentifierArticleCategoryAndTitle = @"cellIdentifierArticle
 static NSString* cellIdentifierArticleStory = @"cellIdentifierArticleStory";
 static NSString* cellIdentifierArticleStoryQuote = @"cellIdentifierArticleStoryQuote";
 static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReference";
+static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 
 
 
@@ -94,6 +96,7 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
     [self.tableView registerNib:[UINib nibWithNibName:@"ArticleStoryTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleStory];
     [self.tableView registerNib:[UINib nibWithNibName:@"ArticleStoryQuoteTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleStoryQuote];
     [self.tableView registerNib:[UINib nibWithNibName:@"ArticleReferenceTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleReference];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ArticleTwitterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifierArticleTwitter];
 }
 
 
@@ -170,16 +173,26 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    int rows = 2; // title + source
-    
-    rows += _articleObject.descriptions.count;
-    rows += _articleObject.quotes.count;
-
-    return rows;
+//    int rows = 2; // title + twitter + source
+//    
+//    rows += _articleObject.descriptions.count;
+//    rows += _articleObject.quotes.count;
+//
+//    return rows;
+    if (section == 0) {
+        return 1; //title
+    } else if (section == 1) {
+        int rows = 0;
+        rows += _articleObject.descriptions.count;
+        rows += _articleObject.quotes.count;
+        return rows;
+    } else {
+        return 2; //twitter + source
+    }
 }
 
 
@@ -196,72 +209,165 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 
     //ArticleReferenceTableViewCell
     ArticleReferenceTableViewCell *articleReferenceTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
+    
+    //ArticleReferenceTableViewCell
+    ArticleTwitterTableViewCell *articleTwitterTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleTwitter forIndexPath:indexPath];
 
     
     UIColor *articleTypeColor = [CategoryColors getCategoryColor: _articleObject.category.title ];
 
     
-     if (indexPath.row == 0) {
-         
-         // ###Content
-         //title
-         articleCategoryAndTitleTableViewCell.title.text = _articleObject.title;
-         //row number and category
-         articleCategoryAndTitleTableViewCell.rowNumber.text = _articleOrder;
-         articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
-         
-         [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
-         
-         //share button target
-         [articleCategoryAndTitleTableViewCell.shareButton addTarget:self action:@selector(shareArticleAction:) forControlEvents:UIControlEventTouchUpInside];
+    //###Title
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 0) {
+            
+            // ###Content
+            //title
+            articleCategoryAndTitleTableViewCell.title.text = _articleObject.title;
+            //row number and category
+            articleCategoryAndTitleTableViewCell.rowNumber.text = _articleOrder;
+            articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
+            
+            [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
+            
+            //share button target
+            [articleCategoryAndTitleTableViewCell.shareButton addTarget:self action:@selector(shareArticleAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return articleCategoryAndTitleTableViewCell;
+            
+        }
+    }
+    //###Main body
+    else if (indexPath.section == 1)
+    {
+        if (indexPath.row == 0 && _articleObject.descriptions.count >= 1) {
+            
+            // ###Content
+            articleStoryTableViewCell.story.text = _articleObject.descriptions[0];
+            
+            
+            return articleStoryTableViewCell;
+            
+        } else if (indexPath.row == 1 && _articleObject.quotes.count >= 1) {
+            
+            // ###Content
+            [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[0][@"quote"]
+                                           forAuthor:_articleObject.quotes[0][@"author"]];
+            
+            [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
+            
+            return articleStoryQuoteTableViewCell;
+            
+        } else if ( indexPath.row == 2 && _articleObject.descriptions.count >= 2 ) {
+            
+            // ###Content
+            articleStoryTableViewCell.story.text = _articleObject.descriptions[1];
+            
+            
+            return articleStoryTableViewCell;
+            
+        } else if (indexPath.row == 3 && _articleObject.quotes.count >= 2) {
+            
+            // ###Content
+            [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[1][@"quote"]
+                                           forAuthor:_articleObject.quotes[1][@"author"]];
+            
+            [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
+            
+            return articleStoryQuoteTableViewCell;
+            
+        }
+    }
+    //###Twitter + Source
+    else if (indexPath.section == 2)
+    {
+        if (indexPath.row == 0) {
+            
+            // ###Content
+            return articleTwitterTableViewCell;
 
-         return articleCategoryAndTitleTableViewCell;
+            
+        } else if (indexPath.row == 1) {
+            
+            // ###Content
+             [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
+             [articleReferenceTableViewCell setCategoryColor: articleTypeColor];
 
-     } else if (indexPath.row == 1 && _articleObject.descriptions.count >= 1) {
-         
-         // ###Content
-         articleStoryTableViewCell.story.text = _articleObject.descriptions[0];
-   
-         
-         return articleStoryTableViewCell;
+             return articleReferenceTableViewCell;
+        }
+        
+    }
 
-     } else if (indexPath.row == 2 && _articleObject.quotes.count >= 1) {
-         
-         // ###Content
-         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[0][@"quote"]
-              forAuthor:_articleObject.quotes[0][@"author"]];
-         
-         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
-
-         return articleStoryQuoteTableViewCell;
-         
-     } else if ( indexPath.row == 3 && _articleObject.descriptions.count >= 2 ) {
-         
-         // ###Content
-         articleStoryTableViewCell.story.text = _articleObject.descriptions[1];
-         
-         
-         return articleStoryTableViewCell;
-         
-     } else if (indexPath.row == 4 && _articleObject.quotes.count >= 2) {
-         
-         // ###Content
-         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[1][@"quote"]
-                                        forAuthor:_articleObject.quotes[1][@"author"]];
-         
-         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
-         
-         return articleStoryQuoteTableViewCell;
-         
-     } else {
-
-         // ###Content
-         [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
-         [articleReferenceTableViewCell setCategoryColor: articleTypeColor];
-         
-         return articleReferenceTableViewCell;
-     }
     
+    
+    return nil;
+    
+    
+//    if (indexPath.row == 0) {
+//    
+//         // ###Content
+//         //title
+//         articleCategoryAndTitleTableViewCell.title.text = _articleObject.title;
+//         //row number and category
+//         articleCategoryAndTitleTableViewCell.rowNumber.text = _articleOrder;
+//         articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
+//         
+//         [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
+//         
+//         //share button target
+//         [articleCategoryAndTitleTableViewCell.shareButton addTarget:self action:@selector(shareArticleAction:) forControlEvents:UIControlEventTouchUpInside];
+//
+//         return articleCategoryAndTitleTableViewCell;
+//
+//     } else if (indexPath.row == 1 && _articleObject.descriptions.count >= 1) {
+//         
+//         // ###Content
+//         articleStoryTableViewCell.story.text = _articleObject.descriptions[0];
+//   
+//         
+//         return articleStoryTableViewCell;
+//
+//     } else if (indexPath.row == 2 && _articleObject.quotes.count >= 1) {
+//         
+//         // ###Content
+//         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[0][@"quote"]
+//              forAuthor:_articleObject.quotes[0][@"author"]];
+//         
+//         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
+//
+//         return articleStoryQuoteTableViewCell;
+//         
+//     } else if ( indexPath.row == 3 && _articleObject.descriptions.count >= 2 ) {
+//         
+//         // ###Content
+//         articleStoryTableViewCell.story.text = _articleObject.descriptions[1];
+//         
+//         
+//         return articleStoryTableViewCell;
+//         
+//     } else if (indexPath.row == 4 && _articleObject.quotes.count >= 2) {
+//         
+//         // ###Content
+//         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[1][@"quote"]
+//                                        forAuthor:_articleObject.quotes[1][@"author"]];
+//         
+//         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
+//         
+//         return articleStoryQuoteTableViewCell;
+//         
+//     } else {
+//         
+//         
+//         return articleTwitterTableViewCell;
+//
+//         // ###Content
+////         [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
+////         [articleReferenceTableViewCell setCategoryColor: articleTypeColor];
+////         
+////         return articleReferenceTableViewCell;
+//     }
+
 
      
 }
