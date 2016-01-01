@@ -7,85 +7,57 @@
 //
 
 #import "ArticleTwitterTableViewCell.h"
-//colors
-#import <ChameleonFramework/Chameleon.h>
-//icons
-#import "FontAwesomeKit/FAKFontAwesome.h"
-#import "FontAwesomeKit/FAKIonIcons.h"
+//collectionView sticky layout
+#import "UICollectionViewFlowLayoutCenterItem.h"
+
+//@implementation TwitterCollectionView
+//
+//@end
+
 
 @interface ArticleTwitterTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet SwipeView *swipeView;
-
-//Twitter Box outlets
-@property (weak, nonatomic) IBOutlet UILabel *tweetTitle;
-@property (weak, nonatomic) IBOutlet UILabel *tweetScreenName;
-@property (weak, nonatomic) IBOutlet UILabel *tweetText;
-
-@property (weak, nonatomic) IBOutlet UIView *tweetViewBorder;
-@property (weak, nonatomic) IBOutlet UIImageView *tweetIcon;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
 
 @implementation ArticleTwitterTableViewCell
 
+
+
+
 - (void)awakeFromNib {
-    // Initialization code
+ 
+    // Register the colleciton cell
+    [self.collectionView registerNib:[UINib nibWithNibName:@"TwitterCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
     
-//    _swipeView.alignment = SwipeViewAlignmentCenter;
-    _swipeView.pagingEnabled = YES;
-    _swipeView.itemsPerPage = 1;
-    _swipeView.truncateFinalPage = YES;
-    _swipeView.delegate = self;
-    _swipeView.dataSource = self;
-    
-    
-
+    //edge insets
+    UIEdgeInsets insets = self.collectionView.contentInset;
+    //    float value = (self.view.frame.size.width - (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width) * 0.5
+    //    self.superview
+    float value = 8;
+    insets.left = value;
+    insets.right = value;
+//    self.collectionView.contentInset = insets;
+//    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
 }
 
-- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
+
+
+
+- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate indexPath:(NSIndexPath *)indexPath
 {
-    return 5;
+    self.collectionView.dataSource = dataSourceDelegate;
+    self.collectionView.delegate = dataSourceDelegate;
+//    self.collectionView.indexPath = indexPath;
+    
+    [self.collectionView reloadData];
 }
-
-- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
-{
-    //    if (!view)
-    //    {
-    //load new item view instance from nib
-    //control events are bound to view controller in nib file
-    //note that it is only safe to use the reusingView if we return the same nib for each
-    //item view, if different items have different contents, ignore the reusingView value
-    //    }
-    
-    view = [[NSBundle mainBundle] loadNibNamed:@"TwitterBox" owner:self options:nil][0];
-
-    self.tweetViewBorder.layer.borderColor = [UIColor colorWithHexString:@"00aced"].CGColor;
-    self.tweetViewBorder.layer.borderWidth = 1.0f;
-    
-    
-    FAKFontAwesome *icon = [FAKFontAwesome twitterIconWithSize:15];
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"00aced"]];
-    UIImage *iconImage = [icon imageWithSize:CGSizeMake(15, 15)];
-    
-    self.tweetIcon.contentMode = UIViewContentModeLeft;
-    self.tweetIcon.image = iconImage;
-
-    
-    self.tweetTitle.text = @"Test tweet to see how long is text";//[_data objectAtIndex:index];
-    
-    
-    return view;
-}
-
-
-
 
 - (void)dealloc
 {
-    _swipeView.delegate = nil;
-    _swipeView.dataSource = nil;
+
 }
 
 @end

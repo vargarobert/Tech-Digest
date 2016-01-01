@@ -14,6 +14,7 @@
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
 #import "ArticleTwitterTableViewCell.h"
+#import "TwitterCollectionViewCell.h"
 
 //navigation swipe
 #import <SwipeBack/SwipeBack.h>
@@ -41,7 +42,7 @@
 #define HEADER_HEIGHT 280.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.tableView.frame.size.width, HEADER_HEIGHT)
 
-@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
+@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate, UICollectionViewDataSource, UICollectionViewDelegate, TTTAttributedLabelDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -102,6 +103,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 
 -(void)navigationBarSetup {
 //    //transparet NAV BAR
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -111,9 +113,9 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 //    self.edgesForExtendedLayout = UIRectEdgeAll;
 //    self.automaticallyAdjustsScrollViewInsets = YES;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
-//    
+//
 //    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    
+
     //SETUP BACK BUTTON
     [self navButonSetup];
 }
@@ -177,11 +179,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    int rows = 2; // title + twitter + source
-//    
-//    rows += _articleObject.descriptions.count;
-//    rows += _articleObject.quotes.count;
-//
 //    return rows;
     if (section == 0) {
         return 1; //title
@@ -284,6 +281,8 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     {
         if (indexPath.row == 0) {
             
+            [articleTwitterTableViewCell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
+
             // ###Content
             return articleTwitterTableViewCell;
 
@@ -300,75 +299,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     }
 
     
-    
     return nil;
-    
-    
-//    if (indexPath.row == 0) {
-//    
-//         // ###Content
-//         //title
-//         articleCategoryAndTitleTableViewCell.title.text = _articleObject.title;
-//         //row number and category
-//         articleCategoryAndTitleTableViewCell.rowNumber.text = _articleOrder;
-//         articleCategoryAndTitleTableViewCell.category.text = [_articleObject.category.title uppercaseString];
-//         
-//         [articleCategoryAndTitleTableViewCell setCategoryColor: articleTypeColor];
-//         
-//         //share button target
-//         [articleCategoryAndTitleTableViewCell.shareButton addTarget:self action:@selector(shareArticleAction:) forControlEvents:UIControlEventTouchUpInside];
-//
-//         return articleCategoryAndTitleTableViewCell;
-//
-//     } else if (indexPath.row == 1 && _articleObject.descriptions.count >= 1) {
-//         
-//         // ###Content
-//         articleStoryTableViewCell.story.text = _articleObject.descriptions[0];
-//   
-//         
-//         return articleStoryTableViewCell;
-//
-//     } else if (indexPath.row == 2 && _articleObject.quotes.count >= 1) {
-//         
-//         // ###Content
-//         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[0][@"quote"]
-//              forAuthor:_articleObject.quotes[0][@"author"]];
-//         
-//         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
-//
-//         return articleStoryQuoteTableViewCell;
-//         
-//     } else if ( indexPath.row == 3 && _articleObject.descriptions.count >= 2 ) {
-//         
-//         // ###Content
-//         articleStoryTableViewCell.story.text = _articleObject.descriptions[1];
-//         
-//         
-//         return articleStoryTableViewCell;
-//         
-//     } else if (indexPath.row == 4 && _articleObject.quotes.count >= 2) {
-//         
-//         // ###Content
-//         [articleStoryQuoteTableViewCell setQuote:_articleObject.quotes[1][@"quote"]
-//                                        forAuthor:_articleObject.quotes[1][@"author"]];
-//         
-//         [articleStoryQuoteTableViewCell setCategoryColor: articleTypeColor];
-//         
-//         return articleStoryQuoteTableViewCell;
-//         
-//     } else {
-//         
-//         
-//         return articleTwitterTableViewCell;
-//
-//         // ###Content
-////         [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
-////         [articleReferenceTableViewCell setCategoryColor: articleTypeColor];
-////         
-////         return articleReferenceTableViewCell;
-//     }
-
-
      
 }
 
@@ -395,6 +326,52 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     }
 }
 
+
+#pragma mark - UICollectionViewDataSource methods
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+//-(void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    TwitterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
+    
+    [cell setTweetTitle:@"Wall Street Journal" andTweetScreenName:@"WSJ" andTweetText:@"Air Canada passengers injured by turbulence on flight from Shanghai http://on.wsj.com/1Om7W8Q"];
+
+    cell.tweetScreenName.delegate = self;
+    cell.tweetText.delegate = self;
+    
+    return cell;
+}
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url
+{
+    //define
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:[url absoluteString] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    //Cancel
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}]];
+    //OK
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Open Link in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //open URL in Safari
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+    }]];
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
 
 #pragma mark - IMAGES pager + fullscreen (table header)
 

@@ -1,9 +1,11 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
+platform :ios, '9.0'
+inhibit_all_warnings!
+#use_frameworks!
 
 pod 'SDWebImage', '~> 3.7.3'
 pod 'ChameleonFramework'
-pod 'TLYShyNavBar'
+pod 'TLYShyNavBar', '~> 0.10.1'
 pod 'INSPullToRefresh'
 pod 'FontAwesomeKit/FontAwesome'
 pod 'FontAwesomeKit/IonIcons'
@@ -18,6 +20,7 @@ pod 'AFNetworking'
 pod 'SwipeBack'
 pod 'MWPhotoBrowser'
 pod 'Branch'
+#pod 'TTTAttributedLabel'
 
 
 target 'Tech Digest' do

@@ -1,47 +1,41 @@
 PODS:
-  - AFNetworking (2.6.1):
-    - AFNetworking/NSURLConnection (= 2.6.1)
-    - AFNetworking/NSURLSession (= 2.6.1)
-    - AFNetworking/Reachability (= 2.6.1)
-    - AFNetworking/Security (= 2.6.1)
-    - AFNetworking/Serialization (= 2.6.1)
-    - AFNetworking/UIKit (= 2.6.1)
-  - AFNetworking/NSURLConnection (2.6.1):
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.1)
-  - AFNetworking/Security (2.6.1)
-  - AFNetworking/Serialization (2.6.1)
-  - AFNetworking/UIKit (2.6.1):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - Bolts/Tasks (1.4.0)
+  - Bolts/Tasks (1.5.1)
   - Branch (0.11.13)
-  - ChameleonFramework (2.0.4):
-    - ChameleonFramework/Default (= 2.0.4)
-  - ChameleonFramework/Default (2.0.4)
+  - ChameleonFramework (2.0.6):
+    - ChameleonFramework/Default (= 2.0.6)
+  - ChameleonFramework/Default (2.0.6)
   - DACircularProgress (2.3.1)
   - DGActivityIndicatorView (2.0)
-  - DZNEmptyDataSet (1.7.2)
+  - DZNEmptyDataSet (1.7.3)
   - FontAwesomeKit/Core (2.2.0)
   - FontAwesomeKit/FontAwesome (2.2.0):
     - FontAwesomeKit/Core
   - FontAwesomeKit/IonIcons (2.2.0):
     - FontAwesomeKit/Core
-  - INSPullToRefresh (1.0.12)
+  - INSPullToRefresh (1.1.3)
   - KIImagePager (2.1.0)
-  - MBProgressHUD (0.9.1)
+  - MBProgressHUD (0.9.2)
   - MWPhotoBrowser (2.1.1):
     - DACircularProgress (~> 2.3)
     - MBProgressHUD (~> 0.9)
     - SDWebImage (!= 3.7.2, ~> 3.7)
-  - Parse (1.9.1):
-    - Bolts/Tasks (>= 1.4.0)
+  - Parse (1.11.0):
+    - Bolts/Tasks (~> 1.5)
   - pop (1.0.8)
   - RKDropdownAlert (0.3.0)
   - SDWebImage (3.7.3):
@@ -69,7 +63,7 @@ DEPENDENCIES:
   - RKDropdownAlert (from `https://github.com/vargarobert/RKDropdownAlert`)
   - SDWebImage (~> 3.7.3)
   - SwipeBack
-  - TLYShyNavBar
+  - TLYShyNavBar (~> 0.10.1)
   - UIActivityIndicator-for-SDWebImage (from `https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage`)
   - VBFPopFlatButton (from `https://github.com/vargarobert/VBFPopFlatButton`)
 
@@ -85,10 +79,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   KIImagePager:
-    :commit: ad2c44a428f17c258a88e3d511f39d024db397c7
+    :commit: 1b559eddcb3e654aa9f78c2184a991a7e185b0c0
     :git: https://github.com/vargarobert/KIImagePager
   RKDropdownAlert:
-    :commit: 2dc33602a23c38d17b49f844db9ad5ba5cc30ee9
+    :commit: 746baa57049718fba7b9c7196d5a90e1805fb956
     :git: https://github.com/vargarobert/RKDropdownAlert
   UIActivityIndicator-for-SDWebImage:
     :commit: 978f56504771d1677fe5787106ae17f6fe4c07eb
@@ -98,19 +92,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/vargarobert/VBFPopFlatButton
 
 SPEC CHECKSUMS:
-  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
-  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Branch: 37553775450de2d844b03a0854c37d6271d967e7
-  ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
+  ChameleonFramework: a6b466873ff9a4ce3a5196c20bccf1a97ad9f446
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
-  DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
+  DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
-  INSPullToRefresh: 3c3840b1837870d6553f749dab6520e31f551a76
+  INSPullToRefresh: f057df0243a473bd28b31f543c589c140a9380a2
   KIImagePager: aea488f00879fda4a4b81e2b83187da070907c85
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
-  Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
+  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RKDropdownAlert: d0a662ad524d2712b1661e483a878a28259ca7e1
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84

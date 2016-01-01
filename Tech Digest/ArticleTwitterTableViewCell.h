@@ -7,11 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SwipeView.h"
-
-@interface ArticleTwitterTableViewCell : UITableViewCell <SwipeViewDelegate, SwipeViewDataSource>
 
 
+//@interface TwitterCollectionView : UICollectionView
+//
+//@property (nonatomic, strong) NSIndexPath *indexPath;
+//
+//@end
+
+
+static NSString *CollectionViewCellIdentifier = @"TwitterCollectionViewCellIdentifier";
+
+
+@interface ArticleTwitterTableViewCell : UITableViewCell
+
+
+- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate indexPath:(NSIndexPath *)indexPath;
 
 
 @end
