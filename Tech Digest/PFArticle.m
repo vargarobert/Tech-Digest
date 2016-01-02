@@ -20,6 +20,7 @@
 @dynamic imagesUrls;
 @dynamic descriptions;
 @dynamic quotes;
+@dynamic twitterKeywords;
 @dynamic source;
 
 + (void)load {

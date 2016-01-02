@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSArray *imagesUrls;
 @property (strong, nonatomic) NSArray *descriptions;
 @property (strong, nonatomic) NSArray *quotes;
+@property (strong, nonatomic) NSString *twitterKeywords;
 @property (strong, nonatomic) PFObject *source;
 
 

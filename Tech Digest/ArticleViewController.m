@@ -79,32 +79,8 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
  
-    
-    
-    //twwwwwwwwwwwwwwwwwwww
-    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:@"spacex Falcon 9"
-                                                       geocode:nil
-                                                          lang:nil
-                                                        locale:nil
-                                                    resultType:@"popular"
-                                                         count:@"7"
-                                                         until:nil
-                                                       sinceID:nil
-                                                         maxID:nil
-                                               includeEntities:nil
-                                                      callback:nil
-                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses)
-     {
-//         NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
-         self.twitterArticleRelatedObjects = statuses;
-         [self.tableView reloadData]; //??????
-     }
-                                                    errorBlock:^(NSError *error)
-     {
-//         NSLog(@"-- %@", error);
-     }];
-    
-    
+    //get tweets
+    [self getSearchTweets];
 }
 
 
@@ -360,7 +336,29 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 }
 
 
-#pragma mark - UICollectionViewDataSource methods
+#pragma mark - UICollectionView Twitter methods
+
+-(void)getSearchTweets {
+    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:_articleObject.twitterKeywords
+                                                       geocode:nil
+                                                          lang:nil
+                                                        locale:nil
+                                                    resultType:@"popular"
+                                                         count:@"7"
+                                                         until:nil
+                                                       sinceID:nil
+                                                         maxID:nil
+                                               includeEntities:nil
+                                                      callback:nil
+                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
+                                                      //         NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
+                                                      self.twitterArticleRelatedObjects = statuses;
+                                                      [self.tableView reloadData]; //??????
+                                                  }
+                                                    errorBlock:^(NSError *error) {
+                                                        //NSLog(@"-- %@", error);
+                                                    }];
+}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
