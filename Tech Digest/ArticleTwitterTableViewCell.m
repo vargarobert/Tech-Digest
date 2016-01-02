@@ -39,8 +39,8 @@
     float value = 8;
     insets.left = value;
     insets.right = value;
-//    self.collectionView.contentInset = insets;
-//    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.collectionView.contentInset = insets;
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
 }
 
 

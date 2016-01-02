@@ -36,7 +36,8 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
-
+//twitter api
+#import "TwitterAPI.h"
 
 
 #define HEADER_HEIGHT 280.0f
@@ -52,6 +53,9 @@
 @property (nonatomic,strong) KIImagePager *imagePager;
 @property (nonatomic,strong) NSArray *images;
 @property (nonatomic,strong) NSMutableArray *MWPhotos;
+
+//twitter
+@property (nonatomic,strong) NSArray *twitterArticleRelatedObjects;
 
 @end
 
@@ -74,6 +78,32 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     [self tableSetup];
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
+ 
+    
+    
+    //twwwwwwwwwwwwwwwwwwww
+    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:@"spacex Falcon 9"
+                                                       geocode:nil
+                                                          lang:nil
+                                                        locale:nil
+                                                    resultType:@"popular"
+                                                         count:@"7"
+                                                         until:nil
+                                                       sinceID:nil
+                                                         maxID:nil
+                                               includeEntities:nil
+                                                      callback:nil
+                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses)
+     {
+//         NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
+         self.twitterArticleRelatedObjects = statuses;
+         [self.tableView reloadData]; //??????
+     }
+                                                    errorBlock:^(NSError *error)
+     {
+//         NSLog(@"-- %@", error);
+     }];
+    
     
 }
 
@@ -188,7 +218,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
         rows += _articleObject.quotes.count;
         return rows;
     } else {
-        return 2; //twitter + source
+        if (_twitterArticleRelatedObjects.count) {
+            return 2; //twitter + source
+        }
+        return 1; //source
     }
 }
 
@@ -279,7 +312,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     //###Twitter + Source
     else if (indexPath.section == 2)
     {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0 && _twitterArticleRelatedObjects.count) {
             
             [articleTwitterTableViewCell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
 
@@ -287,7 +320,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
             return articleTwitterTableViewCell;
 
             
-        } else if (indexPath.row == 1) {
+        } else {
             
             // ###Content
              [articleReferenceTableViewCell setReference:_articleObject.source[@"title"]];
@@ -335,7 +368,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    return self.twitterArticleRelatedObjects.count;
 }
 
 //-(void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -347,8 +380,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 {
     TwitterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
     
-    [cell setTweetTitle:@"Wall Street Journal" andTweetScreenName:@"WSJ" andTweetText:@"Air Canada passengers injured by turbulence on flight from Shanghai http://on.wsj.com/1Om7W8Q"];
+    NSDictionary *tweet = [self.twitterArticleRelatedObjects objectAtIndex:indexPath.row];
+    [cell setTweetTitle:tweet[@"user"][@"name"] andTweetScreenName:tweet[@"user"][@"screen_name"] andTweetText:tweet[@"text"]];
 
+    //enable delegates
     cell.tweetScreenName.delegate = self;
     cell.tweetText.delegate = self;
     
@@ -451,7 +486,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
+//    [self.tableView reloadData]; ?????????
 }
 
 - (void)viewWillDisappear:(BOOL)animated

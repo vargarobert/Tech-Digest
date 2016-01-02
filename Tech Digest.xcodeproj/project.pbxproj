@@ -26,7 +26,6 @@
 		755DD9051BE16A6D00B48E0C /* PFArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 755DD9041BE16A6D00B48E0C /* PFArticle.m */; };
 		75631A7D1C2EA40D00282572 /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A7C1C2EA40D00282572 /* ShareUtils.m */; };
 		75631A881C2FF48F00282572 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A871C2FF48F00282572 /* TwitterAPI.m */; };
-		75631A931C30326500282572 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A921C30326500282572 /* SwipeView.m */; };
 		75631A961C30328C00282572 /* ArticleTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */; };
 		75631A981C30332800282572 /* ArticleTwitterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */; };
 		756817501BE4DE5600F254CA /* PFCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7568174F1BE4DE5600F254CA /* PFCategory.m */; };
@@ -84,7 +83,7 @@
 		752818F41BCFF10C00645B09 /* ArticleStoryQuoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleStoryQuoteTableViewCell.m; sourceTree = "<group>"; };
 		752CC8D51BAF12AE003442DF /* TimeIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeIndicatorView.h; sourceTree = "<group>"; };
 		752CC8D61BAF12AE003442DF /* TimeIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeIndicatorView.m; sourceTree = "<group>"; };
-		753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParallaxCell.xib; sourceTree = "<group>"; };
+		753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ParallaxCell.xib; path = ../ParallaxCell.xib; sourceTree = "<group>"; };
 		753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMParallaxCell.h; path = Classes/MMParallaxCell.h; sourceTree = "<group>"; };
 		753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMParallaxCell.m; path = Classes/MMParallaxCell.m; sourceTree = "<group>"; };
 		755DD9031BE16A6D00B48E0C /* PFArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArticle.h; sourceTree = "<group>"; };
@@ -93,8 +92,6 @@
 		75631A7C1C2EA40D00282572 /* ShareUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUtils.m; sourceTree = "<group>"; };
 		75631A861C2FF48F00282572 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAPI.h; sourceTree = "<group>"; };
 		75631A871C2FF48F00282572 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAPI.m; sourceTree = "<group>"; };
-		75631A911C30326500282572 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
-		75631A921C30326500282572 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		75631A941C30328C00282572 /* ArticleTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTwitterTableViewCell.h; sourceTree = "<group>"; };
 		75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTwitterTableViewCell.m; sourceTree = "<group>"; };
 		75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleTwitterTableViewCell.xib; sourceTree = "<group>"; };
@@ -170,14 +167,9 @@
 		750229C31BB3F36B00AB1006 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				75631A911C30326500282572 /* SwipeView.h */,
-				75631A921C30326500282572 /* SwipeView.m */,
-				75631A941C30328C00282572 /* ArticleTwitterTableViewCell.h */,
-				75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */,
-				757EF8671C341773001C0C33 /* UICollectionViewFlowLayoutCenterItem.h */,
-				757EF8681C341773001C0C33 /* UICollectionViewFlowLayoutCenterItem.m */,
-				757EF86A1C343372001C0C33 /* TwitterCollectionViewCell.h */,
-				757EF86B1C343372001C0C33 /* TwitterCollectionViewCell.m */,
+				7579FE1D1BA40BE500A42D13 /* Main.storyboard */,
+				7579FE221BA40BE500A42D13 /* LaunchScreen.xib */,
+				7537E7291C38032C008C636C /* UICollectionViewFlowLayout */,
 				75FB61BC1BCF8D290057E478 /* Category Colors */,
 				750229CF1BB4086E00AB1006 /* ArticlePage */,
 				750229C41BB3F3A300AB1006 /* InsetUILabel */,
@@ -199,29 +191,21 @@
 		750229CF1BB4086E00AB1006 /* ArticlePage */ = {
 			isa = PBXGroup;
 			children = (
+				7537E7281C380310008C636C /* Article Twitter */,
 				750229D01BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.h */,
 				750229D11BB4087E00AB1006 /* ArticleCategoryAndTitleTableViewCell.m */,
+				750229D31BB418D600AB1006 /* ArticleCategoryAndTitle.xib */,
 				750229D51BB43E1200AB1006 /* ArticleStoryTableViewCell.h */,
 				750229D61BB43E1200AB1006 /* ArticleStoryTableViewCell.m */,
+				750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */,
 				752818F31BCFF10C00645B09 /* ArticleStoryQuoteTableViewCell.h */,
 				752818F41BCFF10C00645B09 /* ArticleStoryQuoteTableViewCell.m */,
+				752818F11BCFEF1900645B09 /* ArticleStoryQuoteTableViewCell.xib */,
 				750E22551BD1910100EE3EC3 /* ArticleReferenceTableViewCell.h */,
 				750E22561BD1910100EE3EC3 /* ArticleReferenceTableViewCell.m */,
+				750E22521BD1904C00EE3EC3 /* ArticleReferenceTableViewCell.xib */,
 			);
 			name = ArticlePage;
-			sourceTree = "<group>";
-		};
-		750E22541BD1905500EE3EC3 /* ArticleStory */ = {
-			isa = PBXGroup;
-			children = (
-				750229D31BB418D600AB1006 /* ArticleCategoryAndTitle.xib */,
-				750229D81BB43E4100AB1006 /* ArticleStoryTableViewCell.xib */,
-				752818F11BCFEF1900645B09 /* ArticleStoryQuoteTableViewCell.xib */,
-				750E22521BD1904C00EE3EC3 /* ArticleReferenceTableViewCell.xib */,
-				75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */,
-				757EF8651C340A1F001C0C33 /* TwitterCollectionViewCell.xib */,
-			);
-			name = ArticleStory;
 			sourceTree = "<group>";
 		};
 		7517592F1BD244A500982606 /* Twitter */ = {
@@ -262,6 +246,28 @@
 			name = TimeIndicator;
 			sourceTree = "<group>";
 		};
+		7537E7281C380310008C636C /* Article Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				75631A941C30328C00282572 /* ArticleTwitterTableViewCell.h */,
+				75631A951C30328C00282572 /* ArticleTwitterTableViewCell.m */,
+				75631A971C30332800282572 /* ArticleTwitterTableViewCell.xib */,
+				757EF86A1C343372001C0C33 /* TwitterCollectionViewCell.h */,
+				757EF86B1C343372001C0C33 /* TwitterCollectionViewCell.m */,
+				757EF8651C340A1F001C0C33 /* TwitterCollectionViewCell.xib */,
+			);
+			name = "Article Twitter";
+			sourceTree = "<group>";
+		};
+		7537E7291C38032C008C636C /* UICollectionViewFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				757EF8671C341773001C0C33 /* UICollectionViewFlowLayoutCenterItem.h */,
+				757EF8681C341773001C0C33 /* UICollectionViewFlowLayoutCenterItem.m */,
+			);
+			name = UICollectionViewFlowLayout;
+			sourceTree = "<group>";
+		};
 		753C8DAC1BA47F3400D1D7B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +280,7 @@
 			children = (
 				753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */,
 				753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */,
+				753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */,
 			);
 			path = MMParallaxCell;
 			sourceTree = "<group>";
@@ -333,10 +340,6 @@
 				756F7C5C1BA4205E00C46DC6 /* MainTableViewController.m */,
 				750229C81BB3F65A00AB1006 /* ArticleViewController.h */,
 				750229C91BB3F65A00AB1006 /* ArticleViewController.m */,
-				7579FE1D1BA40BE500A42D13 /* Main.storyboard */,
-				753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */,
-				7579FE221BA40BE500A42D13 /* LaunchScreen.xib */,
-				750E22541BD1905500EE3EC3 /* ArticleStory */,
 				7579FE201BA40BE500A42D13 /* Images.xcassets */,
 				753C8DAC1BA47F3400D1D7B0 /* Resources */,
 				7579FE131BA40BE500A42D13 /* Supporting Files */,
@@ -618,7 +621,6 @@
 				752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */,
 				757EF8691C341773001C0C33 /* UICollectionViewFlowLayoutCenterItem.m in Sources */,
 				756817501BE4DE5600F254CA /* PFCategory.m in Sources */,
-				75631A931C30326500282572 /* SwipeView.m in Sources */,
 				757EF86C1C343372001C0C33 /* TwitterCollectionViewCell.m in Sources */,
 				756F7C5D1BA4205E00C46DC6 /* MainTableViewController.m in Sources */,
 				75FB61C21BCF8FF60057E478 /* CategoryColors.m in Sources */,

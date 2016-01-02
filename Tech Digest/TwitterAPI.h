@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+//twitter api
+#import "STTwitterAPI.h"
 
 @interface TwitterAPI : NSObject
+
++(STTwitterAPI*)twitterAPIWithOAuth;
 
 @end

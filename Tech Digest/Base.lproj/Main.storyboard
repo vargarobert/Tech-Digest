@@ -66,18 +66,15 @@
         <!--Navigation Controller-->
         <scene sceneID="VzY-Mb-bRs">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="DBg-AC-0SE" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="DBg-AC-0SE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ggz-tW-HUK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="fY2-wy-ESy">
-                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="qad-cN-qqJ" kind="relationship" relationship="rootViewController" id="GLI-BG-msB"/>
                     </connections>

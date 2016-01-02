@@ -42,7 +42,8 @@
 #import "FTHTTPCodes.h"
 //Date utils
 #import "DateUtils.h"
-
+//alert view
+#import "RKDropdownAlert.h"
 
 
 typedef void (^PFResultBlock)(int result);
@@ -67,7 +68,6 @@ typedef void (^PFResultBlock)(int result);
     TimeIndicatorView* _timeView;
 }
 
-const CGFloat kTableHeaderHeight = 40.0;
 static NSString* cellIdentifierFirst = @"cellIdentifierFirst";
 static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 
