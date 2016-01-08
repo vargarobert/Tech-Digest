@@ -21,8 +21,7 @@ static NSString *CollectionViewCellIdentifier = @"TwitterCollectionViewCellIdent
 
 @interface ArticleTwitterTableViewCell : UITableViewCell
 
-
-- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate indexPath:(NSIndexPath *)indexPath;
-
+//twitter data
+@property (nonatomic,strong) NSArray *twitterArticleRelatedObjects;
 
 @end

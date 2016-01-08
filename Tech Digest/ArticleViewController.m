@@ -14,7 +14,7 @@
 #import "ArticleStoryQuoteTableViewCell.h"
 #import "ArticleReferenceTableViewCell.h"
 #import "ArticleTwitterTableViewCell.h"
-#import "TwitterCollectionViewCell.h"
+//#import "TwitterCollectionViewCell.h"
 
 //navigation swipe
 #import <SwipeBack/SwipeBack.h>
@@ -36,14 +36,13 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
-//twitter api
+//twitter
 #import "TwitterAPI.h"
-
 
 #define HEADER_HEIGHT 280.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.tableView.frame.size.width, HEADER_HEIGHT)
 
-@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate, UICollectionViewDataSource, UICollectionViewDelegate, TTTAttributedLabelDelegate>
+@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -54,8 +53,9 @@
 @property (nonatomic,strong) NSArray *images;
 @property (nonatomic,strong) NSMutableArray *MWPhotos;
 
-//twitter
+//twitter objects
 @property (nonatomic,strong) NSArray *twitterArticleRelatedObjects;
+
 
 @end
 
@@ -68,23 +68,38 @@ static NSString* cellIdentifierArticleReference = @"cellIdentifierArticleReferen
 static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
 
     [self tableSetup];
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
  
-    //get tweets
+    //get twitter data
     [self getSearchTweets];
 }
 
-
-
+-(void)getSearchTweets { 
+    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:_articleObject.twitterKeywords
+                                                       geocode:nil
+                                                          lang:nil
+                                                        locale:nil
+                                                    resultType:@"popular"
+                                                         count:@"7"
+                                                         until:nil
+                                                       sinceID:nil
+                                                         maxID:nil
+                                               includeEntities:nil
+                                                      callback:nil
+                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
+                                                      //                                                               NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
+                                                      self.twitterArticleRelatedObjects = statuses;
+                                                  }
+                                                    errorBlock:^(NSError *error) {
+                                                        //NSLog(@"-- %@", error);
+                                                    }];
+}
 
 #pragma mark - General SETUP
 
@@ -115,12 +130,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
-    
-//    self.edgesForExtendedLayout = UIRectEdgeAll;
-//    self.automaticallyAdjustsScrollViewInsets = YES;
-//    self.extendedLayoutIncludesOpaqueBars = NO;
-//
-//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
 
     //SETUP BACK BUTTON
     [self navButonSetup];
@@ -158,25 +167,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     });
 }
 
-//-(void)scrollViewDidScroll:(UIScrollView*)scrollView {
-//    
-//    CGRect rect = CGRectMake(0, -HEADER_HEIGHT, self.tableView.bounds.size.width, HEADER_HEIGHT);
-//    
-//    // Only allow the header to stretch if pulled down
-////    if (_tableView.contentOffset.y < 0.0f)
-////    {
-////        // Scroll down
-////        delta = fabs(MIN(0.0f, _tableView.contentOffset.y));
-////    }
-////    
-////    rect.origin.y -= delta+40;
-////    rect.size.height += delta;
-//    if(self.tableView.contentOffset.y < 0) {
-//        rect.origin.y = self.tableView.contentOffset.y;
-//        rect.size.height += fabs(MIN(0.0f, _tableView.contentOffset.y));
-//    }
-//    self.tableView.tableHeaderView.frame = rect;
-//}
 
 #pragma mark - Table view data source
 
@@ -194,31 +184,16 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
         rows += _articleObject.quotes.count;
         return rows;
     } else {
-        if (_twitterArticleRelatedObjects.count) {
+//        if (_twitterArticleRelatedObjects.count) {
             return 2; //twitter + source
-        }
-        return 1; //source
+//        }
+//        return 1; //source
     }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //ArticleCategoryAndTitleTableViewCell
-    ArticleCategoryAndTitleTableViewCell *articleCategoryAndTitleTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle   forIndexPath:indexPath];
-    
-    //ArticleStoryTableViewCell
-    ArticleStoryTableViewCell *articleStoryTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory   forIndexPath:indexPath];
-    
-    //ArticleStoryQuoteTableViewCell
-    ArticleStoryQuoteTableViewCell *articleStoryQuoteTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStoryQuote   forIndexPath:indexPath];
-
-    //ArticleReferenceTableViewCell
-    ArticleReferenceTableViewCell *articleReferenceTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
-    
-    //ArticleReferenceTableViewCell
-    ArticleTwitterTableViewCell *articleTwitterTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleTwitter forIndexPath:indexPath];
-
     
     UIColor *articleTypeColor = [CategoryColors getCategoryColor: _articleObject.category.title ];
 
@@ -226,6 +201,9 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     //###Title
     if (indexPath.section == 0)
     {
+        //ArticleCategoryAndTitleTableViewCell
+        ArticleCategoryAndTitleTableViewCell *articleCategoryAndTitleTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleCategoryAndTitle   forIndexPath:indexPath];
+        
         if (indexPath.row == 0) {
             
             // ###Content
@@ -247,6 +225,12 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     //###Main body
     else if (indexPath.section == 1)
     {
+        //ArticleStoryTableViewCell
+        ArticleStoryTableViewCell *articleStoryTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStory   forIndexPath:indexPath];
+        
+        //ArticleStoryQuoteTableViewCell
+        ArticleStoryQuoteTableViewCell *articleStoryQuoteTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleStoryQuote   forIndexPath:indexPath];
+        
         if (indexPath.row == 0 && _articleObject.descriptions.count >= 1) {
             
             // ###Content
@@ -288,10 +272,18 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     //###Twitter + Source
     else if (indexPath.section == 2)
     {
-        if (indexPath.row == 0 && _twitterArticleRelatedObjects.count) {
+        //ArticleReferenceTableViewCell
+        ArticleReferenceTableViewCell *articleReferenceTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleReference forIndexPath:indexPath];
+        
+        //ArticleTwitterTableViewCell
+        ArticleTwitterTableViewCell *articleTwitterTableViewCell = (ArticleTwitterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifierArticleTwitter forIndexPath:indexPath];
+        
+        if (indexPath.row == 0) {
             
-            [articleTwitterTableViewCell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
-
+            articleTwitterTableViewCell.twitterArticleRelatedObjects = _twitterArticleRelatedObjects;
+            
+            
+            NSLog(@"TEST");
             // ###Content
             return articleTwitterTableViewCell;
 
@@ -335,76 +327,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     }
 }
 
-
-#pragma mark - UICollectionView Twitter methods
-
--(void)getSearchTweets {
-    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:_articleObject.twitterKeywords
-                                                       geocode:nil
-                                                          lang:nil
-                                                        locale:nil
-                                                    resultType:@"popular"
-                                                         count:@"7"
-                                                         until:nil
-                                                       sinceID:nil
-                                                         maxID:nil
-                                               includeEntities:nil
-                                                      callback:nil
-                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
-                                                      //         NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
-                                                      self.twitterArticleRelatedObjects = statuses;
-                                                      [self.tableView reloadData]; //??????
-                                                  }
-                                                    errorBlock:^(NSError *error) {
-                                                        //NSLog(@"-- %@", error);
-                                                    }];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return self.twitterArticleRelatedObjects.count;
-}
-
-//-(void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-//{
-//
-//}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    TwitterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
-    
-    NSDictionary *tweet = [self.twitterArticleRelatedObjects objectAtIndex:indexPath.row];
-    [cell setTweetTitle:tweet[@"user"][@"name"] andTweetScreenName:tweet[@"user"][@"screen_name"] andTweetText:tweet[@"text"]];
-
-    //enable delegates
-    cell.tweetScreenName.delegate = self;
-    cell.tweetText.delegate = self;
-    
-    return cell;
-}
-
-#pragma mark - TTTAttributedLabelDelegate
-
-- (void)attributedLabel:(__unused TTTAttributedLabel *)label
-   didSelectLinkWithURL:(NSURL *)url
-{
-    //define
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:[url absoluteString] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    //Cancel
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}]];
-    //OK
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Open Link in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //open URL in Safari
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
-    }]];
-    // Present action sheet.
-    [self presentViewController:actionSheet animated:YES completion:nil];
-}
 
 #pragma mark - IMAGES pager + fullscreen (table header)
 
@@ -484,7 +406,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    [self.tableView reloadData]; ?????????
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -499,7 +421,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 {
     [super viewWillAppear:animated];
     self.navigationController.swipeBackEnabled = YES;
-
     [self navButonSetup];
 }
 

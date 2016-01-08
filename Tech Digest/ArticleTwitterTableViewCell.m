@@ -7,15 +7,21 @@
 //
 
 #import "ArticleTwitterTableViewCell.h"
+
+//UICollectionView cell for twitter
+#import "TwitterCollectionViewCell.h"
+
 //collectionView sticky layout
 #import "UICollectionViewFlowLayoutCenterItem.h"
 
-//@implementation TwitterCollectionView
-//
-//@end
+//empty data set
+#import "UIScrollView+EmptyDataSet.h"
+//colors
+#import <ChameleonFramework/Chameleon.h>
+//icons
+#import "FontAwesomeKit/FAKFontAwesome.h"
 
-
-@interface ArticleTwitterTableViewCell ()
+@interface ArticleTwitterTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, TTTAttributedLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -24,40 +30,94 @@
 
 @implementation ArticleTwitterTableViewCell
 
+-(void)setTwitterArticleRelatedObjects:(NSArray *)twitterArticleRelatedObjects {
+    _twitterArticleRelatedObjects = twitterArticleRelatedObjects;
 
+    //if data available reload collection view
+    if(_twitterArticleRelatedObjects.count)[self.collectionView reloadData];
+}
 
 
 - (void)awakeFromNib {
- 
     // Register the colleciton cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"TwitterCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
     
-    //edge insets
-    UIEdgeInsets insets = self.collectionView.contentInset;
-    //    float value = (self.view.frame.size.width - (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width) * 0.5
-    //    self.superview
-    float value = 8;
-    insets.left = value;
-    insets.right = value;
-    self.collectionView.contentInset = insets;
-    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    //Delegates
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    self.collectionView.emptyDataSetSource = self;
+    self.collectionView.emptyDataSetDelegate = self;
 }
 
 
+#pragma mark - UICollectionView Methods
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
 
-- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate indexPath:(NSIndexPath *)indexPath
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    self.collectionView.dataSource = dataSourceDelegate;
-    self.collectionView.delegate = dataSourceDelegate;
-//    self.collectionView.indexPath = indexPath;
+    return self.twitterArticleRelatedObjects.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    TwitterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
     
-    [self.collectionView reloadData];
+    NSDictionary *tweet = [self.twitterArticleRelatedObjects objectAtIndex:indexPath.row];
+    [cell setTweetTitle:tweet[@"user"][@"name"] andTweetScreenName:tweet[@"user"][@"screen_name"] andTweetText:tweet[@"text"]];
+    
+    //enable delegates for text fields
+    cell.tweetScreenName.delegate = self;
+    cell.tweetText.delegate = self;
+    
+    return cell;
 }
 
-- (void)dealloc
-{
+#pragma mark - DZNEmptyDataSetSource Methods
 
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    FAKFontAwesome *icon = [FAKFontAwesome twitterIconWithSize:30];
+    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"00aced"]];
+
+    return [icon imageWithSize:CGSizeMake(30, 30)];
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"Looking for tweets...";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
+                                 NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"]};
+
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    //if empty return YES, otherwise return NO
+    if (self.twitterArticleRelatedObjects.count) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url
+{
+    //define
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:[url absoluteString] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    //Cancel
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}]];
+    //OK
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Open Link in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //open URL in Safari
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+    }]];
+    // Present action sheet.
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:actionSheet animated:YES completion:nil];
 }
 
 @end

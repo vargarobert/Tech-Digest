@@ -13,6 +13,8 @@
 #import "FontAwesomeKit/FAKFontAwesome.h"
 #import "FontAwesomeKit/FAKIonIcons.h"
 
+
+
 @implementation TwitterCollectionViewCell
 
 -(void)setTweetTitle:(NSString *)tweetTitle andTweetScreenName:(NSString *)tweetScreenName andTweetText:(NSString *)tweetText {
@@ -26,6 +28,8 @@
     
     //tweetText
     _tweetText.text = tweetText;
+    [self twitterTagsCheck:_tweetText];
+
 }
 
 - (void)awakeFromNib {
@@ -46,13 +50,39 @@
     //text
     self.tweetText.linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
                                       NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    self.tweetText.activeLinkAttributes = self.tweetText.linkAttributes;
+    self.tweetText.activeLinkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
+                                            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
     _tweetText.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 
     //screen name
     self.tweetScreenName.linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"], NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    self.tweetScreenName.activeLinkAttributes = self.tweetScreenName.linkAttributes;
+    self.tweetScreenName.activeLinkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
+                                                  NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
 }
 
+-(void)twitterTagsCheck:(TTTAttributedLabel*)label {
+    NSArray *words = [label.text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    for(__strong NSString *word in words) {
+        NSString *wordURL;
+        if ([word hasPrefix:@"."] && [word hasSuffix:@":"]) {
+            //fix for when '.@word' is used in twitter text
+            word = [word substringFromIndex:1]; //remove first character .
+            word = [word substringToIndex:[word length] - 1]; //remove last character :
+        }
+        if ([word hasPrefix:@"#"])
+        {
+            wordURL = [NSString stringWithFormat:@"https://twitter.com/hashtag/%@",[word substringFromIndex:1]];
+        }
+        else if ([word hasPrefix:@"@"])
+        {
+            wordURL = [NSString stringWithFormat:@"https://twitter.com/%@",[word substringFromIndex:1]];
+        }
+        //add link to label
+        if(wordURL) {
+            NSRange range = [label.text rangeOfString:word];
+            [label addLinkToURL:[NSURL URLWithString:wordURL] withRange:range];
+        }
+    }
+}
 
 @end
