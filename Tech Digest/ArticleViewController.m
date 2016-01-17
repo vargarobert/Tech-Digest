@@ -36,13 +36,14 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
-//twitter
-#import "TwitterAPI.h"
+
+#import "UIScrollView+VGParallaxHeader.h"
+
 
 #define HEADER_HEIGHT 280.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.tableView.frame.size.width, HEADER_HEIGHT)
 
-@interface ArticleViewController () <UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate, UISearchBarDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
+@interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource, MWPhotoBrowserDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -50,6 +51,9 @@
 @property (nonatomic, strong) VBFPopFlatButton *flatRoundedBackButton;
 
 @property (nonatomic,strong) KIImagePager *imagePager;
+@property (readwrite, assign) NSUInteger imagePagerIndex;
+
+
 @property (nonatomic,strong) NSArray *images;
 @property (nonatomic,strong) NSMutableArray *MWPhotos;
 
@@ -75,30 +79,14 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     [self tableSetup];
     [self navigationBarSetup];
     [self tableHeaderViewSetup];
- 
-    //get twitter data
-    [self getSearchTweets];
 }
 
--(void)getSearchTweets { 
-    [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:_articleObject.twitterKeywords
-                                                       geocode:nil
-                                                          lang:nil
-                                                        locale:nil
-                                                    resultType:@"popular"
-                                                         count:@"7"
-                                                         until:nil
-                                                       sinceID:nil
-                                                         maxID:nil
-                                               includeEntities:nil
-                                                      callback:nil
-                                                  successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
-                                                      //                                                               NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
-                                                      self.twitterArticleRelatedObjects = statuses;
-                                                  }
-                                                    errorBlock:^(NSError *error) {
-                                                        //NSLog(@"-- %@", error);
-                                                    }];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //update header position and size
+    [scrollView shouldPositionParallaxHeader];
+    //update image index of header slide
+    _imagePager.imagePagerIndex = _imagePagerIndex;
 }
 
 #pragma mark - General SETUP
@@ -108,7 +96,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     self.tableView.dataSource = self;
     
     self.shyNavBarManager.scrollView = self.tableView;
-    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
 
     self.tableView.estimatedRowHeight = 50.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -153,18 +141,21 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 }
 
 - (void)tableHeaderViewSetup {
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:HEADER_INIT_FRAME];
-    self.tableView.tableHeaderView = ({
-        _imagePager = [[KIImagePager alloc] initWithFrame:self.tableView.tableHeaderView.frame];
-        _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
-        _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-        _imagePager.imageCounterDisabled = true;
-        _imagePager.slideshowShouldCallScrollToDelegate = YES;
-        
-        _imagePager.dataSource = self;
-        _imagePager.delegate = self;
-        _imagePager;
-    });
+
+    //setup KIImagePager
+    _imagePager = [[KIImagePager alloc] initWithFrame:HEADER_INIT_FRAME];
+    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    _imagePager.backgroundColor = [UIColor blackColor];
+    _imagePager.imageCounterDisabled = true;
+    _imagePager.slideshowShouldCallScrollToDelegate = YES;
+    _imagePager.dataSource = self;
+    _imagePager.delegate = self;
+
+    //add KIImagePager to paralax header
+    [self.tableView setParallaxHeaderView:_imagePager
+                                      mode:VGParallaxHeaderModeFill
+                                    height:HEADER_HEIGHT];
 }
 
 
@@ -280,13 +271,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
         
         if (indexPath.row == 0) {
             
-            articleTwitterTableViewCell.twitterArticleRelatedObjects = _twitterArticleRelatedObjects;
-            
-            
-            NSLog(@"TEST");
             // ###Content
-            return articleTwitterTableViewCell;
+            articleTwitterTableViewCell.twitterKeywords = _articleObject.twitterKeywords;
 
+            return articleTwitterTableViewCell;
             
         } else {
             
@@ -301,7 +289,7 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 
     
     return nil;
-     
+\
 }
 
 
@@ -341,6 +329,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 {
     return UIViewContentModeScaleAspectFill;
 }
+- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    _imagePagerIndex = index;
+}
 - (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     //open header image full-screen
@@ -358,10 +350,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     MWPhotoBrowserCustom *browser = [[MWPhotoBrowserCustom alloc] initWithDelegate:self];
     // Set options
     browser.displayActionButton = NO; // Show action button to allow sharing, copying, etc (defaults to YES)
-    
+
     // Optionally set the current visible photo before displaying
     [browser setCurrentPhotoIndex:index];
-    
+
     // Present
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
     nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -406,7 +398,6 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated

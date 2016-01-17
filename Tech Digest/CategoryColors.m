@@ -7,7 +7,6 @@
 //
 
 #import "CategoryColors.h"
-#import <ChameleonFramework/Chameleon.h>
 
 @implementation CategoryColors
 
@@ -56,6 +55,10 @@ NSDictionary *categoryColors;
 
     //reuturn default UIColor
     return [UIColor blackColor];
+}
+
++ (UIColor *)getTwitterColor {
+    return [UIColor colorWithHexString:@"00aced"];
 }
 
 

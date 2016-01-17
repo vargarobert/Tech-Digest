@@ -4,23 +4,23 @@ inhibit_all_warnings!
 #use_frameworks!
 
 pod 'SDWebImage', '~> 3.7.3'
-pod 'ChameleonFramework'
+pod 'ChameleonFramework', '~> 2.0.6'
 pod 'TLYShyNavBar', '~> 0.10.1'
 pod 'INSPullToRefresh', '~> 1.0.12'
-pod 'FontAwesomeKit/FontAwesome'
-pod 'FontAwesomeKit/IonIcons'
+pod 'FontAwesomeKit', '~> 2.2.0'
 pod 'VBFPopFlatButton', :git => 'https://github.com/vargarobert/VBFPopFlatButton'
 pod 'KIImagePager', :git => 'https://github.com/vargarobert/KIImagePager'
 pod 'UIActivityIndicator-for-SDWebImage', :git => 'https://github.com/vargarobert/UIActivityIndicator-for-SDWebImage'
 pod 'DGActivityIndicatorView', '~> 2.0'
 pod 'RKDropdownAlert', :git => 'https://github.com/vargarobert/RKDropdownAlert'
 pod 'DZNEmptyDataSet', '~> 1.7.3'
-pod 'Parse'
-pod 'AFNetworking'
+pod 'Parse', '~> 1.12.0'
+pod 'AFNetworking', '~> 3.0.4'
 pod 'SwipeBack', '~> 1.1.0'
 pod 'MWPhotoBrowser', '~> 2.1.1'
 pod 'Branch'
-pod 'STTwitter'
+pod 'STTwitter', '~> 0.2.2'
+pod 'VGParallaxHeader', '~> 0.0.6'
 
 
 #pod 'TTTAttributedLabel' #imported manually untill fix

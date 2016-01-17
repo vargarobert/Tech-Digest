@@ -8,7 +8,8 @@
 
 #import "TwitterCollectionViewCell.h"
 //colors
-#import <ChameleonFramework/Chameleon.h>
+#import "CategoryColors.h"
+
 //icons
 #import "FontAwesomeKit/FAKFontAwesome.h"
 #import "FontAwesomeKit/FAKIonIcons.h"
@@ -34,29 +35,35 @@
 
 - (void)awakeFromNib {
     //border
-    self.tweetViewBorder.layer.borderColor = [UIColor colorWithHexString:@"00aced"].CGColor;
-    self.tweetViewBorder.layer.borderWidth = 1.0f;
+    self.layer.borderColor = [CategoryColors getTwitterColor].CGColor;
+    self.layer.borderWidth = 1.0f;
     
-    //icon
+    //tweet icon
     FAKFontAwesome *icon = [FAKFontAwesome twitterIconWithSize:15];
-    [icon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"00aced"]];
+    [icon addAttribute:NSForegroundColorAttributeName value:[CategoryColors getTwitterColor]];
     UIImage *iconImage = [icon imageWithSize:CGSizeMake(15, 15)];
     self.tweetIcon.contentMode = UIViewContentModeLeft;
     self.tweetIcon.image = iconImage;
+    
+    //more icon
+    FAKIonIcons *moreIcon = [FAKIonIcons moreIconWithSize:22];
+    [moreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"333333" withAlpha:0.2]];
+    self.tweetMore.contentMode = UIViewContentModeRight;
+    self.tweetMore.image = [moreIcon imageWithSize:CGSizeMake(19, 19)];
     
     //title
     self.tweetTitle.text = @"Test tweet to see how long is text";
     
     //text
-    self.tweetText.linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
+    self.tweetText.linkAttributes = @{NSForegroundColorAttributeName:[CategoryColors getTwitterColor],
                                       NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    self.tweetText.activeLinkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
+    self.tweetText.activeLinkAttributes = @{NSForegroundColorAttributeName:[CategoryColors getTwitterColor],
                                             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
     _tweetText.enabledTextCheckingTypes = NSTextCheckingTypeLink;
 
     //screen name
-    self.tweetScreenName.linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"], NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    self.tweetScreenName.activeLinkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"00aced"],
+    self.tweetScreenName.linkAttributes = @{NSForegroundColorAttributeName:[CategoryColors getTwitterColor], NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
+    self.tweetScreenName.activeLinkAttributes = @{NSForegroundColorAttributeName:[CategoryColors getTwitterColor],
                                                   NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
 }
 

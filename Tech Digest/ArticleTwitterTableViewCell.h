@@ -21,7 +21,7 @@ static NSString *CollectionViewCellIdentifier = @"TwitterCollectionViewCellIdent
 
 @interface ArticleTwitterTableViewCell : UITableViewCell
 
-//twitter data
-@property (nonatomic,strong) NSArray *twitterArticleRelatedObjects;
+//twitter kewords
+@property (nonatomic,strong) NSString *twitterKeywords;
 
 @end

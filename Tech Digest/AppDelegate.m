@@ -39,15 +39,15 @@
     // Override point for customization after application launch.
     
     //deep linking setup
-//    Branch *branch = [Branch getInstance];
-//    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-//        if (!error) {
-//            // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
-//            // params will be empty if no data found
-//            // ... insert custom logic here ...
-//            //  NSLog(@"params: %@", params.description);
-//        }
-//    }];
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        if (!error) {
+            // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
+            // params will be empty if no data found
+            // ... insert custom logic here ...
+//              NSLog(@"params: %@", params.description);
+        }
+    }];
     
 
     //PARSE base setup

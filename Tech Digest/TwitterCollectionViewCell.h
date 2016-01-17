@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *tweetScreenName;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *tweetText;
 
-@property (weak, nonatomic) IBOutlet UIView *tweetViewBorder;
 @property (weak, nonatomic) IBOutlet UIImageView *tweetIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *tweetMore;
 
 @end

@@ -2,43 +2,42 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="200" id="Xze-xf-gm5" customClass="ArticleTwitterTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="200.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xze-xf-gm5" id="7cK-yY-WlB">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mjS-e2-zvY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="200" id="Vj5-vw-JCc"/>
+                            <constraint firstAttribute="height" constant="180" id="B3x-ud-FMl"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nC3-U8-gyH" customClass="UICollectionViewFlowLayoutCenterItem">
-                            <size key="itemSize" width="280" height="200"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="9" minimumInteritemSpacing="9" id="nC3-U8-gyH" customClass="UICollectionViewFlowLayoutCenterItem">
+                            <size key="itemSize" width="260" height="170"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mjS-e2-zvY" firstAttribute="leading" secondItem="7cK-yY-WlB" secondAttribute="leadingMargin" constant="-8" id="EQp-nO-AwV"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="mjS-e2-zvY" secondAttribute="trailing" constant="-8" id="I7D-Ig-Py8"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="mjS-e2-zvY" secondAttribute="bottom" constant="-8" id="eeC-Ng-ZYr"/>
-                    <constraint firstItem="mjS-e2-zvY" firstAttribute="top" secondItem="7cK-yY-WlB" secondAttribute="topMargin" constant="-8" id="wLL-3O-MUn"/>
+                    <constraint firstAttribute="trailing" secondItem="mjS-e2-zvY" secondAttribute="trailing" id="F0O-ZQ-RfG"/>
+                    <constraint firstItem="mjS-e2-zvY" firstAttribute="leading" secondItem="7cK-yY-WlB" secondAttribute="leading" id="FM9-eL-Pxs"/>
+                    <constraint firstItem="mjS-e2-zvY" firstAttribute="centerY" secondItem="7cK-yY-WlB" secondAttribute="centerY" id="ZMz-QB-8ch"/>
+                    <constraint firstItem="mjS-e2-zvY" firstAttribute="top" secondItem="7cK-yY-WlB" secondAttribute="top" id="cDr-VU-IKx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="collectionView" destination="mjS-e2-zvY" id="M03-3q-w9s"/>
             </connections>
-            <point key="canvasLocation" x="515" y="313"/>
+            <point key="canvasLocation" x="515" y="312.25"/>
         </tableViewCell>
     </objects>
 </document>

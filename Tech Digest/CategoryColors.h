@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ChameleonFramework/Chameleon.h>
 
 @interface CategoryColors : UIColor
 
 + (NSDictionary *)getAllCategories;
 + (UIColor *)getCategoryColor:(NSString *)category;
+
+//particular
++ (UIColor *)getTwitterColor;
 
 @end
