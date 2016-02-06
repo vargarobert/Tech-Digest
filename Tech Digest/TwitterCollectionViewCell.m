@@ -71,10 +71,12 @@
     NSArray *words = [label.text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     for(__strong NSString *word in words) {
         NSString *wordURL;
-        if ([word hasPrefix:@"."] && [word hasSuffix:@":"]) {
+        if ([word hasPrefix:@"."]) {
             //fix for when '.@word' is used in twitter text
             word = [word substringFromIndex:1]; //remove first character .
-            word = [word substringToIndex:[word length] - 1]; //remove last character :
+            if ([word hasSuffix:@":"]) {
+                word = [word substringToIndex:[word length] - 1]; //remove last character :
+            }
         }
         if ([word hasPrefix:@"#"])
         {

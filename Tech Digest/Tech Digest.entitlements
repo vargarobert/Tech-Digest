@@ -4,8 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:com.robertvarga.Tech-Digest</string>
-		<string>applinks:bnc.lt</string>
+		<string>applinks:techdigest.hoko.link</string>
 	</array>
 </dict>
 </plist>

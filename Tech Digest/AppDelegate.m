@@ -10,8 +10,7 @@
 
 #import "ArticleViewController.h"
 
-//deep linking
-#import "Branch.h"
+
 //alert view
 #import "RKDropdownAlert.h"
 //colors
@@ -26,8 +25,14 @@
 #import "ParseAPI.h"
 //HTTP codes
 #import "FTHTTPCodes.h"
+//SDWebImage with custom activity
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+//deep linking
+#import <Hoko/Hoko.h>
 
-#import "STTwitterAPI.h"
+
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
 
 @interface AppDelegate ()
 
@@ -38,17 +43,23 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //deep linking setup
-    Branch *branch = [Branch getInstance];
-    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        if (!error) {
-            // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
-            // params will be empty if no data found
-            // ... insert custom logic here ...
-//              NSLog(@"params: %@", params.description);
-        }
-    }];
+//    [Fabric with:@[[Twitter class]]];
+    // TODO: Base this Tweet ID on some data from elsewhere in your app
+//    TWTRAPIClient *client = [[TWTRAPIClient alloc] init];
+//    self.dataSource = [[TWTRSearchTimelineDataSource alloc] initWithSearchQuery:@"#twitterflock" APIClient:client];
+
     
+    
+//    [Hoko setupWithToken:@"38570298aaaa3e6441bed9dc4f1214ab72031116"];
+//    [[Hoko deeplinking] mapRoute:@"restaurant/:restaurant_id"
+//                        toTarget:^(HOKDeeplink *deeplink) {
+//                            NSString* productId = deeplink.routeParameters[@"restaurant_id"];
+//                            NSLog(@"%@",productId);
+//                            
+//                            // Do something when deeplink is opened
+//                        }];
+    
+
 
     //PARSE base setup
     [Parse enableLocalDatastore];
@@ -188,7 +199,7 @@
                 //NO results
                 //get date -1
                 counter += 1;
-                //max 30 RECURSIVE trials
+                //max 30 RECURSIVE trials (why?optimise)
                 if (counter <= 30) {
                     block(thisblock, yesterday);
                 } else {
@@ -197,8 +208,17 @@
             } else {
                 //reload table data only if new data
                 if (HTTPCode==HTTPCode200OK) {
+                    //==cache==
                     //save new data to localdatastore
                     [PFObject pinAllInBackground:array];
+                    //download main article images
+                    for (PFArticle *article in array) {
+                        UIImageView *imageView = [[UIImageView alloc] init];
+                        [imageView setImageWithURL:[NSURL URLWithString:article.mainImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                    }
+                    //==cache end==
+
                     //end bg fetch
                     completionHandler(UIBackgroundFetchResultNewData);
                 }
@@ -235,19 +255,7 @@
 //    }
 //}
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // pass the url to the handle deep link call
-    [[Branch getInstance] handleDeepLink:url];
-    
-    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-    return YES;
-}
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-    BOOL handledByBranch = [[Branch getInstance] continueUserActivity:userActivity];
-    
-    return handledByBranch;
-}
 
 //By tapping on action button of the notification, users will launch the app. Then reset the number on badge
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification

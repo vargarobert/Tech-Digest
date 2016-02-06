@@ -2,23 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>twitter</string>
-	</array>
-	<key>branch_key</key>
-	<string>key_live_mpnV5z9P0lz1CkEj9l7UcdlfzCkgTYRG</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>tech-digest</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tech-digest</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -35,10 +18,44 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>techdigest</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>techdigest</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>e5ee19d2896ad4573ca833f3167342a87e47d854</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>IsLR0cDPvoGJNVBX8X3ymgCKx</string>
+					<key>consumerSecret</key>
+					<string>tLeoMnhiVlxwXZDra6lPrGBNza0G6f2U9xHrm8xcMKfh56ZJfk</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>twitter</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -90,5 +107,7 @@ SF-UI-Display-Regular.otf</string>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>branch_key</key>
+	<string>key_test_oakS4tZM9dB5DkBc4j7PhjadzzaaG5O7</string>
 </dict>
 </plist>

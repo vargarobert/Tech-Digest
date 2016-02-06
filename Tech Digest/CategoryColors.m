@@ -26,10 +26,10 @@ NSDictionary *categoryColors;
         categoryColors = @{
                        @"MOBILE" : [UIColor colorWithHexString:@"DE5149"], //red
                        @"SECURITY@" : [UIColor flatNavyBlueColor],
-                       @"STARTUPS" : [UIColor flatPurpleColorDark],
+                       @"STARTUP" : [UIColor flatPurpleColorDark],
                        @"GAMING" : [UIColor colorWithHexString:@"F0B80C"],//yellow
                        @"INTERNET" : [UIColor flatGreenColorDark],
-                       @"BUSINESS IT" : [UIColor flatTealColor],
+                       @"BUSINESS" : [UIColor flatTealColor],
                        @"SOFTWARE" : [UIColor colorWithHexString:@"1486f9"], //blue
                        @"INFRASTRUCTURE" : [UIColor flatPlumColor],
                        @"GADGETS" : [UIColor flatOrangeColor],

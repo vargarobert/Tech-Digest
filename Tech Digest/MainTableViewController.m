@@ -228,7 +228,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
         
         //image
         [cell.parallaxImage setImageWithURL:[NSURL URLWithString:articleObject.mainImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        
+
         //color set based on article
         [cell setCategoryColor: articleTypeColor];
         _timeView.color = articleTypeColor;

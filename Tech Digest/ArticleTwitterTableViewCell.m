@@ -22,6 +22,7 @@
 //twitter
 #import "TwitterAPI.h"
 
+
 @interface ArticleTwitterTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, TTTAttributedLabelDelegate>
 
 //twitter data
@@ -53,17 +54,17 @@
     
     //fetch tweets if none exist
     if (!self.twitterArticleRelatedObjects) {
-        [self getSearchTweets];
+        [self getSearchTweetsWithResultType:@"popular"];
     }
 }
 
--(void)getSearchTweets {
+-(void)getSearchTweetsWithResultType:(NSString*)resultType {
     [[TwitterAPI twitterAPIWithOAuth] getSearchTweetsWithQuery:_twitterKeywords
                                                        geocode:nil
                                                           lang:nil
                                                         locale:nil
-                                                    resultType:@"popular"
-                                                         count:@"7"
+                                                    resultType:resultType
+                                                         count:@"8"
                                                          until:nil
                                                        sinceID:nil
                                                          maxID:nil
@@ -71,8 +72,14 @@
                                                       callback:nil
                                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                                       //NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
-                                                      self.twitterArticleRelatedObjects = statuses;
-                                                      [self.collectionView reloadData];
+                                                      //NSLog(@"%lu %@",(unsigned long)statuses.count, resultType);
+                                                      //if no popular results found
+                                                      if (statuses.count == 0) {
+                                                          [self getSearchTweetsWithResultType:nil];
+                                                      } else {
+                                                          self.twitterArticleRelatedObjects = statuses;
+                                                          [self.collectionView reloadData];
+                                                      }
                                                   }
                                                     errorBlock:^(NSError *error) {
                                                         //NSLog(@"-- %@", error);

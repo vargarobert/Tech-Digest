@@ -456,6 +456,7 @@
 				7579FE0E1BA40BE500A42D13 /* Resources */,
 				0C0FFB1758EE9859B9D78204 /* Copy Pods Resources */,
 				8CF40EB2AAD0AE5DDE7ED619 /* Embed Pods Frameworks */,
+				759C0F181C59717D00A3A665 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -490,6 +491,7 @@
 		7579FE081BA40BE500A42D13 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Robert Varga";
 				TargetAttributes = {
@@ -587,6 +589,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		759C0F181C59717D00A3A665 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" e5ee19d2896ad4573ca833f3167342a87e47d854 3788e30852904f24ab3e61e29ed9f4711f94dc14cba305aed861d8b341d25abe";
 		};
 		8CF40EB2AAD0AE5DDE7ED619 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -765,6 +780,7 @@
 			baseConfigurationReference = 74DFD559C0929DE26976AE86 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Tech Digest/Tech Digest.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -774,6 +790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.robertvarga.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -782,6 +799,7 @@
 			baseConfigurationReference = B0A48205897812622544C904 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Tech Digest/Tech Digest.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
