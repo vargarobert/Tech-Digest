@@ -28,11 +28,8 @@
 //SDWebImage with custom activity
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //deep linking
-#import <Hoko/Hoko.h>
+//#import <Hoko/Hoko.h>
 
-
-#import <Fabric/Fabric.h>
-#import <TwitterKit/TwitterKit.h>
 
 @interface AppDelegate ()
 
@@ -41,13 +38,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-//    [Fabric with:@[[Twitter class]]];
-    // TODO: Base this Tweet ID on some data from elsewhere in your app
-//    TWTRAPIClient *client = [[TWTRAPIClient alloc] init];
-//    self.dataSource = [[TWTRSearchTimelineDataSource alloc] initWithSearchQuery:@"#twitterflock" APIClient:client];
-
     
     
 //    [Hoko setupWithToken:@"38570298aaaa3e6441bed9dc4f1214ab72031116"];

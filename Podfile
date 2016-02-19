@@ -18,18 +18,12 @@ pod 'Parse', '~> 1.12.0'
 pod 'AFNetworking', '~> 3.0.4'
 pod 'SwipeBack', '~> 1.1.0'
 pod 'MWPhotoBrowser', '~> 2.1.1'
-
 pod 'STTwitter', '~> 0.2.2'
-pod 'Fabric'
-pod 'TwitterKit'
-pod 'TwitterCore'
-
-
 pod 'VGParallaxHeader', '~> 0.0.6'
-pod 'Hoko', '~> 2.3.0'
+#pod 'Hoko', '~> 2.3.0'
 
 
-#pod 'TTTAttributedLabel' #imported manually untill fix
+#pod 'TTTAttributedLabel' #imported manually untill fix for adding class to xib element
 
 
 target 'Tech Digest' do

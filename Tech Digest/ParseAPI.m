@@ -47,17 +47,17 @@
 //CLOUD
 +(void)_getArticlesFromCloudForDate:(NSDate*)date completion:(void (^)(int HTTPCode, NSArray *array))completionBlock {
     
-    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+    NSDate *endOfDay = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
                                                                 value:1
                                                                toDate:date
                                                               options:0];
     //query parameters
     PFQuery *query = [PFArticle query];
     [query whereKey:@"batchDate" greaterThanOrEqualTo:date];
-    [query whereKey:@"batchDate" lessThan:tomorrow];
+    [query whereKey:@"batchDate" lessThan:endOfDay];
     
 //    NSLog(@"_getArticlesFromCloudForDate %@", today);
-    //    NSLog(@"%@", tomorrow);
+    //    NSLog(@"%@", endOfDay);
     
     //begin query
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

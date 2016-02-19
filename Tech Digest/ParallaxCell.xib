@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -30,8 +30,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Securiy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2" customClass="InsetUILabel">
-                        <rect key="frame" x="23" y="15" width="43" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Infrastructure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-9P-Rq2" customClass="InsetUILabel">
+                        <rect key="frame" x="23" y="15" width="79" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="NN8-Mn-2kA"/>
                         </constraints>
@@ -47,7 +47,7 @@
                     <constraint firstItem="LDI-9P-Rq2" firstAttribute="centerY" secondItem="4Nk-rh-FkM" secondAttribute="centerY" id="Uhj-HI-Fab"/>
                     <constraint firstItem="LDI-9P-Rq2" firstAttribute="leading" secondItem="4Nk-rh-FkM" secondAttribute="trailing" constant="-6" id="eal-WV-oBR"/>
                     <constraint firstItem="hGS-BY-EL7" firstAttribute="centerX" secondItem="1dJ-Ly-5xZ" secondAttribute="centerX" id="fji-YE-9oz"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LDI-9P-Rq2" secondAttribute="trailing" constant="200" id="idZ-7e-oRL"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LDI-9P-Rq2" secondAttribute="trailing" constant="170" id="idZ-7e-oRL"/>
                     <constraint firstItem="4Nk-rh-FkM" firstAttribute="leading" secondItem="1dJ-Ly-5xZ" secondAttribute="leading" constant="-3" id="nci-YZ-L5X"/>
                 </constraints>
             </tableViewCellContentView>
