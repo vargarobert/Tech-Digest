@@ -73,8 +73,8 @@
                                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                                       //NSLog(@"-- success, more to come: %@, %@", searchMetadata, statuses);
                                                       //NSLog(@"%lu %@",(unsigned long)statuses.count, resultType);
-                                                      //if no popular results found
-                                                      if (statuses.count == 0) {
+                                                      //if no popular results found or not enough
+                                                      if (statuses.count < 5) {
                                                           [self getSearchTweetsWithResultType:nil];
                                                       } else {
                                                           self.twitterArticleRelatedObjects = statuses;

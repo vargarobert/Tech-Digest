@@ -95,7 +95,7 @@ CHECKOUT OPTIONS:
     :commit: 528e7f71fdae24c9602705aa317ac0a3d6053da8
     :git: https://github.com/vargarobert/KIImagePager
   RKDropdownAlert:
-    :commit: 746baa57049718fba7b9c7196d5a90e1805fb956
+    :commit: 8fd7eb2861c07bd736efb98639c726ffa4d7e4c7
     :git: https://github.com/vargarobert/RKDropdownAlert
   UIActivityIndicator-for-SDWebImage:
     :commit: 978f56504771d1677fe5787106ae17f6fe4c07eb

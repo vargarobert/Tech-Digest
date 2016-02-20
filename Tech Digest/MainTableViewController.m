@@ -94,6 +94,13 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
     
     //GET ARTICLES data
     [self getInitialDataOnViewDidLoad];
+    
+    //tomorrow
+//    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+//                                                                 value:+1
+//                                                                toDate:_today
+//                                                               options:0];
+//    [self getDataForDate:tomorrow];
 }
 
 
@@ -442,6 +449,7 @@ static NSString* cellIdentifierStandard = @"cellIdentifierStandard";
 }
 
 - (void)dealloc {
+    _timeView=nil;
     [self.tableView ins_removeInfinityScroll];
     [self.tableView ins_removePullToRefresh];
 }
