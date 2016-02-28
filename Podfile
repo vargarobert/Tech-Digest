@@ -20,6 +20,9 @@ pod 'SwipeBack', '~> 1.1.0'
 pod 'MWPhotoBrowser', '~> 2.1.1'
 pod 'STTwitter', '~> 0.2.2'
 pod 'VGParallaxHeader', '~> 0.0.6'
+#pod 'SVWebViewController', '~> 1.0'
+pod 'TOWebViewController', '~> 2.2.3'
+
 #pod 'Hoko', '~> 2.3.0'
 
 

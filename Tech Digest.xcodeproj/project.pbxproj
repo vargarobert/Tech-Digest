@@ -23,6 +23,7 @@
 		752CC8D71BAF12AE003442DF /* TimeIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 752CC8D61BAF12AE003442DF /* TimeIndicatorView.m */; };
 		753C8DAB1BA42F1400D1D7B0 /* ParallaxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */; };
 		753C8E191BA59BB400D1D7B0 /* MMParallaxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */; };
+		75402A6A1C7B377500E075A7 /* TOWebViewControllerCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 75402A691C7B377500E075A7 /* TOWebViewControllerCustom.m */; };
 		755DD9051BE16A6D00B48E0C /* PFArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 755DD9041BE16A6D00B48E0C /* PFArticle.m */; };
 		75631A7D1C2EA40D00282572 /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A7C1C2EA40D00282572 /* ShareUtils.m */; };
 		75631A881C2FF48F00282572 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 75631A871C2FF48F00282572 /* TwitterAPI.m */; };
@@ -86,6 +87,8 @@
 		753C8DAA1BA42F1400D1D7B0 /* ParallaxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ParallaxCell.xib; path = ../ParallaxCell.xib; sourceTree = "<group>"; };
 		753C8E151BA59BB400D1D7B0 /* MMParallaxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMParallaxCell.h; path = Classes/MMParallaxCell.h; sourceTree = "<group>"; };
 		753C8E161BA59BB400D1D7B0 /* MMParallaxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMParallaxCell.m; path = Classes/MMParallaxCell.m; sourceTree = "<group>"; };
+		75402A681C7B377500E075A7 /* TOWebViewControllerCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOWebViewControllerCustom.h; sourceTree = "<group>"; };
+		75402A691C7B377500E075A7 /* TOWebViewControllerCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOWebViewControllerCustom.m; sourceTree = "<group>"; };
 		755DD9031BE16A6D00B48E0C /* PFArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArticle.h; sourceTree = "<group>"; };
 		755DD9041BE16A6D00B48E0C /* PFArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFArticle.m; sourceTree = "<group>"; };
 		75631A7B1C2EA40D00282572 /* ShareUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareUtils.h; sourceTree = "<group>"; };
@@ -285,6 +288,15 @@
 			path = MMParallaxCell;
 			sourceTree = "<group>";
 		};
+		75402A671C7B374900E075A7 /* TOWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				75402A681C7B377500E075A7 /* TOWebViewControllerCustom.h */,
+				75402A691C7B377500E075A7 /* TOWebViewControllerCustom.m */,
+			);
+			name = TOWebViewController;
+			sourceTree = "<group>";
+		};
 		755DD9021BE1694700B48E0C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +388,7 @@
 		757F05651C354D3300C04854 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				75402A671C7B374900E075A7 /* TOWebViewController */,
 				75868A651C354EA90004AC92 /* TTTAttributedLabel */,
 				752818E91BCFD1DD00645B09 /* INSPullToRefresh */,
 				75F733F91C050050001C54EA /* MWPhotoBrowser */,
@@ -635,6 +648,7 @@
 				756817531BE654A200F254CA /* ParseAPI.m in Sources */,
 				751759321BD244A500982606 /* INSTwitterPullToRefresh.m in Sources */,
 				75868A681C354EB40004AC92 /* TTTAttributedLabel.m in Sources */,
+				75402A6A1C7B377500E075A7 /* TOWebViewControllerCustom.m in Sources */,
 				755DD9051BE16A6D00B48E0C /* PFArticle.m in Sources */,
 				7579FE191BA40BE500A42D13 /* AppDelegate.m in Sources */,
 				7579FE161BA40BE500A42D13 /* main.m in Sources */,
@@ -770,6 +784,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tech Digest/Tech Digest.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Tech Digest/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -789,6 +804,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tech Digest/Tech Digest.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Tech Digest/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

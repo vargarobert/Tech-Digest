@@ -34,7 +34,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Evernote-SDK-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Facebook-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FontAwesomeKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Google-API-Client.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -44,7 +59,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ISO8601DateFormatter.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KIImagePager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>LiveSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -64,7 +89,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>OpenInChrome.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PKMultipartInputStream.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PocketAPI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -94,12 +134,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SAMTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>STTwitter.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ShareKit-ShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ShareKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -110,6 +170,16 @@
 			<false/>
 		</dict>
 		<key>TLYShyNavBar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TOWebViewController-TOWebViewControllerLocalizable.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TOWebViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -129,6 +199,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>gtm-http-fetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>gtm-logger.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>gtm-oauth2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -137,12 +222,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04E29D3663109B9F8A8B9D9DD7FA1DAE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>0BCFA09ABF0437AF235B6BD49D03AE30</key>
+		<key>11FA52297047D8B3E870EADDED4F9DA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,22 +232,42 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>25ED50CCC0F32F06851B2410C0B5E09D</key>
+		<key>1433F25EB9DE5351D5D61596AA98AF81</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>37DBD4D194318F61462098188C9F810D</key>
+		<key>1965ADAB6952A9CA7F64F804A1A63E9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4CD92797A96766670A60AE5197C5FB82</key>
+		<key>2C5CBA8B69D039CD43A1CF822338AE11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52231BCB42B81CB070898771AC77942C</key>
+		<key>365B3C7D3151C929321858BDE10A1DB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43C60BEA1C713FB3AD4FB7F16DFF4FE6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4A1C4340A3D959ABBAF2348982ECEF23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4DFC836BF4339CBC707F93C5046C27B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>53706ECA7AD8493F9866DD693C71F290</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -177,7 +277,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>682B05A1E0C2B6BBA56B037EB583D8DC</key>
+		<key>671C0D4735DE718CC95786CE5BBD99E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6D72AA185ED4CED3A8F954A8FB900411</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>71DC93230451B7623483F2B70F42A06E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -197,7 +307,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CDFBE6813DAE2ACD8DF7D8D40AA51C9</key>
+		<key>923FFDF58F546F94AF34399FCCF6133F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -217,22 +327,62 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9A7B3EC56C791BE78C1EFE569A1CEA3A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9B916844F33E8D3CF7BC18CE424E9721</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A28352D8F718667FE406894EDD92D748</key>
+		<key>A86593F0261F5C253AEA19E2F6CC2480</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A7EE5495153BFFB5D1B401F12F85CFAC</key>
+		<key>B0267AE73E97C7576F08F4911FEFECD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D88A8CDCAC306F45456C711F9F9D2C77</key>
+		<key>B6C89CB323B119FF74333A452434FDCD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C176A8E718AF62834BBBDDE1621304D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C705994C4F9775472D55CBF88A91CC25</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C91B570E22873BDA4865DBCAEEB99BB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB0F485C75600C5BB6B2214B7422F6D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D01F057BE41D3E76D5FFFEC4BB9178B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2254A770B7A45BDA9D0274C37772087</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5FAE9A81B93941148E83A4C03E7658A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -247,17 +397,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF938BE7AEC418352D36DDB6BAEC0841</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>E2FE87384A67337831E53490EEA8BF11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA82323B1C3C52347DA769F2CFFDE3B7</key>
+		<key>E554FDC3C8D348DCB748B54FFD7E3FA8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA9D1C0420D5BBCDE603167EC7D7FCED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB268267A46E214757EBA5A7000F6981</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED85AFC8D7AA81B94EF5F84BFB3C9E39</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F21523DE0EE1E35B265242490D97EE4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F93A13D5261815E20439FEDB93595464</key>
 		<dict>
 			<key>primary</key>
 			<true/>

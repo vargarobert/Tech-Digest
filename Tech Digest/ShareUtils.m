@@ -10,7 +10,7 @@
 
 @implementation ShareUtils
 
-+ (UIActivityViewController*)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSString *)url
++ (UIActivityViewController*)shareText:(NSString *)text withUrl:(NSString *)url
 {
     //parse analytics
 //    [PFAnalytics trackEvent:@"share" dimensions:@{ @"article[objectId]": _articleObject.objectId }];
@@ -21,9 +21,6 @@
     if (text) {
         [sharingItems addObject:text];
     }
-    if (image) {
-        [sharingItems addObject:image];
-    }
     if (url) {
         [sharingItems addObject:url];
     }
@@ -32,7 +29,7 @@
     
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     //exclude share options
-    activityController.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypeAssignToContact];
+    activityController.excludedActivityTypes = @[UIActivityTypeAssignToContact];
     //return share view
     return activityController;
 }

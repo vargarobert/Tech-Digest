@@ -11,6 +11,6 @@
 
 @interface ShareUtils : NSObject
 
-+(UIActivityViewController*)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSString *)url;
++(UIActivityViewController*)shareText:(NSString *)text withUrl:(NSString *)url;
 
 @end

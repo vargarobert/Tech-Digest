@@ -36,8 +36,11 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 //full screen photo browser
 #import "MWPhotoBrowserCustom.h"
-
+//web browser
+#import "TOWebViewControllerCustom.h"
+//paralax header
 #import "UIScrollView+VGParallaxHeader.h"
+
 
 
 #define HEADER_HEIGHT 280.0f
@@ -296,20 +299,9 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ArticleReferenceTableViewCell class]])
     {
-        //alert view
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Open this in Safari?"
-                                                                       message:@""
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  //open in Safari
-                                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_articleObject.source[@"url"]]];
-                                                              }];
-        [alert addAction:cancelAction];
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        //open in internal web browser
+        [TOWebViewControllerCustom openModalWebBrowserWithURL:[NSURL URLWithString:_articleObject.source[@"url"]]];
+ 
         //deselect cell
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -375,18 +367,11 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
 #pragma mark - Share settings
 
 -(void)shareArticleAction:(UIButton *)sender {
-    //SDWebimage CACHE - robert
-    UIImageView *imageView = [[UIImageView alloc] init];
-    [imageView setImageWithURL:_articleObject.imagesUrls[0] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-        //build share vc
-        UIActivityViewController *activityController = [ShareUtils shareText:_articleObject.title andImage:image andUrl:_articleObject.source[@"url"]];
-        //present vc with share data
-        [self presentViewController:activityController animated:YES completion:nil];
-
-    } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    //build share vc
+    UIActivityViewController *activityController = [ShareUtils shareText:_articleObject.title withUrl:_articleObject.source[@"url"]];
+    //present vc with share data
+    [self presentViewController:activityController animated:YES completion:nil];
 }
-
 
 #pragma mark - View settings
 

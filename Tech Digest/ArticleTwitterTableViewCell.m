@@ -21,6 +21,8 @@
 #import "FontAwesomeKit/FAKFontAwesome.h"
 //twitter
 #import "TwitterAPI.h"
+//web browser
+#import "TOWebViewControllerCustom.h"
 
 
 @interface ArticleTwitterTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, TTTAttributedLabelDelegate>
@@ -115,21 +117,8 @@
 {
     NSDictionary *tweet = [self.twitterArticleRelatedObjects objectAtIndex:indexPath.row];
 
-    //define
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:tweet[@"user"][@"name"] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    //Cancel
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}]];
-    //OK
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Open in Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //open tweet in Twitter
-        NSURL *twitterURL = [NSURL URLWithString: [NSString stringWithFormat:@"twitter://status?id=%@",tweet[@"id"] ]];
-        if ([[UIApplication sharedApplication] canOpenURL:twitterURL])
-            [[UIApplication sharedApplication] openURL:twitterURL];
-        else
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://mobile.twitter.com/%@/status/%@",tweet[@"user"][@"screen_name"],tweet[@"id"]] ]];
-    }]];
-    // Present action sheet.
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:actionSheet animated:YES completion:nil];
+    //open in internal web browser
+    [TOWebViewControllerCustom openModalWebBrowserWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://mobile.twitter.com/%@/status/%@",tweet[@"user"][@"screen_name"],tweet[@"id"]]]];
 }
 
 #pragma mark - DZNEmptyDataSetSource Methods
@@ -164,17 +153,8 @@
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url
 {
-    //define
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:[url absoluteString] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    //Cancel
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}]];
-    //OK
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Open Link in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //open URL in Safari
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
-    }]];
-    // Present action sheet.
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:actionSheet animated:YES completion:nil];
+    //open in internal web browser
+    [TOWebViewControllerCustom openModalWebBrowserWithURL:url];
 }
 
 @end

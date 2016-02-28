@@ -64,8 +64,15 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib"
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "ShareKit/Frameworks/GooglePlus.bundle"
+  install_resource "gtm-oauth2/Source/Touch/GTMOAuth2ViewTouch.xib"
   install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/ShareKit.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/TOWebViewControllerLocalizable.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
@@ -74,8 +81,15 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
   install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib"
+  install_resource "LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib"
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "ShareKit/Frameworks/GooglePlus.bundle"
+  install_resource "gtm-oauth2/Source/Touch/GTMOAuth2ViewTouch.xib"
   install_resource "${BUILT_PRODUCTS_DIR}/MWPhotoBrowser.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/ShareKit.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/TOWebViewControllerLocalizable.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

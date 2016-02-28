@@ -16,10 +16,13 @@
 //@end
 
 
+
+
 static NSString *CollectionViewCellIdentifier = @"TwitterCollectionViewCellIdentifier";
 
 
 @interface ArticleTwitterTableViewCell : UITableViewCell
+
 
 //twitter kewords
 @property (nonatomic,strong) NSString *twitterKeywords;
