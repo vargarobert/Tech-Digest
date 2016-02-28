@@ -10,11 +10,9 @@
 
 @implementation ShareUtils
 
+
 + (UIActivityViewController*)shareText:(NSString *)text withUrl:(NSString *)url
 {
-    //parse analytics
-//    [PFAnalytics trackEvent:@"share" dimensions:@{ @"article[objectId]": _articleObject.objectId }];
-    
     //share
     NSMutableArray *sharingItems = [NSMutableArray new];
     

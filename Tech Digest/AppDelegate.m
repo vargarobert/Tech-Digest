@@ -17,8 +17,6 @@
 #import <ChameleonFramework/Chameleon.h>
 //reachability (connection)
 #import <AFNetworkReachabilityManager.h>
-//parse
-#import "PFArticle.h"
 //Date utils
 #import "DateUtils.h"
 //PARSE utils

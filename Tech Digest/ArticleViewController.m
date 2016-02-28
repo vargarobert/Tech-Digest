@@ -370,7 +370,10 @@ static NSString* cellIdentifierArticleTwitter = @"cellIdentifierArticleTwitter";
     //build share vc
     UIActivityViewController *activityController = [ShareUtils shareText:_articleObject.title withUrl:_articleObject.source[@"url"]];
     //present vc with share data
-    [self presentViewController:activityController animated:YES completion:nil];
+    [self presentViewController:activityController animated:YES completion:^{
+        [PFAnalytics trackEvent:@"share" dimensions:@{ @"article id": _articleObject.objectId }];
+    }];
+
 }
 
 #pragma mark - View settings
